@@ -1,4 +1,4 @@
-package com.superficial.img.tbComment.domain;
+package com.superficial.img.tbcomment.domain;
 
 import lombok.Data;
 

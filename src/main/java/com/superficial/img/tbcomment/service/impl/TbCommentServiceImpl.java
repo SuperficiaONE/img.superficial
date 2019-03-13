@@ -1,8 +1,8 @@
-package com.superficial.img.tbComment.service.impl;
+package com.superficial.img.tbcomment.service.impl;
 
-import com.superficial.img.tbComment.domain.TbComment;
-import com.superficial.img.tbComment.mapper.TbCommentMapper;
-import com.superficial.img.tbComment.service.ITbCommentService;
+import com.superficial.img.tbcomment.domain.TbComment;
+import com.superficial.img.tbcomment.mapper.TbCommentMapper;
+import com.superficial.img.tbcomment.service.ITbCommentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

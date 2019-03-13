@@ -1,6 +1,6 @@
-package com.superficial.img.tbComment.mapper;
+package com.superficial.img.tbcomment.mapper;
 
-import com.superficial.img.tbComment.domain.TbComment;
+import com.superficial.img.tbcomment.domain.TbComment;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
