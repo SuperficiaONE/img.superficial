@@ -1,6 +1,7 @@
 package com.superficial.img.common.controller;
 
 import com.google.zxing.WriterException;
+import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.QrCodeCreateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,6 +27,9 @@ public class CommonController {
         response.setDateHeader("Expires", 0);
         response.setContentType("image/jpeg");
         log.info("生成二维码:{}",code);
+        if(CommonUtil.isEmpty(code)){
+            code = "http://www.baidu.com";
+        }
         QrCodeCreateUtil.createQrCode(response.getOutputStream(),code,200,"jpeg");
 
     }
