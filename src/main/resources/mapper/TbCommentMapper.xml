@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superficial.img.tbComment.mapper.TbCommentMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.superficial.img.tbComment.domain.TbComment">
+        <id column="comment_id" property="commentId" />
+        <result column="parent_id" property="parentId" />
+        <result column="content" property="content" />
+        <result column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="pic_id" property="picId" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+        <result column="like_count" property="likeCount" />
+        <result column="dislike_count" property="dislikeCount" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comment_id, parent_id, content, user_id, user_name, pic_id, create_at, update_at, like_count, dislike_count
+    </sql>
+
+</mapper>

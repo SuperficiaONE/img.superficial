@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    active: test
+  freemarker:
+    cache: false
+    check-template-location: true
+    charset: utf-8
+    template-loader-path: classpath:/templates
+    expose-request-attributes: false
+    expose-session-attributes: false
+    request-context-attribute: request
+
+
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.superficial.img.*.domain
+  global-config:
+    id-type: 2
+    field-strategy: 2
+    db-column-underline: true
+    refresh-mapper: true
+    #capital-mode: true
+    #key-generator: com.baomidou.springboot.xxx
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    #meta-object-handler: com.baomidou.springboot.xxx
+    # meta-object-handler: top.superficial.blogcollege.config.MyMetaObjectHandler
+    #sql-injector: com.baomidou.springboot.xxx
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
