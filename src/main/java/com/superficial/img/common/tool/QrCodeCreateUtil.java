@@ -27,6 +27,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import com.sun.image.codec.jpeg.JPEGCodec;
 import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 /**
  * 二维码生成和读的工具类
@@ -104,6 +105,10 @@ public class QrCodeCreateUtil {
         System.out.println(result.getText());
     }
 
+    public static  void createBannerCode(OutputStream outputStream,String content ,Integer size ,String srcImagePath) throws IOException, WriterException {
+        BufferedImage bufferedImage = QrCodeCreateUtil.genBarcode(content, size, size, srcImagePath);
+        ImageIO.write(bufferedImage,"JPEG",outputStream);
+    }
 
     public static BufferedImage genBarcode(String content, int width,
                                            int height, String srcImagePath) throws WriterException,
@@ -112,7 +117,7 @@ public class QrCodeCreateUtil {
         Integer IMAGE_WIDTH = 50;
         Integer IMAGE_HEIGHT = 50;
         BufferedImage scaleImage = scale(srcImagePath, IMAGE_WIDTH,
-                IMAGE_HEIGHT, true);
+                IMAGE_HEIGHT, false);
         int[][] srcPixels = new int[IMAGE_WIDTH][IMAGE_HEIGHT];
         for (int i = 0; i < scaleImage.getWidth(); i++) {
             for (int j = 0; j < scaleImage.getHeight(); j++) {
@@ -189,8 +194,11 @@ public class QrCodeCreateUtil {
                                        int width, boolean hasFiller) throws IOException {
         double ratio = 0.0;
         // 缩放比例
-         File file = new File(srcImageFile);
-        BufferedImage srcImage = ImageIO.read(file);
+
+        Image src=Toolkit.getDefaultToolkit().getImage(srcImageFile);
+        BufferedImage srcImage=toBufferedImage(src);
+        /// File file = new File(srcImageFile);
+       // BufferedImage srcImage = ImageIO.read(file);
         Image destImage = srcImage.getScaledInstance(width, height,
                 BufferedImage.SCALE_SMOOTH);
         // 计算比例
@@ -243,51 +251,30 @@ public class QrCodeCreateUtil {
         if (image instanceof BufferedImage) {
             return (BufferedImage) image;
         }
-
         // This code ensures that all the pixels in the image are loaded
         image = new ImageIcon(image).getImage();
-
-        // Determine if the image has transparent pixels; for this method‘s
-        // implementation, see e661 Determining If an Image Has Transparent
-        // Pixels
-        // boolean hasAlpha = hasAlpha(image);
-
-        // Create a buffered image with a format that‘s compatible with the
-        // screen
         BufferedImage bimage = null;
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = GraphicsEnvironment
+                .getLocalGraphicsEnvironment();
         try {
-            // Determine the type of transparency of the new buffered image
             int transparency = Transparency.OPAQUE;
-            /*
-             * if (hasAlpha) { transparency = Transparency.BITMASK; }
-             */
-
-            // Create the buffered image
             GraphicsDevice gs = ge.getDefaultScreenDevice();
             GraphicsConfiguration gc = gs.getDefaultConfiguration();
-            bimage = gc.createCompatibleImage(image.getWidth(null), image.getHeight(null), transparency);
+            bimage = gc.createCompatibleImage(image.getWidth(null),
+                    image.getHeight(null), transparency);
         } catch (HeadlessException e) {
-            // The system does not have a screen
-        }
 
+        }
         if (bimage == null) {
-            // Create a buffered image using the default color model
             int type = BufferedImage.TYPE_INT_RGB;
-            // int type = BufferedImage.TYPE_3BYTE_BGR;//by wang
-            /*
-             * if (hasAlpha) { type = BufferedImage.TYPE_INT_ARGB; }
-             */
-            bimage = new BufferedImage(image.getWidth(null), image.getHeight(null), type);
+            bimage = new BufferedImage(image.getWidth(null),
+                    image.getHeight(null), type);
         }
-
         // Copy image to buffered image
         Graphics g = bimage.createGraphics();
-
         // Paint the image onto the buffered image
         g.drawImage(image, 0, 0, null);
         g.dispose();
-
         return bimage;
     }
 

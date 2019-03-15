@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: home
+    active: test
   freemarker:
     cache: false
     check-template-location: true
@@ -12,7 +12,7 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     password: root
-    url: jdbc:mysql://localhost:3307/school?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    url: jdbc:mysql://localhost:3307/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: root
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1
@@ -50,3 +50,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+IMG:
+  QRCENTER_PATH: static/home/center.jpg
+server:
+  port: 8100
