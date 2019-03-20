@@ -4,7 +4,7 @@
 
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.tbcomment.domain.TbComment">
+    <resultMap id="BaseResultMap" type="com.superficial.img.tbcomment.pojo.TbComment">
         <id column="comment_id" property="commentId" />
         <result column="parent_id" property="parentId" />
         <result column="content" property="content" />

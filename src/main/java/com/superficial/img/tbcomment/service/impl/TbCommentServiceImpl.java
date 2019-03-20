@@ -1,6 +1,6 @@
 package com.superficial.img.tbcomment.service.impl;
 
-import com.superficial.img.tbcomment.domain.TbComment;
+import com.superficial.img.tbcomment.pojo.TbComment;
 import com.superficial.img.tbcomment.mapper.TbCommentMapper;
 import com.superficial.img.tbcomment.service.ITbCommentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

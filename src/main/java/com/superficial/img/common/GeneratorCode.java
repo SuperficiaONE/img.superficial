@@ -1,4 +1,4 @@
-package com.superficial.img.tbcomment;
+package com.superficial.img.common;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
@@ -23,7 +23,7 @@ public class GeneratorCode {
 		String packageName = "";
 		//user -> UserService, 设置成true: user -> IUserService
 		//指定生成的表名
-		String[] tableNames = new String[]{"tb_comment"
+		String[] tableNames = new String[]{"tb_answer"
 		};
 		generateByTables(true, packageName, tableNames);
 	}

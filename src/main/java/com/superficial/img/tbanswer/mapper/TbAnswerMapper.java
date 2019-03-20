@@ -1,6 +1,6 @@
-package com.superficial.img.tbcomment.mapper;
+package com.superficial.img.tbanswer.mapper;
 
-import com.superficial.img.tbcomment.pojo.TbComment;
+import com.superficial.img.tbanswer.pojo.TbAnswer;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Repository;
  * </p>
  *
  * @author wxc
- * @since 2019-03-11
+ * @since 2019-03-20
  */
 @Mapper
 @Repository
-public interface TbCommentMapper extends BaseMapper<TbComment> {
+public interface TbAnswerMapper extends BaseMapper<TbAnswer> {
 
 }
