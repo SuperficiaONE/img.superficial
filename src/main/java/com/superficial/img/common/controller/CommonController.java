@@ -33,7 +33,7 @@ public class CommonController {
         return "/common/common";
     }
 
-    @RequestMapping("/common/getQRCode")
+    @RequestMapping("/api/common/getQRCode")
     @ResponseBody
     public void getCode(String code) throws IOException {
         log.info("生成二维码:{}", code);
@@ -43,7 +43,7 @@ public class CommonController {
        commonService.createQRCode(code);
     }
 
-    @RequestMapping("/common/getCenterQRCode")
+    @RequestMapping("/api/common/getCenterQRCode")
     @ResponseBody
     public void getCenterQRCode(String code, HttpServletResponse response) throws IOException, WriterException {
         if (CommonUtil.isEmpty(code)) {

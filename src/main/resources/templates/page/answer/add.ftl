@@ -4,16 +4,21 @@
 </header>
 <body>
 <div>
-    <label>添加答案:</label> <input placeholder="请输入答案">
+    <label>添加答案:</label> <input id="content" placeholder="请输入答案">
 </div>
 <div>
-    <label>添加英文:</label> <input placeholder="请输入英文答案">
+    <label>添加英文:</label> <input id="englishContent" placeholder="请输入英文答案">
 </div>
 <div>
     <button id="add">添加答案</button> <button id="clear">清空答案</button>
 </div>
 </body>
+<script src="/static/jquery/jquery-1.9.1.min.js"></script>
+<script src="/static/jquery/base.js"></script>
 <script>
+    $(function () {
+        console.log("hello")
+    })
     var divs = document.getElementsByTagName("div")
     var inputs = document.getElementsByTagName("input")
     var btns = document.getElementsByTagName("button")
@@ -40,10 +45,18 @@
     var clear = document.getElementById("clear")
 
     add.addEventListener("click",function (ev) {
-        console.log("点击添加")
+        var uri = "/api/answer/add?content="+$("#content").val()+"&englishContent="+$("#englishContent").val()
+          get(uri,function (data) {
+              console.log(data)
+              if(data.state == 1){
+                  toast(data.msg,1200)
+              }else {
+                  alert(data.msg)
+              }
+          })
     })
     clear.addEventListener("click",function (ev) {
-        console.log("点击清除")
+
     })
 </script>
 </html>

@@ -29,4 +29,53 @@ public class TbComment implements Serializable {
     private Integer likeCount;
     private Integer dislikeCount;
 
+    public TbComment setCommentId(Long commentId) {
+        this.commentId = commentId;
+        return this;
+    }
+
+    public TbComment setParentId(Long parentId) {
+        this.parentId = parentId;
+        return this;
+    }
+
+    public TbComment setContent(String content) {
+        this.content = content;
+        return this;
+    }
+
+    public TbComment setUserId(Long userId) {
+        this.userId = userId;
+        return this;
+    }
+
+    public TbComment setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
+    public TbComment setPicId(Long picId) {
+        this.picId = picId;
+        return this;
+    }
+
+    public TbComment setCreateAt(Date createAt) {
+        this.createAt = createAt;
+        return this;
+    }
+
+    public TbComment setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+        return this;
+    }
+
+    public TbComment setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+        return this;
+    }
+
+    public TbComment setDislikeCount(Integer dislikeCount) {
+        this.dislikeCount = dislikeCount;
+        return this;
+    }
 }

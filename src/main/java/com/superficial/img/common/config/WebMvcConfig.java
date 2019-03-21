@@ -12,7 +12,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     private ErrorPageInterceptor errorPageInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(errorPageInterceptor);
+       registry.addInterceptor(errorPageInterceptor);
         //.addPathPatterns("/action/**", "/mine/**");默认所有
         super.addInterceptors(registry);
     }

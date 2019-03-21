@@ -30,11 +30,11 @@ spring:
     filters: stat,wall,slf4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     useGlobalDataSourceStat: true
-
-
+  mvc:
+    static-path-pattern: /static/**
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage: com.superficial.img.*.domain
+  typeAliasesPackage: com.superficial.img.*.pojo
   global-config:
     id-type: 2
     field-strategy: 2
@@ -44,8 +44,7 @@ mybatis-plus:
     #key-generator: com.baomidou.springboot.xxx
     logic-delete-value: 0
     logic-not-delete-value: 1
-    #meta-object-handler: com.baomidou.springboot.xxx
-    # meta-object-handler: top.superficial.blogcollege.config.MyMetaObjectHandler
+    meta-object-handler: com.superficial.img.common.config.MybatisObjectHandler
     #sql-injector: com.baomidou.springboot.xxx
   configuration:
     map-underscore-to-camel-case: true
