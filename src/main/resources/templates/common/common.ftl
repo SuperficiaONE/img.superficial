@@ -33,7 +33,7 @@
         img.style.marginLeft="auto"
         img.style.marginRight="auto"
         img.style.marginTop="20px"
-        img.setAttribute("src","http://127.0.0.1:8100/common/getCenterQRCode?code="+nameInput.value);
+        img.setAttribute("src","http://127.0.0.1:8100/api/common/getCenterQRCode?code="+nameInput.value);
     },false)
 
 </script>

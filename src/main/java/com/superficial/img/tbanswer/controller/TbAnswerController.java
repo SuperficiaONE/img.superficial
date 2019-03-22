@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,14 +46,17 @@ public class TbAnswerController {
           if(count>0){
               return ResultVO.newFail("已添加过");
           }
+          Long id = IdWorker.getId();
           TbAnswer answer = new TbAnswer()
-                  .setAnswerId(IdWorker.getId())
+                  .setAnswerId(id)
                   .setContent(content)
                   .setEnglishContent(englishContent)
                   .setCreateAt(new Date())
                   .setUpdateAt(new Date());
           answerService.insert(answer);
-          return ResultVO.newSuccess("添加成功");
+          Map<String,Object> map = new HashMap<>(2);
+          map.put("answerId",id);
+          return ResultVO.newSuccess("添加成功",map);
       }catch (Exception e){
           log.error("添加答案出现了异常",e);
           return ResultVO.newError(e.getMessage());

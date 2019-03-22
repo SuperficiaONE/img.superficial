@@ -22,7 +22,9 @@ public class TbAnswer implements Serializable {
 
 
     private Long answerId;
+
     private String content;
+
     private String englishContent;
 
     @TableField(fill= FieldFill.INSERT)

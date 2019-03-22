@@ -50,6 +50,6 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 IMG:
-  QRCENTER_PATH: static/home/center.jpg
+  QRCENTER_PATH: static/home/icon.png
 server:
   port: 8100

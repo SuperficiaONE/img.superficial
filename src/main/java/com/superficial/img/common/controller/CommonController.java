@@ -27,29 +27,36 @@ public class CommonController {
     @Autowired
     private CommonService commonService;
 
-    @RequestMapping("/common.htm")
-    public String getIndex() {
-        log.info("进入首页");
-        return "/common/common";
-    }
 
     @RequestMapping("/api/common/getQRCode")
     @ResponseBody
     public void getCode(String code) throws IOException {
-        log.info("生成二维码:{}", code);
-        if (CommonUtil.isEmpty(code)) {
-            code = "http://www.baidu.com";
+
+        try {
+            log.info("生成二维码:{}", code);
+            if (CommonUtil.isEmpty(code)) {
+                code = "http://www.baidu.com";
+            }
+            commonService.createQRCode(code);
+        }catch (Exception e){
+            log.error("获取banner验证码出现异常:",e);
+
         }
-       commonService.createQRCode(code);
     }
 
     @RequestMapping("/api/common/getCenterQRCode")
     @ResponseBody
-    public void getCenterQRCode(String code, HttpServletResponse response) throws IOException, WriterException {
-        if (CommonUtil.isEmpty(code)) {
-            code = "这是一个带icon图片的二维码";
-        }
-        log.info("生成二维码:{}", code);
-        commonService.createBannerCode(code);
+    public void getCenterQRCode(String code) throws IOException, WriterException {
+       try {
+           if (CommonUtil.isEmpty(code)) {
+               code = "这是一个带icon图片的二维码";
+           }
+           log.info("生成二维码:{}", code);
+           commonService.createBannerCode(code);
+       }catch (Exception e){
+           log.error("获取banner验证码出现异常:",e);
+
+       }
+
     }
 }

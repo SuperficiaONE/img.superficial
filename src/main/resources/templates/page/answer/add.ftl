@@ -49,14 +49,14 @@
           get(uri,function (data) {
               console.log(data)
               if(data.state == 1){
-                  toast(data.msg,1200)
+                  toast(data.msg+data.data.answerId,1200)
               }else {
                   alert(data.msg)
               }
           })
     })
     clear.addEventListener("click",function (ev) {
-
+        $("input").val("")
     })
 </script>
 </html>

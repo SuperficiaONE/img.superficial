@@ -197,7 +197,7 @@ public class QrCodeCreateUtil {
 
         Image src=Toolkit.getDefaultToolkit().getImage(srcImageFile);
         BufferedImage srcImage=toBufferedImage(src);
-        /// File file = new File(srcImageFile);
+       // File file = new File(srcImageFile);
        // BufferedImage srcImage = ImageIO.read(file);
         Image destImage = srcImage.getScaledInstance(width, height,
                 BufferedImage.SCALE_SMOOTH);
@@ -243,7 +243,7 @@ public class QrCodeCreateUtil {
             destImage = image;
 
         }
-        return (BufferedImage) destImage;
+        return  toBufferedImage(destImage);
     }
 
 
