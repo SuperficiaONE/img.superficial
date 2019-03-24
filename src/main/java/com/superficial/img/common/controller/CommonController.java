@@ -6,7 +6,9 @@ import com.sun.deploy.net.HttpUtils;
 import com.superficial.img.common.service.CommonService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.google.zxing.qrcode.QRCodeReader;
+import com.superficial.img.common.tool.EmailTool;
 import com.superficial.img.common.tool.QrCodeCreateUtil;
+import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -58,5 +60,18 @@ public class CommonController {
 
        }
 
+    }
+
+    @RequestMapping("/api/common/sendEmail")
+    @ResponseBody
+    public ResultVO sendEmail() throws IOException, WriterException {
+        try {
+            String code  = "123567";
+            EmailTool.sendMessage("快看 这就是生活的注册码","验证码时间限制10分钟抓紧：您的验证码是："+code);
+        }catch (Exception e){
+            log.error("发送邮件出现异常:",e);
+            return ResultVO.newError(e.getMessage());
+        }
+       return ResultVO.newSuccess("发送成功");
     }
 }

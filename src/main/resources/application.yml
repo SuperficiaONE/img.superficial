@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: home
   freemarker:
     cache: false
     check-template-location: true
@@ -49,6 +49,22 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+mail:
+  mailhost: smtp.163.com
+  mailport: 465
+  user: superficial_one
+  password: wozaizheli
+  mailFrom: superficial_one@163.com #发送者的邮箱,
+  mailTo: 1249581758@qq.com #接收者的邮箱,群发请以逗号隔开
+  properties:
+    mail:
+      smtp:
+        auth: true
+        mailtimeout: 1000
+        mailssl: javax.net.ssl.SSLSocketFactory
+        starttls:
+          enable: true
+          required: true
 IMG:
   QRCENTER_PATH: static/home/icon.png
 server:
