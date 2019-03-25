@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: home
+    active: test
   freemarker:
     cache: false
     check-template-location: true
@@ -53,7 +53,7 @@ mail:
   mailhost: smtp.163.com
   mailport: 465
   user: superficial_one
-  password: wozaizheli
+  password: wozaizheli1995
   mailFrom: superficial_one@163.com #发送者的邮箱,
   mailTo: 1249581758@qq.com #接收者的邮箱,群发请以逗号隔开
   properties:

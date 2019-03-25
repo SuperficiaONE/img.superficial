@@ -1,6 +1,7 @@
 package com.superficial.img.tbanswer.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -19,8 +20,7 @@ import java.io.Serializable;
 @Data
 public class TbAnswer implements Serializable {
 
-
-
+    @TableId
     private Long answerId;
 
     private String content;

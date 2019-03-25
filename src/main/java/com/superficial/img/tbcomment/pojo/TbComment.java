@@ -1,5 +1,6 @@
 package com.superficial.img.tbcomment.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class TbComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
     private Long commentId;
     private Long parentId;
     private String content;

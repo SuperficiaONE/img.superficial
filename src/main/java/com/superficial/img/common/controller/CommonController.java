@@ -64,7 +64,7 @@ public class CommonController {
 
     @RequestMapping("/api/common/sendEmail")
     @ResponseBody
-    public ResultVO sendEmail() throws IOException, WriterException {
+    public ResultVO sendEmail() {
         try {
             String code  = "123567";
             EmailTool.sendMessage("快看 这就是生活的注册码","验证码时间限制10分钟抓紧：您的验证码是："+code);
