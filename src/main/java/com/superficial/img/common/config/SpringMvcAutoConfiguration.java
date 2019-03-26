@@ -19,4 +19,12 @@ public class SpringMvcAutoConfiguration {
   public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
     return new MappingJackson2HttpMessageConverter(objectMapper());
   }
+  @Bean
+  public EsFactory getEsFactory(){
+    return new EsFactory();
+  }
+  @Bean
+  public EsSearch getEsSearch(){
+    return new EsSearch();
+  }
 }
