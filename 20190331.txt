@@ -1,0 +1,55 @@
+--  DDL
+CREATE TABLE `tb_menu` (
+  `id` bigint(20) NOT NULL,
+  `menu_name` varchar(50) NOT NULL,
+  `order` int(11) NOT NULL DEFAULT '999' COMMENT '用作排序',
+  `url` varchar(255) NOT NULL,
+  `need_login` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否需要登录:0.不需要 1.需要登录',
+  `is_back` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否是后台菜单:0.不是 1.是',
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tb_comment` (
+  `comment_id` bigint(20) NOT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
+  `content` text,
+  `user_id` bigint(20) DEFAULT NULL,
+  `user_name` varchar(22) DEFAULT NULL,
+  `pic_id` bigint(20) DEFAULT NULL,
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL,
+  `like_count` int(11) NOT NULL,
+  `dislike_count` int(11) NOT NULL,
+  `title_id` varchar(255) DEFAULT NULL,
+  `category_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`comment_id`),
+  KEY `content_userid_titleid_picid_categoryid_ix` (`user_id`,`pic_id`,`title_id`,`category_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+CREATE TABLE `tb_base_tag` (
+  `id` bigint(20) NOT NULL,
+  `tag_name` varchar(25) NOT NULL,
+  `example` text NOT NULL,
+  `use_by_single` tinyint(4) NOT NULL DEFAULT '1' COMMENT '能否单独使用：0.不能单独使用 1.能单独使用',
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `tb_answer` (
+  `answer_id` bigint(20) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `english_content` varchar(255) NOT NULL,
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL,
+  PRIMARY KEY (`answer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
