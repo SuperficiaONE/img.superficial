@@ -1,5 +1,7 @@
 package com.superficial.img.tbmenu.pojo;
 
+import lombok.Data;
+
 import java.util.Date;
 import java.io.Serializable;
 
@@ -11,6 +13,7 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-03-31
  */
+@Data
 public class TbMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,82 +36,43 @@ public class TbMenu implements Serializable {
     private Date createAt;
     private Date updateAt;
 
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public TbMenu setId(Long id) {
         this.id = id;
+        return this;
     }
 
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
+    public TbMenu setMenuName(String menuName) {
         this.menuName = menuName;
+        return this;
     }
 
-    public Integer getOrder() {
-        return order;
-    }
-
-    public void setOrder(Integer order) {
+    public TbMenu setOrder(Integer order) {
         this.order = order;
+        return this;
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
+    public TbMenu setUrl(String url) {
         this.url = url;
+        return this;
     }
 
-    public Integer getNeedLogin() {
-        return needLogin;
-    }
-
-    public void setNeedLogin(Integer needLogin) {
+    public TbMenu setNeedLogin(Integer needLogin) {
         this.needLogin = needLogin;
+        return this;
     }
 
-    public Integer getIsBack() {
-        return isBack;
-    }
-
-    public void setIsBack(Integer isBack) {
+    public TbMenu setIsBack(Integer isBack) {
         this.isBack = isBack;
+        return this;
     }
 
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
+    public TbMenu setCreateAt(Date createAt) {
         this.createAt = createAt;
+        return this;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
+    public TbMenu setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
-    }
-
-    @Override
-    public String toString() {
-        return "TbMenu{" +
-        ", id=" + id +
-        ", menuName=" + menuName +
-        ", order=" + order +
-        ", url=" + url +
-        ", needLogin=" + needLogin +
-        ", isBack=" + isBack +
-        ", createAt=" + createAt +
-        ", updateAt=" + updateAt +
-        "}";
+        return this;
     }
 }

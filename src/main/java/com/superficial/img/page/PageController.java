@@ -10,8 +10,17 @@ public class PageController {
 
 
     @RequestMapping("/common.htm")
-    public String getIndex() {
+    public String getCommon() {
         log.info("进入首页");
+        return "/common/common";
+    }
+
+    @RequestMapping("/menu.html")
+    public String getIndex(){
+        return "index";
+    }
+    @RequestMapping("/")
+    public String getDefault(){
         return "/common/common";
     }
 }

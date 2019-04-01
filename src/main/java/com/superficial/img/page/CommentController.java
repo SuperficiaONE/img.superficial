@@ -5,8 +5,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class CommentController {
-    @RequestMapping("/index.html")
-    public String getIndex(){
-        return "index";
-    }
+
 }

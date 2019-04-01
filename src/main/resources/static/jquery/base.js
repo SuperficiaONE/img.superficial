@@ -40,11 +40,17 @@ function toast(msg,duration){
 }
 var waitingClassName = "waiting" ;
 function  addWaiting() {
+    var width =  document.documentElement.clientWidth;
+    var height =  document.documentElement.clientHeight
+    var mask = document.createElement('div');
+    mask.style.cssText = "position: fixed;top: 0;width:"+width+"px;height:"+height+"px;margin:0;padding:0;z-index: 999999; background:rgba(200,200,200,0.4);"
+
     var m = document.createElement('div');
-    $(m).attr("class",waitingClassName);
+    $(mask).attr("class",waitingClassName);
     m.innerHTML = "<img src='/static/home/waiting.gif' style='text-align: left;margin: 5px;width: 50px;height: 50px '>";
     m.style.cssText="max-width:60%;min-width: 150px;padding:0 14px;color: rgb(255, 255, 255);text-align: center;border-radius: 4px;position: fixed;top: 40%;left: 50%;transform: translate(-50%, -50%);z-index: 999999;font-size: 16px;";
-    document.body.appendChild(m);
+   mask.appendChild(m)
+    document.body.appendChild(mask);
 }
 function  removeWaiting() {
     var m = $("."+waitingClassName);
