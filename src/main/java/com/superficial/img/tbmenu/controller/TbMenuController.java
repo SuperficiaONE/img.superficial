@@ -39,8 +39,6 @@ public class TbMenuController {
         try {
             page = CommonUtil.isEmpty(page)?1:page;
             limit = CommonUtil.isEmpty(limit)?10:limit;
-            isBack = CommonUtil.isEmpty(isBack)?1:isBack;
-            needLogin = CommonUtil.isEmpty(needLogin)?1:needLogin;
             if(page<1){
                 page = 1;
             }
@@ -48,13 +46,17 @@ public class TbMenuController {
                 limit = 10;
             }
 
-            Wrapper<TbMenu> wrapper = new EntityWrapper<TbMenu>()
-                    .eq("need_login", needLogin)
-                    .eq("is_back", isBack);
+            Wrapper<TbMenu> wrapper = new EntityWrapper<TbMenu>();
             if(!CommonUtil.isEmpty(searchText)){
                 wrapper .like("menu_name", searchText)
                         .or()
                         .like("url", searchText);
+            }
+            if(!CommonUtil.isEmpty(needLogin)){
+                wrapper .eq("need_login", needLogin);
+            }
+            if(!CommonUtil.isEmpty(isBack)){
+                wrapper .eq("is_back", isBack);
             }
 
             Integer count  = menuService.selectCount(wrapper);
@@ -88,9 +90,17 @@ public class TbMenuController {
             if(CommonUtil.isEmpty(menu.getIsBack())){
                 menu.setIsBack(0);
             }
+            Integer count = menuService.selectCount(new EntityWrapper<TbMenu>()
+                    .eq("menu_name",menu.getMenuName())
+                    .or()
+                    .eq("url",menu.getUrl())
+            );
+            if(count>0){
+                return ResultVO.newFail("添加菜单失败：该链接可能已存在");
+            }
             menu.setId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date());
             menuService.insert(menu);
-            return ResultVO.newSuccess("插入成功",menu);
+            return ResultVO.newSuccess("添加菜单成功",menu);
         }catch (Exception e){
             log.error("添加菜单出现了异常:",e);
             return ResultVO.newError("添加菜单出现了异常");

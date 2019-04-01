@@ -1,6 +1,7 @@
 <html>
-<header>
-</header>
+<head>
+    <title>错误页面</title>
+</head>
 <body>
 <h1>错误代码:${code!}</h1>
 </body>

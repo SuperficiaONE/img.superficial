@@ -18,12 +18,14 @@
     <input name="searchText" style="height: 30px;width: 220px" placeholder="请输入要搜索的名称">
     <button class="layui-btn" id="search">搜索</button>
     <select name="isBack" style="height: 30px;">
-        <option value="1">后台链接</option>
+        <option value="">所有</option>
         <option value="0">非后台链接</option>
+        <option value="1">后台链接</option>
     </select>
     <select name="needLogin" style="height: 30px;">
-        <option value="1">需要登录</option>
+        <option value="">所有</option>
         <option value="0">不需要登录</option>
+        <option value="1">需要登录</option>
     </select>
 </div>
 
@@ -53,13 +55,15 @@
 
         var options = {
             elem: '#dataTable'
-            , height: h*0.6
+            , height: h*0.5
             , width: w*0.6
             , url: '/webapi/menu/search' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'id', title: 'ID', width: 80, sort: false, fixed: 'left', style: "margin-left:100px"}
-                , {field: 'menuName', title: '菜单名称', width: 100}
+                {field: 'id', title: 'ID', width:180, sort: false, fixed: 'left', style: "margin-left:100px"}
+                , {field: 'menuName', title: '菜单名称', width: 100, templet: function (d) {
+                        return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
+                    }}
                 , {field: 'url', title: '链接', width: 200, sort: false}
                 , {field: 'login', title: '需要登录', width: 100 ,templet: function (d) {
                         if(d.needLogin == 1){
@@ -80,7 +84,7 @@
                 , {field: 'updateAt', title: '更新时间', width: 140}
                 , {
                     field: 'op', title: '操作', width: 135, templet: function (d) {
-                        return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
+                        return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + "访问" + "</a>"
                     }, sort: false
                 }
             ]]

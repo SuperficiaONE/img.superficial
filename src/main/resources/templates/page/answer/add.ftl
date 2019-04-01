@@ -1,7 +1,7 @@
 <html>
-<header>
-
-</header>
+<head>
+<title>添加答案</title>
+</head>
 <body>
 <div>
     <label>添加答案:</label> <input id="content" placeholder="请输入答案">
