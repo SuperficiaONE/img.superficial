@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MenuController {
     @RequestMapping("/add.htm")
     public String addMenu(){
+        log.info("即将进入菜单添加页面");
         return "/page/menu/add";
     }
 }

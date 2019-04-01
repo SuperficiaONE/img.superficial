@@ -12,7 +12,7 @@
 <body>
 
   <div style="text-align:center;margin-left: auto;margin-right: auto;margin-top: 30px;">
-      <label>添加链接</label>
+      <label class="">添加链接</label>
       <input name="menuName" />
       <input name="url">
       <select style="height: 30px;" name="isBack">
