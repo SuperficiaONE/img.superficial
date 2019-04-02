@@ -98,9 +98,9 @@
             }
             , done: function () {
                 console.log("渲染完成")
-                $(".layui-table-view").css("text-align", "center");
-                $(".layui-table-view").css("margin-left", "auto")
-                $(".layui-table-view").css("margin-right", "auto");
+                $("div[lay-id='dataTable']").css("text-align", "center");
+                $("div[lay-id='dataTable']").css("margin-left", "auto")
+                $("div[lay-id='dataTable']").css("margin-right", "auto");
 
             }
         }
