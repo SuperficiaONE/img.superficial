@@ -1,5 +1,6 @@
 package com.superficial.img.esSearch.service.impl;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.superficial.img.common.config.EsSearch;
 import com.superficial.img.esSearch.service.EsSearchService;
 import io.searchbox.core.SearchResult;
@@ -14,6 +15,9 @@ import org.elasticsearch.search.sort.SortOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service
 public class EsSearchServiceImpl implements EsSearchService {
@@ -24,7 +28,7 @@ public class EsSearchServiceImpl implements EsSearchService {
     public Object getRs(Integer type,Integer from ,Integer size) throws Exception {
         //查找
         BoolQueryBuilder mainBuilder = QueryBuilders.boolQuery();
-        mainBuilder.should(QueryBuilders.matchQuery("prod_name", "氨").boost(5L));
+        mainBuilder.filter(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("prod_name","复方")));
         // 排序
 
         SortBuilder sortBuilder = SortBuilders.fieldSort("create_at").order(SortOrder.ASC);
@@ -42,7 +46,13 @@ public class EsSearchServiceImpl implements EsSearchService {
         //  mainBuilder.must(QueryBuilders.matchAllQuery());
         //聚合
         // 分页
-        SearchResult search = esSearch.search("b2b", "prod", mainBuilder, sortBuilders, null, from, size);
-        return esSearch.fillSearchResult(search);
+        SearchResult search = esSearch.search("b2b", "prod", mainBuilder, sortBuilders, null, (from-1)*size
+                , size);
+        Map<String,Object> map = new HashMap<>(4);
+        map.put("size",size);
+        map.put("curr",from);
+        map.put("total",search.getTotal());
+        map.put("list",esSearch.fillSearchResult(search));
+        return map ;
     }
 }

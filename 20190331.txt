@@ -1,7 +1,26 @@
 --  DDL
+
+
+CREATE TABLE `tb_plan` (
+  `plan_id` bigint(20) NOT NULL COMMENT '计划表的主键',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '创建人',
+  `plan_name` varchar(100) NOT NULL COMMENT '计划名称',
+  `plan_content` text NOT NULL COMMENT '计划内容',
+  `plan_start_time` datetime DEFAULT NULL COMMENT '计划开始时间',
+  `plan_end_time` datetime DEFAULT NULL COMMENT '计划结束时间',
+  `plan_expect_days` decimal(10,0) DEFAULT NULL COMMENT '计划完成预计完成时间(单位天 保留两位小数四舍五入)',
+  `plan_out_time_reason` text COMMENT '计划超时理由(超时必填)',
+  `create_at` datetime NOT NULL COMMENT '创建时间',
+  `update_at` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`plan_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 CREATE TABLE `tb_menu` (
   `id` bigint(20) NOT NULL,
+  `parent_id` bigint(20) DEFAULT NULL,
   `menu_name` varchar(50) NOT NULL,
+  `level` tinyint(4) unsigned DEFAULT NULL COMMENT '目前只设计两级',
   `order` int(11) NOT NULL DEFAULT '999' COMMENT '用作排序',
   `url` varchar(255) NOT NULL,
   `need_login` tinyint(4) NOT NULL DEFAULT '1' COMMENT '是否需要登录:0.不需要 1.需要登录',
@@ -10,6 +29,8 @@ CREATE TABLE `tb_menu` (
   `update_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 
 CREATE TABLE `tb_base_tag` (
   `id` bigint(20) NOT NULL,

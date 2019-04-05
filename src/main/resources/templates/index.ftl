@@ -55,35 +55,35 @@
 
         var options = {
             elem: '#dataTable'
-            , height: h*0.5
-            , width: w*0.6
+            ,height: h*0.6
+            , width: w
             , url: '/webapi/menu/search' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'id', title: 'ID', width:180, sort: false, fixed: 'left', style: "margin-left:100px"}
-                , {field: 'menuName', title: '菜单名称', width: 100, templet: function (d) {
+                {field: 'id', title: 'ID', sort: false, fixed: 'left'}
+                , {field: 'menuName', title: '菜单名称', templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
                     }}
-                , {field: 'url', title: '链接', width: 200, sort: false}
-                , {field: 'login', title: '需要登录', width: 100 ,templet: function (d) {
+                , {field: 'url', title: '链接', sort: false}
+                , {field: 'login', title: '需要登录', templet: function (d) {
                         if(d.needLogin == 1){
                             return "是"
                         }else {
                             return "不是"
                         }
                     }}
-                , {field: 'back', title: '后台接口', width: 100 , templet: function (d) {
+                , {field: 'back', title: '后台接口', templet: function (d) {
                         if(d.isBack == 1){
                             return "是"
                         }else {
                             return "不是"
                         }
                     }}
-                , {field: 'order', title: '排序', width: 60, sort: false}
-                , {field: 'createAt', title: '创建时间', width: 140, sort: false}
-                , {field: 'updateAt', title: '更新时间', width: 140}
+                , {field: 'order', title: '排序', sort: false}
+                , {field: 'createAt', title: '创建时间',  sort: false}
+                , {field: 'updateAt', title: '更新时间',}
                 , {
-                    field: 'op', title: '操作', width: 135, templet: function (d) {
+                    field: 'op', title: '操作',  templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + "访问" + "</a>"
                     }, sort: false
                 }
@@ -101,6 +101,8 @@
                 $("div[lay-id='dataTable']").css("text-align", "center");
                 $("div[lay-id='dataTable']").css("margin-left", "auto")
                 $("div[lay-id='dataTable']").css("margin-right", "auto");
+                $("div[lay-id='dataTable'] th").css("background-color","#5FB878")
+                $("div[lay-id='dataTable'] th").css("text-align","center")
 
             }
         }

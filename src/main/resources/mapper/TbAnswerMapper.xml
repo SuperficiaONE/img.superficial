@@ -6,7 +6,7 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.tbanswer.pojo.TbAnswer">
+    <resultMap id="BaseResultMap" type="com.superficial.img.answer.pojo.TbAnswer">
         <id column="answer_id" property="answerId" />
         <result column="content" property="content" />
         <result column="englist_content" property="englishContent" />

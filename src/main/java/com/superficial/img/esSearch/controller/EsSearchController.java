@@ -22,8 +22,8 @@ public class EsSearchController {
             if(CommonUtil.isEmpty(size)){
                 size = 10;
             }
-            if(CommonUtil.isEmpty(from)|| from<0){
-                from = 0;
+            if(CommonUtil.isEmpty(from)|| from<=0){
+                from = 1;
             }
             ResultVO resultVO = ResultVO.newSuccess(esSearchService.getRs(type,from,size));
             return resultVO;

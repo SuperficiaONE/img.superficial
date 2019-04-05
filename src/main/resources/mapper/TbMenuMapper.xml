@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.superficial.img.tbmenu.mapper.TbMenuMapper">
+<mapper namespace="com.superficial.img.menu.mapper.TbMenuMapper">
 
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.tbmenu.pojo.TbMenu">
+    <resultMap id="BaseResultMap" type="com.superficial.img.menu.pojo.TbMenu">
         <id column="id" property="id" />
         <result column="menu_name" property="menuName" />
         <result column="order" property="order" />

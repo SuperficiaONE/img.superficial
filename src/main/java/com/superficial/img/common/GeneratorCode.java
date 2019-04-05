@@ -23,7 +23,7 @@ public class GeneratorCode {
 		String packageName = "";
 		//user -> UserService, 设置成true: user -> IUserService
 		//指定生成的表名
-		String[] tableNames = new String[]{"tb_menu"
+		String[] tableNames = new String[]{"tb_plan"
 		};
 		generateByTables(true, packageName, tableNames);
 	}
@@ -77,7 +77,7 @@ public class GeneratorCode {
 				.setXml("mapper")
 				.setMapper("mapper")
 				.setController("controller")
-				.setEntity("domain")
+				.setEntity("pojo")
                 .setServiceImpl("serviceimpl")
                 ;
 	}
@@ -142,11 +142,11 @@ public class GeneratorCode {
 	 * @author Terry
 	 */
 	private DataSourceConfig getDataSourceConfig() {
-		String dbUrl = "jdbc:mysql://192.168.0.103:3306/img";
+		String dbUrl = "jdbc:mysql://localhost:3307/img";
 		return new DataSourceConfig().setDbType(DbType.MYSQL)
 				.setUrl(dbUrl)
 				.setUsername("root")
-				.setPassword("wozaizheli1995")
+				.setPassword("root")
 				.setDriverName("com.mysql.jdbc.Driver");
 	}
 	/**
