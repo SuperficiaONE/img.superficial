@@ -60,7 +60,7 @@ public class TbMenuController {
 
             Integer count  = menuService.selectCount(wrapper);
             List<TbMenu> menuList = menuService.selectList(
-                    wrapper.last("order by 'order' asc , create_at desc  limit "+(page-1)+","+ limit)
+                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)+","+ limit)
                   );
 
             return new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(menuList);
@@ -97,7 +97,7 @@ public class TbMenuController {
             if(count>0){
                 return ResultVO.newFail("添加菜单失败：该链接可能已存在");
             }
-            menu.setId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date());
+            menu.setMenuId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date());
             menuService.insert(menu);
             return ResultVO.newSuccess("添加菜单成功",menu);
         }catch (Exception e){

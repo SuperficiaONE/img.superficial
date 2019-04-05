@@ -20,6 +20,7 @@ CREATE TABLE `tb_menu` (
   `id` bigint(20) NOT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
   `menu_name` varchar(50) NOT NULL,
+  `menu_type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '1.页面 2.按钮',
   `level` tinyint(4) unsigned DEFAULT NULL COMMENT '目前只设计两级',
   `order` int(11) NOT NULL DEFAULT '999' COMMENT '用作排序',
   `url` varchar(255) NOT NULL,

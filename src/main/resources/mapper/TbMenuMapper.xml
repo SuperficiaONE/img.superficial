@@ -6,20 +6,13 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.menu.pojo.TbMenu">
-        <id column="id" property="id" />
-        <result column="menu_name" property="menuName" />
-        <result column="order" property="order" />
-        <result column="url" property="url" />
-        <result column="need_login" property="needLogin" />
-        <result column="is_back" property="isBack" />
-        <result column="create_at" property="createAt" />
-        <result column="update_at" property="updateAt" />
+    <resultMap id="BaseResultMap" type="com.superficial.img.menu.pojo.TbMenu" autoMapping="true">
+
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, menu_name, order, url, need_login, is_back, create_at, update_at
+        id,parent_id ,menu_name,menu_level,menu_type, menu_order, url, need_login, is_back, create_at, update_at
     </sql>
 
 </mapper>

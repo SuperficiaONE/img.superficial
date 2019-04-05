@@ -60,10 +60,18 @@
             , url: '/webapi/menu/search' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
-                {field: 'id', title: 'ID', sort: false, fixed: 'left'}
+                {field: 'menuId', title: 'ID', sort: false, fixed: 'left'}
                 , {field: 'menuName', title: '菜单名称', templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
                     }}
+                , {field: 'menuType', title: '需要登录', templet: function (d) {
+                        if(d.menuType == 1){
+                            return "页面"
+                        }else if(d.menuType == 2){
+                            return "按钮"
+                        }
+                    }}
+                    ,{field: 'menuLevel', title: '等级', sort: false}
                 , {field: 'url', title: '链接', sort: false}
                 , {field: 'login', title: '需要登录', templet: function (d) {
                         if(d.needLogin == 1){
@@ -79,7 +87,7 @@
                             return "不是"
                         }
                     }}
-                , {field: 'order', title: '排序', sort: false}
+                , {field: 'menuOrder', title: '排序', sort: false}
                 , {field: 'createAt', title: '创建时间',  sort: false}
                 , {field: 'updateAt', title: '更新时间',}
                 , {

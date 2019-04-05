@@ -1,5 +1,6 @@
 package com.superficial.img.menu.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,12 +19,25 @@ public class TbMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    @TableId
+    private Long menuId;
+
+    private Long parentId;
+
     private String menuName;
+
+    /**
+    * 1.页面 2.按钮
+    */
+    private Integer menuType;
+    /**
+     * 目前只设计两级
+     */
+    private Integer menuLevel;
     /**
      * 用作排序
      */
-    private Integer order;
+    private Integer menuOrder;
     private String url;
     /**
      * 是否需要登录:0.不需要 1.需要登录
@@ -38,8 +52,13 @@ public class TbMenu implements Serializable {
 
     private Date updateAt;
 
-    public TbMenu setId(Long id) {
-        this.id = id;
+    public TbMenu setMenuId(Long menuId) {
+        this.menuId = menuId;
+        return this;
+    }
+
+    public TbMenu setParentId(Long parentId) {
+        this.parentId = parentId;
         return this;
     }
 
@@ -48,8 +67,18 @@ public class TbMenu implements Serializable {
         return this;
     }
 
-    public TbMenu setOrder(Integer order) {
-        this.order = order;
+    public TbMenu setMenuType(Integer menuType) {
+        this.menuType = menuType;
+        return this;
+    }
+
+    public TbMenu setMenuLevel(Integer menuLevel) {
+        this.menuLevel = menuLevel;
+        return this;
+    }
+
+    public TbMenu setMenuOrder(Integer menuOrder) {
+        this.menuOrder = menuOrder;
         return this;
     }
 
