@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: home
+    active: test
   freemarker:
     cache: false
     check-template-location: true
@@ -34,7 +34,7 @@ spring:
     static-path-pattern: /static/**
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
-  typeAliasesPackage: com.superficial.img.*.pojo
+  typeAliasesPackage: com.superficial.img.api.*.pojo
   global-config:
     id-type: 2
     field-strategy: 2

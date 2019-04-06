@@ -28,7 +28,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">后台链接：</label>
             <div class="layui-input-inline">
-                <select class="layui-select" style="height: 30px;" name="isBack">
+                <select class="layui-select" style="height: 30px;" name="menuBack">
                     <option value="0">非后台链接</option>
                     <option value="1">后台链接</option>
                 </select>
@@ -37,7 +37,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">需要登录：</label>
             <div class="layui-input-inline">
-                <select class="layui-select" style="height: 30px;" name="needLogin">
+                <select class="layui-select" style="height: 30px;" name="menuLogin">
                     <option value="0">不需要登录</option>
                     <option value="1">需要登录</option>
                 </select>
@@ -55,7 +55,6 @@
 
 <script src="/static/layui/layui.js" charset="utf-8"></script>
 <script src="/static/jquery/jquery-1.9.1.min.js" charset="utf-8"></script>
-
 <script src="/static/jquery/base.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
@@ -83,18 +82,18 @@
                     , content: "菜单链接不能为空"
                 });
             }
-            var isBack = $("select[name='isBack']").val();
-            var needLogin = $("select[name='needLogin']").val();
-            console.log(isBack + "  " + needLogin + "  " + menuName + "  " + url)
+            var isBack = $("select[name='menuBack']").val();
+            var needLogin = $("select[name='menuLogin']").val();
+
             var formData = {};
             formData["menuName"] = menuName;
             formData["url"] = url;
-            formData["isBack"] = isBack;
-            formData["needLogin"] =  needLogin;
+            formData["menuBack"] = isBack;
+            formData["menuLogin"] =  needLogin;
             console.log(formData)
             if (flag) {
                 post("/api/menu/add", formData, function (res) {
-                            if (res.status == 1) {
+                            if (res.state == 1) {
                                 layer.msg(res.msg, {
                                     icon: 1,
                                     time: 2000

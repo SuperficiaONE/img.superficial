@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.superficial.img.menu.mapper.TbMenuMapper">
+<mapper namespace="com.superficial.img.api.menu.mapper.TbMenuMapper">
 
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.menu.pojo.TbMenu" autoMapping="true">
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.menu.pojo.TbMenu" autoMapping="true">
 
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,parent_id ,menu_name,menu_level,menu_type, menu_order, url, need_login, is_back, create_at, update_at
+        menu_id,parent_id ,menu_name,menu_level, menu_order, url, menu_login, menu_back, create_at, update_at
     </sql>
 
 </mapper>

@@ -11,7 +11,50 @@ function post(uri, formData, success) {
         }
     });
 }
+function renderForm(){
+    layui.use('form', function() {
+        var form = layui.form;
+        form.render();
+    });
+}
+function getAsync(uri,isAnsy ,success) {
+    $.ajax({
+        type: "GET",
+        url: baseUrl + uri,
+        async: isAnsy ,
+        success: success,
+        error: function () {
+            alert("网络异常")
+        }
+    });
+}
 
+/**
+ * 从服务器获取如下格式数据
+ * {
+ *     state：1 成功
+ *     data: [{tagName:,list:{value:,text:''}}]
+ *     msg:
+ *     }
+* @param url
+ * @param elementIds
+ */
+function getSelect(url,elementIds) {
+
+}
+function postAsyn(uri, formData,isAnsy ,success) {
+    $.ajax({
+        type: "POST",
+        url: baseUrl + uri,
+        data: formData,
+
+        async: isAnsy ,
+        success: success,
+        error: function () {
+            alert("网络异常")
+        }
+    });
+}
 function get(uri, success) {
     $.ajax({
         type: "GET",
