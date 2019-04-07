@@ -1,4 +1,5 @@
-var baseUrl = "http://localhost:8100"
+var baseUrl = ""
+// http://localhost:8100
 
 function post(uri, formData, success) {
     $.ajax({
