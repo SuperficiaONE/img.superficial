@@ -1,13 +1,9 @@
 package com.superficial.img.common.controller;
 
-import cn.hutool.http.HttpUtil;
 import com.google.zxing.WriterException;
-import com.sun.deploy.net.HttpUtils;
 import com.superficial.img.common.service.CommonService;
 import com.superficial.img.common.tool.CommonUtil;
-import com.google.zxing.qrcode.QRCodeReader;
 import com.superficial.img.common.tool.EmailTool;
-import com.superficial.img.common.tool.QrCodeCreateUtil;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.IOException;
 
 @Slf4j

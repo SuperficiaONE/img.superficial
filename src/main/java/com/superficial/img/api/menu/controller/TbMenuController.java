@@ -34,7 +34,7 @@ public class TbMenuController {
     private ITbMenuService menuService;
 
     @RequestMapping("/webapi/menu/search")
-    public LayUIPage search(String searchText ,Integer needLogin ,Integer isBack, Integer page ,Integer limit){
+    public LayUIPage search(String searchText ,Integer menuLogin ,Integer menuBack, Integer page ,Integer limit){
         try {
             page = CommonUtil.isEmpty(page)?1:page;
             limit = CommonUtil.isEmpty(limit)?10:limit;
@@ -51,11 +51,11 @@ public class TbMenuController {
                         .or()
                         .like("url", searchText);
             }
-            if(!CommonUtil.isEmpty(needLogin)){
-                wrapper .eq("need_login", needLogin);
+            if(!CommonUtil.isEmpty(menuLogin)){
+                wrapper .eq("menu_login", menuLogin);
             }
-            if(!CommonUtil.isEmpty(isBack)){
-                wrapper .eq("is_back", isBack);
+            if(!CommonUtil.isEmpty(menuBack)){
+                wrapper .eq("menu_back", menuBack);
             }
 
             Integer count  = menuService.selectCount(wrapper);

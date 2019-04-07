@@ -12,10 +12,18 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        dict_id, dict_value, dict_key, data_type, create_at, update_at
+        dict_id, dict_value, dict_key, dict_type, create_at, update_at
     </sql>
    <select id="getSelectList" resultType="com.superficial.img.api.dict.vo.SelectVO">
-       select  dict_value as dict_text ,data_type as dict_value  from  tb_dict
+       select  dict_value as dict_text ,dict_type as dict_value  from  tb_dict
        where  dict_key = 0
    </select>
+
+    <select id="getSelectVOList" resultType="com.superficial.img.api.dict.vo.SelectVO">
+               select  dict_value as dict_text ,dict_key as dict_value ,dict_type from  tb_dict
+               where dict_type in
+               <foreach collection="dictTypeList" close=")" item="i" open="(" separator=",">
+                   #{i}
+               </foreach>
+    </select>
 </mapper>

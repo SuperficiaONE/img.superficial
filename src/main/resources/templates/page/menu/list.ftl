@@ -17,14 +17,14 @@
     <label style="height: 30px;font-size:20px; ">搜索链接：</label>
     <input name="searchText" style="height: 30px;width: 220px" placeholder="请输入要搜索的名称">
     <button class="layui-btn" id="search">搜索</button>
-    <select name="isBack" style="height: 30px;">
+    <select name="menuBack" style="height: 30px;">
         <option value="">所有</option>
-        <option value="0">非后台链接</option>
+        <option value="2">非后台链接</option>
         <option value="1">后台链接</option>
     </select>
-    <select name="needLogin" style="height: 30px;">
+    <select name="menuLogin" style="height: 30px;">
         <option value="">所有</option>
-        <option value="0">不需要登录</option>
+        <option value="2">不需要登录</option>
         <option value="1">需要登录</option>
     </select>
 </div>
@@ -66,15 +66,15 @@
                     }}
                 , {field: 'menuType', title: '类型'}
                 , {field: 'url', title: '链接', sort: false}
-                , {field: 'login', title: '需要登录', templet: function (d) {
-                        if(d.needLogin == 1){
+                , {field: 'menuLogin', title: '需要登录', templet: function (d) {
+                        if(d.menuLogin == 1){
                             return "是"
                         }else {
                             return "不是"
                         }
                     }}
                 , {field: 'back', title: '后台接口', templet: function (d) {
-                        if(d.isBack == 1){
+                        if(d.menuBack == 1){
                             return "是"
                         }else {
                             return "不是"
@@ -109,13 +109,13 @@
         }
         $("#search").click(function () {
             var searchText = $("input[name='searchText']").val()
-            var isBack = $("select[name='isBack']").val()
-            var needLogin = $("select[name='needLogin']").val()
+            var isBack = $("select[name='menuBack']").val()
+            var needLogin = $("select[name='menuLogin']").val()
             var option = {};
             var where = {};
             where["searchText"] = searchText;
-            where["isBack"] = isBack;
-            where["needLogin"] = needLogin;
+            where["menuBack"] = isBack;
+            where["menuLogin"] = needLogin;
             option["where"] = where;
             addWaiting();
             setTimeout(function () {

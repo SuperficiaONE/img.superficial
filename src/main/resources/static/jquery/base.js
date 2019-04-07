@@ -36,12 +36,43 @@ function getAsync(uri,isAnsy ,success) {
  *     data: [{tagName:,list:{value:,text:''}}]
  *     msg:
  *     }
+ *     elementIds 为 form-item 的id
 * @param url
  * @param elementIds
  */
-function getSelect(url,elementIds) {
+function initSelects(url,elementIds) {
+
+
+        getAsync(url,false,function (res) {
+            if(res.state == 1){
+
+
+            }else {
+                layer.alert(res.msg);
+            }
+        })
+
 
 }
+
+/**
+ * 适用单个select 的初始化 并绑定传递绑定change方法
+ * @param url
+ * @param elementId
+ * @param changeFnc
+ */
+function  initSelect(url,elementId,changeFnc) {
+
+
+}
+
+/**
+ * 获取select对象
+ */
+function getSelectObject() {
+
+}
+
 function postAsyn(uri, formData,isAnsy ,success) {
     $.ajax({
         type: "POST",

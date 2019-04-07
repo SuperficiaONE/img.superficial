@@ -6,8 +6,10 @@ import com.superficial.img.api.dict.service.ITbDictService;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.tool.CommonUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -24,5 +26,19 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
     @Override
     public List<SelectVO<String>> getSelectList() {
         return this.baseMapper.getSelectList();
+    }
+
+    @Override
+    public List<SelectVO<String>> getSelectList(String dictTypes) {
+        if(CommonUtil.isEmpty(dictTypes)){
+            return  null;
+        }
+       String[] dictType = dictTypes.split(",");
+        for (int i = 0; i < dictType.length; i++) {
+            dictType[i] = CommonUtil.humpToLine(dictType[i]);
+        }
+        List<String> dictTypeList = Arrays.asList(dictType);
+
+        return this.baseMapper.getSelectVOList(dictTypeList);
     }
 }

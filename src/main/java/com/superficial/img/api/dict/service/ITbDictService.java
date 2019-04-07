@@ -17,4 +17,6 @@ import java.util.List;
 public interface ITbDictService extends IService<TbDict> {
 
     List<SelectVO<String>> getSelectList();
+
+    List<SelectVO<String>> getSelectList(String dictTypes);
 }

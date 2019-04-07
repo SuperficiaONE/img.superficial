@@ -33,7 +33,7 @@ public class TbDict implements Serializable {
     /**
      * 字典类型
      */
-    private String dataType;
+    private String dictType;
     /**
      * 创建时间
      */
@@ -58,8 +58,8 @@ public class TbDict implements Serializable {
         return this;
     }
 
-    public TbDict setDataType(String dataType) {
-        this.dataType = dataType;
+    public TbDict setDictType(String dictType) {
+        this.dictType = dictType;
         return this;
     }
 

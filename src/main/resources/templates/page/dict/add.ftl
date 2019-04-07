@@ -16,7 +16,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">添加的类型</label>
             <div class="layui-input-inline" >
-                <select class="layui-select" lay-filter="search_type" style="height: 30px;" name="dataType">
+                <select class="layui-select" lay-filter="search_type" style="height: 30px;" name="dictType">
                 </select>
             </div>
         </div>
@@ -47,36 +47,35 @@
 <script src="/static/jquery/base.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    function reloadDataTypeSelect() {
+    function reloaddictTypeSelect() {
         addWaiting();
-
         getAsync("/webapi/dict/selectList",  false,function (res) {
             setTimeout(function () {
                 removeWaiting()
             },1000)
             if (res.state == 1) {
-                $("select[name='dateType']").empty()
+                $("select[name='dictType']").html("")
                 if (res.data != undefined) {
                     for (var i = 0; i < res.data.length; i++) {
                          var item =res.data[i]
-                        $(" select[name='dataType'] ").append("<option value='"+item.dictValue+"'>"+item.dictText+"</option>")
+                        $(" select[name='dictType'] ").append("<option value='"+item.dictValue+"'>"+item.dictText+"</option>")
                     }
-                    renderForm()
-                    changeDataKeyShow()
 
                 }
+                renderForm()
+                changeDataKeyShow()
             } else {
 
             }
         })
     }
 
-    $(" select[name='dataType'] ").change(function () {
+    $(" select[name='dictType'] ").change(function () {
             changeDataKeyShow();
     })
     function changeDataKeyShow() {
-      var  dataType = $(" select[name='dataType'] ").val();
-      if(dataType == undefined || dataType == ""){
+      var  dictType = $(" select[name='dictType'] ").val();
+      if(dictType == undefined || dictType == ""){
            $("input[name='dictValue']").val("dict_type")
            $("input[name='chineseText']").val("字典类型")
            $("input[name='chineseText']").attr("disabled","true")
@@ -88,7 +87,7 @@
           $("input[name='chineseText']").removeAttr("disabled")
           $("button[type='reset']").show()
       }
-      if( dataType==undefined || dataType=="" || dataType == "dict_type"){
+      if( dictType==undefined || dictType=="" || dictType == "dict_type"){
           $(".chineseText").show()
       }else {
           $(".chineseText").hide()
@@ -102,30 +101,31 @@
         var w = document.documentElement.clientWidth;
         var h = document.documentElement.clientHeight;
         var form  = layui.form;
-        reloadDataTypeSelect()
+        reloaddictTypeSelect()
         form.on('select(search_type)',function(data){
            changeDataKeyShow()
         });
 
         $("#submit").click(function () {
-            var  dataType = $(" select[name='dataType'] ").val();
+            var  dictType = $(" select[name='dictType'] ").val();
             var  dictValue = $("input[name='dictValue']").val()
 
-            if(dataType==undefined){
-                dataType = ""
+            if(dictType==undefined){
+                dictType = ""
             }
             var formData = {};
-            formData['dataType'] = dataType;
+            formData['dictType'] = dictType;
             formData['dictValue'] = dictValue;
-            if( dataType==undefined || dataType=="" || dataType == "dict_type"){
+            if( dictType==undefined || dictType=="" || dictType == "dict_type"){
                 var  chineseText = $("input[name='chineseText']").val()
                 formData['chineseText'] = chineseText;
             }
             post("/api/dict/add",formData,function (res) {
                 if(res.state == 1){
-                    var  dataType = $(" select[name='dataType'] ").val();
-                    if( dataType==undefined || dataType=="" || dataType == "dict_type"){
-                        window.location.href="/page/dict/add.htm"
+                    var  dictType = $(" select[name='dictType'] ").val();
+                    if( dictType==undefined || dictType=="" || dictType == "dict_type"){
+                      //  window.location.href="/page/dict/add.htm"
+                        reloaddictTypeSelect()
                     }{
                         layer.msg(res.msg)
                     }

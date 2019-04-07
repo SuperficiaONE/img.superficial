@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
+import com.superficial.img.api.dict.tool.ConvTool;
+import com.superficial.img.api.dict.vo.FormItemSelectVO;
 import com.superficial.img.api.dict.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.ResultVO;
@@ -12,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,6 +35,13 @@ public class TbDictController {
 
     @Autowired
     private ITbDictService dictService;
+
+    /**
+     * 获取option 的数据
+     * 废弃 但不删除
+     * 通过改造是以下链接 /webapi/dict/formSelectList 初始化 select
+     * @return
+     */
     @RequestMapping("/webapi/dict/selectList")
     public ResultVO list(){
         try {
@@ -44,6 +53,14 @@ public class TbDictController {
             return ResultVO.newError("获取字典列表出现了异常"+e.getMessage());
         }
     }
+
+    /**
+     * 添加字典数据
+     * 这个很重要
+     * @param tbDict
+     * @param chineseText
+     * @return
+     */
     @RequestMapping("/api/dict/add")
     public  ResultVO add(TbDict tbDict,String chineseText){
         try {
@@ -55,10 +72,10 @@ public class TbDictController {
             }
             // 判断有无 chineseText 有表示插入的数据为 dataType 为 dict_type 或者 dict_value  "dict_type"
             if(CommonUtil.isEmpty(chineseText)){
-                if(CommonUtil.isEmpty(tbDict.getDataType())){
+                if(CommonUtil.isEmpty(tbDict.getDictType())){
                     return ResultVO.newFail("dataType不能为空");
                 }
-                Integer count= dictService.selectCount(new EntityWrapper<TbDict>().eq("data_type",tbDict.getDataType()));
+                Integer count= dictService.selectCount(new EntityWrapper<TbDict>().eq("dict_type",tbDict.getDictType()));
                 tbDict.setDictId(IdWorker.getId())
                         .setDictKey(count)
                         .setUpdateAt(new Date())
@@ -66,9 +83,9 @@ public class TbDictController {
                 dictService.insert(tbDict);
 
             }else {
-                   if("dict_type".equals(tbDict.getDataType())){
+                   if("dict_type".equals(tbDict.getDictType())){
                        // 需要插入两条
-                       Integer count = dictService.selectCount(new EntityWrapper<TbDict>().eq("data_type",tbDict.getDataType()));
+                       Integer count = dictService.selectCount(new EntityWrapper<TbDict>().eq("dict_type",tbDict.getDictType()));
                        tbDict.setDictId(IdWorker.getId())
                                .setDictKey(count)
                                .setUpdateAt(new Date())
@@ -76,11 +93,11 @@ public class TbDictController {
                        dictService.insert(tbDict);
                        tbDict.setDictId(IdWorker.getId())
                                .setDictKey(0)
-                               .setDataType(tbDict.getDictValue())
+                               .setDictType(tbDict.getDictValue())
                                .setDictValue(chineseText);
                        dictService.insert(tbDict);
                    }else {
-                       tbDict.setDataType(tbDict.getDictValue())
+                       tbDict.setDictType(tbDict.getDictValue())
                                .setDictId(IdWorker.getId())
                                .setCreateAt(new Date())
                                .setUpdateAt(new Date())
@@ -94,6 +111,34 @@ public class TbDictController {
         }catch (Exception e){
             log.error("添加字典出现异常",e);
             return  ResultVO.newError("添加字典出现异常:"+e.getMessage());
+        }
+    }
+
+    /**
+     * 初始化select用也很重要
+     * @param dictTypes
+     * @return
+     */
+    @RequestMapping("/webapi/dict/formSelectList")
+    public ResultVO getFormSelectList(@RequestParam("dictTypes")String dictTypes,Integer dictKey){
+        //dictType 不为空 则是获取 字典表中的 dictKey 为0的数据
+        try {
+             if(CommonUtil.isEmpty(dictKey)){
+                 List<SelectVO<String>> list  = dictService.getSelectList();
+                 FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
+                 formItemSelectVO.setElementId("dictType");
+                 formItemSelectVO.setLabelText("字典类型");
+                 formItemSelectVO.setList(list);
+                 return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
+             }else {
+                 List<SelectVO<String>> list  = dictService.getSelectList(dictTypes);
+                 List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
+                 return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList);
+             }
+
+        }catch (Exception e){
+            log.info("获取数据出现异常",e);
+            return ResultVO.newError("获取数据出现异常"+e.getMessage());
         }
     }
 }

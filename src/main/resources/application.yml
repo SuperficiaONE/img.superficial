@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: test
+    active: home
   freemarker:
     cache: false
     check-template-location: true

@@ -2,8 +2,8 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    password: jyx9595
-    url: jdbc:mysql://localhost:3307/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&verifyServerCertificate=false&useSSL=false
+    password: wozaizheli1995
+    url: jdbc:mysql://127.0.0.1:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useSSL=false
     username: root
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1
@@ -21,7 +21,13 @@ spring:
     filters: stat,wall,slf4j
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     useGlobalDataSourceStat: true
-
+es:
+  conn_timeout: 5000
+  read_timeout: 60000
+  script.inline: true
+  script.indexed: true
+  #address: http://127.0.0.1:9200,http://127.0.0.1:9201,http://127.0.0.1:9202
+  address: http://127.0.0.1:9200
 server:
   port: 8100
 logging:
