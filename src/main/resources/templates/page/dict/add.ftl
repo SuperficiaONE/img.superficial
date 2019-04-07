@@ -95,12 +95,13 @@
 
     }
     
-    layui.use(['form', 'jquery'], function () {
+    layui.use(['layer','form', 'jquery'], function () {
        // var $ = layer.jquery;
 
         var w = document.documentElement.clientWidth;
         var h = document.documentElement.clientHeight;
         var form  = layui.form;
+        var layer = layui.layer;
         reloaddictTypeSelect()
         form.on('select(search_type)',function(data){
            changeDataKeyShow()
@@ -126,10 +127,8 @@
                     if( dictType==undefined || dictType=="" || dictType == "dict_type"){
                       //  window.location.href="/page/dict/add.htm"
                         reloaddictTypeSelect()
-                    }{
-                        layer.msg(res.msg)
                     }
-
+                    layer.msg(res.msg)
                 }else {
                     layer.open({
                         title: '提示'

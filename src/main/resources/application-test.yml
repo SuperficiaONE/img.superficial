@@ -31,6 +31,6 @@ es:
 logging:
   file: school
   level:
-    top.superficial.blogcollege.mapper: DEBUG
+    com.superficial.img.api.*.mapper: DEBUG
 server:
   port: 8100

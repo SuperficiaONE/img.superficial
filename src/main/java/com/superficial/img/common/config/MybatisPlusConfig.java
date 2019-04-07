@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.superficial.img.*.mapper")
+@MapperScan("com.superficial.img.api.*.mapper")
 public class MybatisPlusConfig {
 	/**
 	 * 分页插件

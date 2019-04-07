@@ -1,6 +1,8 @@
 <html>
 <head>
 <title>添加答案</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+
 </head>
 <body>
 <div>
@@ -13,6 +15,8 @@
     <button id="add">添加答案</button> <button id="clear">清空答案</button>
 </div>
 </body>
+<script src="/static/layui/layui.js" charset="utf-8"></script>
+
 <script src="/static/jquery/jquery-1.9.1.min.js"></script>
 <script src="/static/jquery/base.js"></script>
 <script>
@@ -44,19 +48,24 @@
     var add  = document.getElementById("add")
     var clear = document.getElementById("clear")
 
-    add.addEventListener("click",function (ev) {
-        var uri = "/api/answer/add?content="+$("#content").val()+"&englishContent="+$("#englishContent").val()
-          get(uri,function (data) {
-              console.log(data)
-              if(data.state == 1){
-                  toast(data.msg+data.data.answerId,1200)
-              }else {
-                  alert(data.msg)
-              }
-          })
+    layui.use(['layer'],function () {
+        var layer = layui.layer;
+        add.addEventListener("click",function (ev) {
+            var uri = "/api/answer/add?content="+$("#content").val()+"&englishContent="+$("#englishContent").val()
+            get(uri,function (data) {
+                if(data.state == 1){
+                    layer.msg(data.msg)
+                }else {
+                    layer.alert(data.msg)
+                }
+            })
+        })
+        clear.addEventListener("click",function (ev) {
+            $("input").val("")
+        })
     })
-    clear.addEventListener("click",function (ev) {
-        $("input").val("")
-    })
+
+
+
 </script>
 </html>
