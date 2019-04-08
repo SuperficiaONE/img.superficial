@@ -21,7 +21,7 @@ import java.util.List;
 @Repository
 public interface TbDictMapper extends BaseMapper<TbDict> {
 
-    List<SelectVO<String>> getSelectList();
+    List<SelectVO> getSelectList();
 
-    List<SelectVO<String>> getSelectVOList( @Param("dictTypeList") List<String> dictTypeList);
+    List<SelectVO> getSelectVOList( @Param("dictTypeList") List<String> dictTypeList);
 }

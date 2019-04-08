@@ -24,12 +24,12 @@ import java.util.List;
 public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> implements ITbDictService {
 
     @Override
-    public List<SelectVO<String>> getSelectList() {
+    public List<SelectVO> getSelectList() {
         return this.baseMapper.getSelectList();
     }
 
     @Override
-    public List<SelectVO<String>> getSelectList(String dictTypes) {
+    public List<SelectVO> getSelectList(String dictTypes) {
         if(CommonUtil.isEmpty(dictTypes)){
             return  null;
         }

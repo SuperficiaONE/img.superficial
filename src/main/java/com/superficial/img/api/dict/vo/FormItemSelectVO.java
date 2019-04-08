@@ -8,5 +8,5 @@ import java.util.List;
 public class FormItemSelectVO {
     String elementId;
     String labelText;
-    List<SelectVO<String>> list;
+    List<SelectVO> list;
 }

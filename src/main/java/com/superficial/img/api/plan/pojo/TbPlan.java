@@ -1,5 +1,6 @@
 package com.superficial.img.api.plan.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class TbPlan implements Serializable {
     /**
      * 计划表的主键
      */
+    @TableId
     private Long planId;
     /**
      * 创建人

@@ -45,7 +45,7 @@ public class TbDictController {
     @RequestMapping("/webapi/dict/selectList")
     public ResultVO list(){
         try {
-            List<SelectVO<String>> list ;
+            List<SelectVO> list ;
             list = dictService.getSelectList();
             return  ResultVO.newSuccess("获取字典列表成功",list);
         }catch (Exception e){
@@ -123,15 +123,15 @@ public class TbDictController {
     public ResultVO getFormSelectList(@RequestParam("dictTypes")String dictTypes,Integer dictKey){
         //dictType 不为空 则是获取 字典表中的 dictKey 为0的数据
         try {
-             if(CommonUtil.isEmpty(dictKey)){
-                 List<SelectVO<String>> list  = dictService.getSelectList();
+             if(!CommonUtil.isEmpty(dictKey)){
+                 List<SelectVO> list  = dictService.getSelectList();
                  FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
                  formItemSelectVO.setElementId("dictType");
                  formItemSelectVO.setLabelText("字典类型");
                  formItemSelectVO.setList(list);
                  return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
              }else {
-                 List<SelectVO<String>> list  = dictService.getSelectList(dictTypes);
+                 List<SelectVO> list  = dictService.getSelectList(dictTypes);
                  List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
                  return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList);
              }

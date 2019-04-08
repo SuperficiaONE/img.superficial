@@ -1,6 +1,20 @@
 --  DDL
 
 
+-- 表的字段解释
+CREATE TABLE `tb` (
+  `tb_id` bigint(20) NOT NULL,
+  `tb_type` tinyint(4) NOT NULL DEFAULT '0',
+  `tb_parent_id` bigint(20) DEFAULT NULL,
+  `tb_mean` varchar(50) NOT NULL COMMENT '字段含义/表的含义',
+  `tb_name` varchar(50) NOT NULL COMMENT '字段名称',
+  `create_at` datetime NOT NULL,
+  `update_at` datetime NOT NULL,
+  PRIMARY KEY (`tb_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='这张表用于数据表格头部使用';
+
+
+
 CREATE TABLE `tb_plan` (
   `plan_id` bigint(20) NOT NULL COMMENT '计划表的主键',
   `user_id` bigint(20) DEFAULT NULL COMMENT '创建人',

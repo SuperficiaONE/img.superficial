@@ -25,24 +25,11 @@
                 <input class="layui-input" placeholder="请输入菜单链接" name="url">
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">后台链接：</label>
-            <div class="layui-input-inline">
-                <select class="layui-select" style="height: 30px;" name="menuBack">
-                    <option value="0">非后台链接</option>
-                    <option value="1">后台链接</option>
-                </select>
-            </div>
+        <div class="layui-form-item" id="menuLevel">
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">需要登录：</label>
-            <div class="layui-input-inline">
-                <select class="layui-select" style="height: 30px;" name="menuLogin">
-                    <option value="0">不需要登录</option>
-                    <option value="1">需要登录</option>
-                </select>
-            </div>
-
+        <div class="layui-form-item" id="menuBack">
+        </div>
+        <div class="layui-form-item" id="menuLogin">
         </div>
         <div class="layui-form-item" style="padding-bottom: 20px;">
             <div class="layui-input-block">
@@ -59,11 +46,12 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
 
+
     layui.use(['form', 'jquery', 'layer'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
 
-
+        initSelects("/webapi/dict/formSelectList?dictTypes=menuLevel,menuLogin,menuBack")
         $("#submit").click(function () {
             var menuName = $("input[name='menuName']").val();
             var url = $("input[name='url']").val();

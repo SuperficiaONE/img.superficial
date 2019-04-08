@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
-public class SelectVO<T> {
-    T dictValue ;
+public class SelectVO {
+    String dictValue ;
     String dictText ;
     @JsonIgnore
     String dictType ;
@@ -17,7 +17,7 @@ public class SelectVO<T> {
         return this;
     }
 
-    public SelectVO setDictValue(T dictValue) {
+    public SelectVO setDictValue(String dictValue) {
         this.dictValue = dictValue;
         return this;
     }

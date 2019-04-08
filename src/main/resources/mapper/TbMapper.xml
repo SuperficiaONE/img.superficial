@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superficial.img.api.tb.mapper.TbMapper">
+
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.tb.pojo.Tb" autoMapping="true">
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tb_id, tb_type, tb_parent_id, tb_mean, tb_name, create_at, update_at
+    </sql>
+   <select id="getSelectVOList" resultType="com.superficial.img.api.dict.vo.SelectVO">
+       select  tb_parent_id as dict_value ,tb_mean as dict_text from tb where ISNULL(tb_parent_id)
+   </select>
+</mapper>

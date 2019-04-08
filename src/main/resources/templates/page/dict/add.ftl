@@ -13,12 +13,8 @@
 <form class="layui-form" onsubmit="return false;">
     <div style="margin-left: auto;margin-right: auto;margin-top: 30px; width: 45%; border-radius: 20px;background-color: rgba(100,100,100,0.2);padding-bottom: 20px">
         <h2 style="text-align: center;margin-bottom: 20px;padding-top: 10px;">添加字典</h2>
-        <div class="layui-form-item">
-            <label class="layui-form-label">添加的类型</label>
-            <div class="layui-input-inline" >
-                <select class="layui-select" lay-filter="search_type" style="height: 30px;" name="dictType">
-                </select>
-            </div>
+        <div class="layui-form-item" id="dictType">
+
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">添加的value</label>
@@ -47,53 +43,32 @@
 <script src="/static/jquery/base.js" charset="utf-8"></script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-    function reloaddictTypeSelect() {
-        addWaiting();
-        getAsync("/webapi/dict/selectList",  false,function (res) {
-            setTimeout(function () {
-                removeWaiting()
-            },1000)
-            if (res.state == 1) {
-                $("select[name='dictType']").html("")
-                if (res.data != undefined) {
-                    for (var i = 0; i < res.data.length; i++) {
-                         var item =res.data[i]
-                        $(" select[name='dictType'] ").append("<option value='"+item.dictValue+"'>"+item.dictText+"</option>")
-                    }
-
-                }
-                renderForm()
-                changeDataKeyShow()
-            } else {
-
-            }
-        })
-    }
-
-    $(" select[name='dictType'] ").change(function () {
-            changeDataKeyShow();
-    })
     function changeDataKeyShow() {
-      var  dictType = $(" select[name='dictType'] ").val();
-      if(dictType == undefined || dictType == ""){
-           $("input[name='dictValue']").val("dict_type")
-           $("input[name='chineseText']").val("字典类型")
-           $("input[name='chineseText']").attr("disabled","true")
-           $("input[name='dictValue']").attr("disabled","true")
-           $("button[type='reset']").hide()
-      }else {
-          $("input[name='dictValue']").val("")
-          $("input[name='dictValue']").removeAttr("disabled")
-          $("input[name='chineseText']").removeAttr("disabled")
-          $("button[type='reset']").show()
-      }
-      if( dictType==undefined || dictType=="" || dictType == "dict_type"){
-          $(".chineseText").show()
-      }else {
-          $(".chineseText").hide()
-      }
+        var  dictType = $(" select[name='dictType'] ").val();
+        if(dictType == undefined || dictType == ""){
+            $("input[name='dictValue']").val("dict_type")
+            $("input[name='chineseText']").val("字典类型")
+            $("input[name='chineseText']").attr("disabled","true")
+            $("input[name='dictValue']").attr("disabled","true")
+            $("button[type='reset']").hide()
+        }else {
+            $("input[name='dictValue']").val("")
+            $("input[name='dictValue']").removeAttr("disabled")
+            $("input[name='chineseText']").removeAttr("disabled")
+            $("button[type='reset']").show()
+        }
+        if( dictType==undefined || dictType=="" || dictType == "dict_type"){
+            $(".chineseText").show()
+        }else {
+            $(".chineseText").hide()
+        }
 
     }
+    function reloaddictTypeSelect() {
+        initSelect("/webapi/dict/formSelectList?dictTypes=11&dictKey=0",changeDataKeyShow)
+    }
+
+
     
     layui.use(['layer','form', 'jquery'], function () {
        // var $ = layer.jquery;
@@ -110,7 +85,6 @@
         $("#submit").click(function () {
             var  dictType = $(" select[name='dictType'] ").val();
             var  dictValue = $("input[name='dictValue']").val()
-
             if(dictType==undefined){
                 dictType = ""
             }

@@ -22,4 +22,9 @@ public class PageController {
     public String getDefault(){
         return "/common/index";
     }
+    @RequestMapping("/page/tb/add.htm")
+    public String getTbAdd(){
+        return "/page/tb/add";
+    }
+
 }

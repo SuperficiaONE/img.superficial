@@ -1,5 +1,6 @@
 package com.superficial.img.api.dict.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -21,6 +22,7 @@ public class TbDict implements Serializable {
     /**
      * 字典id
      */
+    @TableId
     private Long dictId;
     /**
      * 字典的值
