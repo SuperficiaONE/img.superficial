@@ -13,6 +13,15 @@ CREATE TABLE `tb` (
   PRIMARY KEY (`tb_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='这张表用于数据表格头部使用';
 
+CREATE TABLE `tb_dict` (
+  `dict_id` bigint(20) NOT NULL COMMENT '字典表id',
+  `dict_value` varchar(50) NOT NULL COMMENT '字典的值',
+  `dict_key` tinyint(4) NOT NULL COMMENT '字典的key key为0表示这个type的中文含义',
+  `dict_type` varchar(25) NOT NULL COMMENT '字典类型',
+  `create_at` datetime NOT NULL COMMENT '创建时间',
+  `update_at` datetime NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`dict_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 CREATE TABLE `tb_plan` (
