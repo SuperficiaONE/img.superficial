@@ -4,6 +4,8 @@ package com.superficial.img.api.menu.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.superficial.img.api.dict.vo.FormItemSelectVO;
+import com.superficial.img.api.dict.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -71,6 +74,29 @@ public class TbMenuController {
         }
 
     }
+
+    @RequestMapping("/webapi/menu/getParentIdSelectVo")
+    public  ResultVO getParentIdSelectVo(Integer menuLevel){
+        try {
+            FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
+            formItemSelectVO.setElementId("parentId");
+            formItemSelectVO.setList(new ArrayList<>());
+            formItemSelectVO.setLabelText("上级菜单");
+            if(CommonUtil.isEmpty(menuLevel) || menuLevel == 0){
+                return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
+            }
+
+            List<SelectVO> selectVOList = menuService.getSelectVoList(menuLevel-1);
+           if( !CommonUtil.isEmpty(selectVOList)){
+               formItemSelectVO.setList(selectVOList);
+           }
+            return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
+        }catch (Exception e){
+            log.error("获取数据出现了异常",e);
+            return ResultVO.newError("获取数据出现了异常"+e.getMessage());
+        }
+    }
+
     @RequestMapping("/api/menu/add")
     public ResultVO add(TbMenu menu){
         try {

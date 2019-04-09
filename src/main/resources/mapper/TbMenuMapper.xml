@@ -15,4 +15,7 @@
         menu_id,parent_id ,menu_name,menu_level, menu_order, url, menu_login, menu_back, create_at, update_at
     </sql>
 
+    <select id="getSelectVoList" resultType="com.superficial.img.api.dict.vo.SelectVO">
+        select  parent_id as dict_value , menu_name as dict_text from tb_menu where menu_level = #{menuLevel}
+    </select>
 </mapper>

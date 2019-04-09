@@ -1,7 +1,10 @@
 package com.superficial.img.api.menu.service;
 
+import com.superficial.img.api.dict.vo.SelectVO;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.baomidou.mybatisplus.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.service.IService;
  */
 public interface ITbMenuService extends IService<TbMenu> {
 
+    List<SelectVO> getSelectVoList(int menuLevel);
 }

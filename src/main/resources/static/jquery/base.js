@@ -82,7 +82,7 @@ function addSelect(data) {
     $("#" + data.elementId).html("");
     $("#" + data.elementId).append(" <label class=\"layui-form-label\">" + data.labelText + "</label>\n" +
         "            <div class=\"layui-input-inline\" >\n" +
-        "                <select class=\"layui-select\" lay-filter=\"search_type\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
+        "                <select class=\"layui-select\" lay-filter=\""+data.elementId+"\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
         "                </select>\n" +
         "            </div> ")
     var list = data.list;
@@ -101,7 +101,8 @@ function addSelect(data) {
  * @param changeFnc
  */
 function initSelect(url, changeFnc) {
-    layui.use(['layer'], function () {
+    layui.use(['layer','form'], function () {
+        var  form = layui.form;
         addWaiting();
         var layer = layui.layer
         getAsync(url, false, function (res) {
@@ -111,10 +112,7 @@ function initSelect(url, changeFnc) {
                     addSelect(data);
                     if (changeFnc != undefined) {
                         changeFnc();
-                        $("select[name='" + data.elementId + "']").click(function () {
-                            changeFnc();
-                        })
-
+                       form.on("select("+data.elementId+")",changeFnc);
                     }
                     renderForm();
                 }

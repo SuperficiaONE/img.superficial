@@ -26,6 +26,9 @@
             </div>
         </div>
         <div class="layui-form-item" id="menuLevel">
+
+        </div>
+        <div class="layui-form-item" id="parentId">
         </div>
         <div class="layui-form-item" id="menuBack">
         </div>
@@ -46,12 +49,17 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
 
+    function initParentId(){
+        var menuLevel = $("select[name='menuLevel']").val()
+        initSelect("/webapi/menu/getParentIdSelectVo?menuLevel="+menuLevel,undefined);
+    }
 
     layui.use(['form', 'jquery', 'layer'], function () {
         var $ = layui.jquery;
         var layer = layui.layer;
-
-        initSelects("/webapi/dict/formSelectList?dictTypes=menuLevel,menuLogin,menuBack")
+        var form = layui.form;
+        initSelects("/webapi/dict/formSelectList?dictTypes=menuLogin,menuBack")
+        initSelect("/webapi/dict/formSelectList?dictTypes=menuLevel&dictKey=1",initParentId)
         $("#submit").click(function () {
             var menuName = $("input[name='menuName']").val();
             var url = $("input[name='url']").val();
@@ -72,12 +80,17 @@
             }
             var isBack = $("select[name='menuBack']").val();
             var needLogin = $("select[name='menuLogin']").val();
-
+            var menuLevel = $("select[name='menuLevel']").val();
+            var parentId = $("select[name='parentId']").val();
             var formData = {};
             formData["menuName"] = menuName;
             formData["url"] = url;
             formData["menuBack"] = isBack;
             formData["menuLogin"] =  needLogin;
+            formData["menuLevel"] =  menuLevel;
+            if (parentId!=undefined) {
+                formData["parentId"] = parentId
+            }
             console.log(formData)
             if (flag) {
                 post("/api/menu/add", formData, function (res) {

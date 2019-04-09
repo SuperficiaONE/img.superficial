@@ -116,6 +116,9 @@ public class TbDictController {
 
     /**
      * 初始化select用也很重要
+     * dictKey 0 获取 字典类型
+     * dictKey 1 获取 单个
+     * 为空获取 列表
      * @param dictTypes
      * @return
      */
@@ -124,12 +127,26 @@ public class TbDictController {
         //dictType 不为空 则是获取 字典表中的 dictKey 为0的数据
         try {
              if(!CommonUtil.isEmpty(dictKey)){
-                 List<SelectVO> list  = dictService.getSelectList();
-                 FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
-                 formItemSelectVO.setElementId("dictType");
-                 formItemSelectVO.setLabelText("字典类型");
-                 formItemSelectVO.setList(list);
-                 return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
+                 if(dictKey == 0){
+                     List<SelectVO> list  = dictService.getSelectList();
+                     FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
+                     formItemSelectVO.setElementId("dictType");
+                     formItemSelectVO.setLabelText("字典类型");
+                     formItemSelectVO.setList(list);
+                     return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
+                 }else if (dictKey == 1){
+                     List<SelectVO> list  = dictService.getSelectList(dictTypes);
+                     List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
+                     if(CommonUtil.isEmpty(formItemSelectVOList)){
+                         return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList);
+                     }else {
+                         return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList.get(0));
+                     }
+
+                 }else {
+                     return  ResultVO.newSuccess("获取数据成功",new FormItemSelectVO());
+                 }
+
              }else {
                  List<SelectVO> list  = dictService.getSelectList(dictTypes);
                  List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
