@@ -123,8 +123,11 @@ public class TbDictController {
      * @return
      */
     @RequestMapping("/webapi/dict/formSelectList")
-    public ResultVO getFormSelectList(@RequestParam("dictTypes")String dictTypes,Integer dictKey){
+    public ResultVO getFormSelectList(@RequestParam("dictTypes")String dictTypes,Integer dictKey,Boolean containAll){
         //dictType 不为空 则是获取 字典表中的 dictKey 为0的数据
+        if(CommonUtil.isEmpty(containAll)){
+            containAll = false;
+        }
         try {
              if(!CommonUtil.isEmpty(dictKey)){
                  if(dictKey == 0){
@@ -136,7 +139,7 @@ public class TbDictController {
                      return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
                  }else if (dictKey == 1){
                      List<SelectVO> list  = dictService.getSelectList(dictTypes);
-                     List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
+                     List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list,containAll);
                      if(CommonUtil.isEmpty(formItemSelectVOList)){
                          return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList);
                      }else {
@@ -149,7 +152,7 @@ public class TbDictController {
 
              }else {
                  List<SelectVO> list  = dictService.getSelectList(dictTypes);
-                 List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list);
+                 List<FormItemSelectVO> formItemSelectVOList = ConvTool.changeToFormItemSelectVOList(list,containAll);
                  return  ResultVO.newSuccess("获取数据成功",formItemSelectVOList);
              }
 

@@ -1,6 +1,7 @@
 package com.superficial.img.api.menu.controller;
 
 
+import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
@@ -63,7 +64,7 @@ public class TbMenuController {
 
             Integer count  = menuService.selectCount(wrapper);
             List<TbMenu> menuList = menuService.selectList(
-                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)+","+ limit)
+                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)*limit+","+ limit)
                   );
 
             return new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(menuList);
@@ -85,7 +86,6 @@ public class TbMenuController {
             if(CommonUtil.isEmpty(menuLevel) || menuLevel == 0){
                 return  ResultVO.newSuccess("获取数据成功",formItemSelectVO);
             }
-
             List<SelectVO> selectVOList = menuService.getSelectVoList(menuLevel-1);
            if( !CommonUtil.isEmpty(selectVOList)){
                formItemSelectVO.setList(selectVOList);
@@ -117,8 +117,6 @@ public class TbMenuController {
             }
             Integer count = menuService.selectCount(new EntityWrapper<TbMenu>()
                     .eq("menu_name",menu.getMenuName())
-                    .or()
-                    .eq("url",menu.getUrl())
             );
             if(count>0){
                 return ResultVO.newFail("添加菜单失败：该链接可能已存在");
@@ -131,6 +129,7 @@ public class TbMenuController {
             return ResultVO.newError("添加菜单出现了异常");
         }
     }
+
 
 }
 

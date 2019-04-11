@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
+@RequestMapping("/page")
 public class PageController {
 
 
@@ -22,7 +23,7 @@ public class PageController {
     public String getDefault(){
         return "/common/index";
     }
-    @RequestMapping("/page/tb/add.htm")
+    @RequestMapping("/tb/add.htm")
     public String getTbAdd(){
         return "/page/tb/add";
     }

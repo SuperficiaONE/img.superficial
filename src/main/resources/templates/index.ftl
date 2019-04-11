@@ -17,16 +17,10 @@
     <label style="height: 30px;font-size:20px; ">搜索链接：</label>
     <input name="searchText" style="height: 30px;width: 220px" placeholder="请输入要搜索的名称">
     <button class="layui-btn" id="search">搜索</button>
-    <select name="menuBack" style="height: 30px;">
-        <option value="">所有</option>
-        <option value="2">非后台链接</option>
-        <option value="1">后台链接</option>
-    </select>
-    <select name="menuLogin" style="height: 30px;">
-        <option value="">所有</option>
-        <option value="2">不需要登录</option>
-        <option value="1">需要登录</option>
-    </select>
+    <div class="layui-form-item" style="width:400px;text-align: center;margin-top: 20px; margin-left: auto;margin-right: auto" id="menuBack">
+    </div>
+    <div class="layui-form-item" style="width:400px;text-align: center;margin-left: auto;margin-right: auto" id="menuLogin">
+    </div>
 </div>
 
 
@@ -52,7 +46,7 @@
         var table = layui.table;
         var w =  document.documentElement.clientWidth;
         var h =  document.documentElement.clientHeight;
-
+        initSelects("/webapi/dict/formSelectList?dictTypes=menuLogin,menuBack&containAll=true")
         var options = {
             elem: '#dataTable'
             ,height: h*0.6
@@ -60,11 +54,12 @@
             , url: '/webapi/menu/search' //数据接口
             , page: true //开启分页
             , cols: [[ //表头
+                {type: 'numbers',fixed: 'left'},
                 {field: 'menuId', title: 'ID', sort: false, fixed: 'left'}
                 , {field: 'menuName', title: '菜单名称', templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
                     }}
-                , {field: 'menuType', title: '类型'}
+                , {field: 'menuLevel', title: '类型'}
                 , {field: 'url', title: '链接', sort: false}
                 , {field: 'menuLogin', title: '需要登录', templet: function (d) {
                         if(d.menuLogin == 1){

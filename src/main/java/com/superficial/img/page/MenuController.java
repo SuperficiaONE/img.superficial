@@ -13,4 +13,8 @@ public class MenuController {
         log.info("即将进入菜单添加页面");
         return "/page/menu/add";
     }
+    @RequestMapping("/list.htm")
+    public String getIndex(){
+        return "index";
+    }
 }

@@ -16,6 +16,6 @@
     </sql>
 
     <select id="getSelectVoList" resultType="com.superficial.img.api.dict.vo.SelectVO">
-        select  parent_id as dict_value , menu_name as dict_text from tb_menu where menu_level = #{menuLevel}
+        select  menu_id as dict_value , menu_name as dict_text from tb_menu where menu_level = #{menuLevel}
     </select>
 </mapper>

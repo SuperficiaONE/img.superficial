@@ -23,7 +23,7 @@ public class GeneratorCode {
 		String packageName = "";
 		//user -> UserService, 设置成true: user -> IUserService
 		//指定生成的表名
-		String[] tableNames = new String[]{"tb"
+		String[] tableNames = new String[]{"tb_url"
 		};
 		generateByTables(true, packageName, tableNames);
 	}
