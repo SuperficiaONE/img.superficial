@@ -145,4 +145,114 @@ public class TableVO<T,D> {
      * 方法渲染方式必填
      */
     List<List<TableColVO>> cols;
+
+    public TableVO setElem(String elem) {
+        this.elem = elem;
+        return this;
+    }
+
+    public TableVO setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+
+    public TableVO setToolbar(T toolbar) {
+        this.toolbar = toolbar;
+        return this;
+    }
+
+    public TableVO setDefaultToolbar(List<String> defaultToolbar) {
+        this.defaultToolbar = defaultToolbar;
+        return this;
+    }
+
+    public TableVO setWidth(Double width) {
+        this.width = width;
+        return this;
+    }
+
+    public TableVO setHeight(Double height) {
+        this.height = height;
+        return this;
+    }
+
+    public TableVO setCellMinWidth(Double cellMinWidth) {
+        this.cellMinWidth = cellMinWidth;
+        return this;
+    }
+
+    public TableVO setData(D data) {
+        this.data = data;
+        return this;
+    }
+
+    public TableVO setTotalRow(Boolean totalRow) {
+        this.totalRow = totalRow;
+        return this;
+    }
+
+    public TableVO setPage(Boolean page) {
+        this.page = page;
+        return this;
+    }
+
+    public TableVO setLimit(Integer limit) {
+        this.limit = limit;
+        return this;
+    }
+
+    public TableVO setLimits(List<Integer> limits) {
+        this.limits = limits;
+        return this;
+    }
+
+    public TableVO setLoading(Boolean loading) {
+        this.loading = loading;
+        return this;
+    }
+
+    public TableVO setTitle(String title) {
+        this.title = title;
+        return this;
+    }
+
+    public TableVO setText(String text) {
+        this.text = text;
+        return this;
+    }
+
+    public TableVO setAutoSort(Boolean autoSort) {
+        this.autoSort = autoSort;
+        return this;
+    }
+
+    public TableVO setInitSort(String initSort) {
+        this.initSort = initSort;
+        return this;
+    }
+
+    public TableVO setId(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public TableVO setSkin(String skin) {
+        this.skin = skin;
+        return this;
+    }
+
+    public TableVO setEven(Boolean even) {
+        this.even = even;
+        return this;
+    }
+
+    public TableVO setSize(String size) {
+        this.size = size;
+        return this;
+    }
+
+    public TableVO setCols(List<List<TableColVO>> cols) {
+        this.cols = cols;
+        return this;
+    }
 }
