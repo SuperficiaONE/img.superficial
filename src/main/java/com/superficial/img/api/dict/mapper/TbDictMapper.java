@@ -2,7 +2,7 @@ package com.superficial.img.api.dict.mapper;
 
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;

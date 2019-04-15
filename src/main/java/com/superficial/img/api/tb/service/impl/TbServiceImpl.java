@@ -1,6 +1,6 @@
 package com.superficial.img.api.tb.service.impl;
 
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.mapper.TbMapper;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.superficial.img.api.tb.service.ITbService;

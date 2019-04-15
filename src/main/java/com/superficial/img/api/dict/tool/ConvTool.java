@@ -1,7 +1,7 @@
 package com.superficial.img.api.dict.tool;
 
-import com.superficial.img.api.dict.vo.FormItemSelectVO;
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.FormItemSelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
 
 import java.util.ArrayList;

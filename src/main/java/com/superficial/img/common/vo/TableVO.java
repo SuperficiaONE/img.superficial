@@ -1,6 +1,6 @@
-package com.superficial.img.api.dict.vo;
+package com.superficial.img.common.vo;
 
-import com.superficial.img.api.tb.vo.TableColVO;
+import com.superficial.img.common.vo.TableColVO;
 import lombok.Data;
 
 import java.util.List;

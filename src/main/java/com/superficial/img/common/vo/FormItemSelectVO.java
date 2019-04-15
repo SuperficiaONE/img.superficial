@@ -1,4 +1,4 @@
-package com.superficial.img.api.dict.vo;
+package com.superficial.img.common.vo;
 
 import lombok.Data;
 

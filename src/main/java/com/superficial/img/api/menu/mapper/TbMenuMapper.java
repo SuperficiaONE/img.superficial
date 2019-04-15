@@ -1,6 +1,6 @@
 package com.superficial.img.api.menu.mapper;
 
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;

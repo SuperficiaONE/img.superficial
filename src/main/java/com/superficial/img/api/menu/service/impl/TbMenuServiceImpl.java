@@ -1,6 +1,6 @@
 package com.superficial.img.api.menu.service.impl;
 
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.menu.mapper.TbMenuMapper;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.menu.service.ITbMenuService;

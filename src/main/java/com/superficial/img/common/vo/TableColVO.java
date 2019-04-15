@@ -1,4 +1,4 @@
-package com.superficial.img.api.tb.vo;
+package com.superficial.img.common.vo;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,6 +1,6 @@
 package com.superficial.img.api.menu.service;
 
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.baomidou.mybatisplus.service.IService;
 

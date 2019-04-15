@@ -3,8 +3,8 @@ package com.superficial.img.api.tb.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
-import com.superficial.img.api.dict.vo.FormItemSelectVO;
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.FormItemSelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.common.tool.CommonUtil;
@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;

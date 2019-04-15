@@ -5,7 +5,7 @@ import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
 import org.springframework.stereotype.Service;
 

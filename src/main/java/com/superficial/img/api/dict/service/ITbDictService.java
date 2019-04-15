@@ -2,7 +2,7 @@ package com.superficial.img.api.dict.service;
 
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.service.IService;
-import com.superficial.img.api.dict.vo.SelectVO;
+import com.superficial.img.common.vo.SelectVO;
 
 import java.util.List;
 
