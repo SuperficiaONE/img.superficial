@@ -15,4 +15,7 @@
    <select id="getSelectVOList" resultType="com.superficial.img.common.vo.SelectVO">
        select  tb_parent_id as dict_value ,tb_mean as dict_text from tb where ISNULL(tb_parent_id)
    </select>
+    <select id="selectTableHeaderVoList" resultType="com.superficial.img.api.tb.vo.TableHeaderVO">
+        select  tb_mean as title ,tb_name as field from tb where tb_type = #{type}
+    </select>
 </mapper>

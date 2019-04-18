@@ -6,7 +6,8 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+  <#include  "/commonCss.ftl">
+
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
 
@@ -28,12 +29,8 @@
     <table id="dataTable" class="layui-table ">
     </table>
 </div>
+<#include  "/commonJS.ftl">
 
-
-<script src="/static/layui/layui.js" charset="utf-8"></script>
-<script src="/static/jquery/jquery-1.9.1.min.js" charset="utf-8"></script>
-
-<script src="/static/jquery/base.js" charset="utf-8"></script>
 
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script type="text/html" id="titleTpl">
@@ -77,7 +74,7 @@
                     }}
                 , {field: 'menuOrder', title: '排序', sort: false}
                 , {field: 'createAt', title: '创建时间',  sort: false}
-                , {field: 'updateAt', title: '更新时间',}
+                , {field: 'updateAt', title: '更新时间'}
                 , {
                     field: 'op', title: '操作',  templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + "访问" + "</a>"

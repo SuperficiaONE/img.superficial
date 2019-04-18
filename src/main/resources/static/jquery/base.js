@@ -9,11 +9,22 @@ function post(uri, formData, success) {
         data: formData,
         success: success,
         error: function () {
-            alert("网络异常")
+            showError("网络异常，稍后重新尝试")
         }
     });
 }
-
+function showError(msg) {
+    showMsg(msg,2)
+}
+function showSuccess(msg) {
+ showMsg(msg,1)
+}
+function  showMsg(msg,icon) {
+    layui.use(['layer'],function () {
+        var layer = layui.layer;
+        layer.msg(msg, {icon: icon});
+    })
+}
 function renderForm() {
     layui.use('form', function () {
         var form = layui.form;
@@ -28,7 +39,7 @@ function getAsync(uri, isAnsy, success) {
         async: isAnsy,
         success: success,
         error: function () {
-            alert("网络异常")
+            showError("网络异常，稍后重新尝试")
         }
     });
 }
@@ -142,7 +153,7 @@ function postAsyn(uri, formData, isAnsy, success) {
         async: isAnsy,
         success: success,
         error: function () {
-            alert("网络异常")
+            showError("网络异常，稍后重新尝试")
         }
     });
 }
@@ -153,7 +164,7 @@ function get(uri, success) {
         url: baseUrl + uri,
         success: success,
         error: function () {
-            alert("网络异常")
+            showError("网络异常，稍后重新尝试")
         }
     });
 }
@@ -228,4 +239,40 @@ function addMenuUrl(url, menu_name) {
     document.body.appendChild(m);
 
 }
+function  initArtTemplate(url) {
+    getAsync(url,false, function (res) {
+          if(res.state==1){
+              if(res.data!=undefined){
+                  for (var i = 0; i < res.data.length; i++) {
+                     $("body").append(res.data[i])
+                  }
+              }
+          }else{
+              showError(res.msg)
+          }
+    })
+}
+function  tipsBind(className) {
 
+$("."+className).hover(function() {
+    var self = this;
+    var width = $(self).width()
+    var scrollWidth = self.scrollWidth;
+    if(scrollWidth > width) {
+        $.pt({
+            target: $(self),
+            position: 't', // 默认属性值
+            align: 'c',
+            content: "<div style='overflow:hidden'>" + $(self).text() + "</div>",
+            leaveClose: true
+        });
+    }
+    },function (){
+        var self = this;
+        var width = $(self).width()
+        var scrollWidth = self.scrollWidth;
+        if(scrollWidth > width) {
+            $(".pt").css("display","none")
+        }
+    });
+}

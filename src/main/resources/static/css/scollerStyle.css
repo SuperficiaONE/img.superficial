@@ -1,0 +1,43 @@
+	/* 滚动条整体部分，其中的属性有width,height,background,border（就和一个块级元素一样）*/
+	
+	*::-webkit-scrollbar ,html::-webkit-scrollbar,body::-webkit-scrollbar{
+		width: 10px;
+		height: 10px;
+		border-radius: 4px;
+	}
+	/*滚动条两端的按钮。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果。*/
+	
+	*::-webkit-scrollbar-button ,html::-webkit-scrollbar-button ,body::-webkit-scrollbar-button {
+		background-color: linen;
+		border-top-left-radius: 4px;
+		border-top-right-radius: 4px;
+		display: none;
+	}
+	/* 外层轨道。可以用display:none让其不显示，也可以添加背景图片，颜色改变显示效果*/
+	
+	*::-webkit-scrollbar-track,html::-webkit-scrollbar-track, body::-webkit-scrollbar-track{
+		background: lightgray;
+		border-radius: 4px;
+	}
+	/*内层轨道，滚动条中间部分（除去）。*/
+	
+	*::-webkit-scrollbar-track-piece,html::-webkit-scrollbar-track-piece ,body::-webkit-scrollbar-track-piece{
+		/* background:url(http://www.lyblog.net/wp/wp-content/themes/mine/img/stripes_tiny_08.png);*/
+	}
+	/*滚动条里面可以拖动的那部分*/
+	
+	*::-webkit-scrollbar-thumb,html::-webkit-scrollbar-thumb ,body::-webkit-scrollbar-thumb {
+		background: darkgrey;
+		border-radius: 4px;
+	}
+	/*边角*/
+	
+	/**::-webkit-scrollbar-corner, html::-webkit-scrollbar-corner,body::-webkit-scrollbar-corner{
+		background: red;
+	}*/
+	/*定义右下角拖动块的样式*/
+	
+	*::-webkit-scrollbar-resizer ,html::-webkit-scrollbar-resizer,body::-webkit-scrollbar-resizer{
+		background: #FF0BEE;
+		display: none;
+	}

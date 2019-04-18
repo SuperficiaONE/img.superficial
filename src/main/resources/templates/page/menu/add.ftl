@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <#include  "/commonCss.ftl">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -43,9 +43,7 @@
     </div>
 </form>
 
-<script src="/static/layui/layui.js" charset="utf-8"></script>
-<script src="/static/jquery/jquery-1.9.1.min.js" charset="utf-8"></script>
-<script src="/static/jquery/base.js" charset="utf-8"></script>
+  <#include  "/commonJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
 

@@ -6,7 +6,7 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+    <#include  "/commonCss.ftl">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
@@ -31,15 +31,13 @@
         <div class="layui-form-item" style="padding-bottom: 20px;">
             <div class="layui-input-block">
                 <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary" onclick="window.location.reload()">重置</button>
+                <button type="reset" class="layui-btn layui-btn-primary" >重置</button>
             </div>
         </div>
     </div>
 </form>
 
-<script src="/static/layui/layui.js" charset="utf-8"></script>
-<script src="/static/jquery/jquery-1.9.1.min.js" charset="utf-8"></script>
-<script src="/static/jquery/base.js" charset="utf-8"></script>
+  <#include  "/commonJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
      layui.use(['jquery','form','layer'],function () {

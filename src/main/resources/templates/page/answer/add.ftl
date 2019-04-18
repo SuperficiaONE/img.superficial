@@ -1,8 +1,7 @@
 <html>
 <head>
 <title>添加答案</title>
-    <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
-
+<#include  "/commonCss.ftl">
 </head>
 <body>
 <div>
@@ -15,10 +14,7 @@
     <button id="add">添加答案</button> <button id="clear">清空答案</button>
 </div>
 </body>
-<script src="/static/layui/layui.js" charset="utf-8"></script>
-
-<script src="/static/jquery/jquery-1.9.1.min.js"></script>
-<script src="/static/jquery/base.js"></script>
+<#include  "/commonJS.ftl">
 <script>
     $(function () {
         console.log("hello")

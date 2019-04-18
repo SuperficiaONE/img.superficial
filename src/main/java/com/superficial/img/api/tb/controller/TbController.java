@@ -3,16 +3,19 @@ package com.superficial.img.api.tb.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.superficial.img.api.tb.vo.TableHeaderVO;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.ResultVO;
+import com.superficial.img.common.vo.TableColVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -33,6 +36,7 @@ public class TbController {
 
     @Autowired
     private ITbService tbService;
+
     @RequestMapping("/webapi/tb/formSelectVo")
     public ResultVO getFormItemSelectVO(){
         try {
@@ -79,6 +83,17 @@ public class TbController {
         }catch (Exception e){
             log.error("添加表含义数据出现了异常",e);
             return ResultVO.newError("添加表含义数据出现了异常"+e.getMessage());
+        }
+    }
+
+    @RequestMapping("/webapi/tb/tableHeaderVoList")
+    public  ResultVO getHeaderVOList(@RequestParam(value = "type") Integer type){
+        try {
+            List<TableHeaderVO> tableHeaderVOList = tbService.selectTableHeaderVoList(type);
+            return ResultVO.newSuccess("获取表格头部数据成功",tableHeaderVOList);
+        }catch (Exception e){
+            log.error("获取表格头部数据出现了异常",e);
+            return ResultVO.newError("获取表格头部数据出现了异常"+e.getMessage());
         }
     }
 }

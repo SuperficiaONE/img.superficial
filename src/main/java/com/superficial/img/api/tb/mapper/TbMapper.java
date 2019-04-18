@@ -1,9 +1,11 @@
 package com.superficial.img.api.tb.mapper;
 
+import com.superficial.img.api.tb.vo.TableHeaderVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,4 +23,6 @@ import java.util.List;
 public interface TbMapper extends BaseMapper<Tb> {
 
     List<SelectVO> getSelectVOList();
+
+    List<TableHeaderVO> selectTableHeaderVoList(@Param("type") Integer type);
 }

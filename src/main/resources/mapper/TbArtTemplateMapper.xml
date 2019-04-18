@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superficial.img.api.arttemplate.mapper.TbArtTemplateMapper">
+
+    <!--&lt;!&ndash; 开启二级缓存 &ndash;&gt;-->
+    <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.arttemplate.pojo.TbArtTemplate">
+        <id column="id" property="id" />
+        <result column="template_type" property="templateType" />
+        <result column="template_script" property="templateScript" />
+        <result column="tempalte_data" property="tempalteData" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, template_type, template_script, tempalte_data, create_at, update_at
+    </sql>
+   <select id="getTemplateScriptList" resultType="String">
+       select template_script from tb_art_template where template_type in
+       <foreach collection="typeList" open="(" close=")" separator="," item="type">
+           #{type}
+       </foreach>
+   </select>
+</mapper>
