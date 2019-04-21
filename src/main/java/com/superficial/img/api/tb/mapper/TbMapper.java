@@ -1,6 +1,6 @@
 package com.superficial.img.api.tb.mapper;
 
-import com.superficial.img.api.tb.vo.TableHeaderVO;
+import com.superficial.img.api.tb.vo.ThVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -24,5 +24,5 @@ public interface TbMapper extends BaseMapper<Tb> {
 
     List<SelectVO> getSelectVOList();
 
-    List<TableHeaderVO> selectTableHeaderVoList(@Param("type") Integer type);
+    List<ThVO> selectTableHeaderVoList(@Param("type") Integer type);
 }

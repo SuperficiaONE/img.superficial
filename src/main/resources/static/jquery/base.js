@@ -144,6 +144,95 @@ function getSelectObject() {
 
 }
 
+/**
+ *  data的数据类型为
+ *   {
+ *       templateId:"",
+ *       data:{ }
+ *   }
+ * @param data
+ */
+function  getTemplateHtml(data) {
+    return template(data.templateId,data);
+}
+function  replaceOldHtml(data,clear) {
+    $("#"+data.id).replaceWith("<div id='"+data.id+"' style='overflow-y: auto'></div>")
+    if(clear){
+        $("#"+data.id).html("")
+    }
+    var templateVO = data.templateVO;
+    templateVO.id = data.id
+    $("#"+data.id).html(getTemplateHtml(templateVO))
+}
+function  bindWidth(id) {
+    var w = $("."+id+"_master_width").width();
+    $("."+id+"_slaver_width").css("width",w);
+}
+/**
+ * 数据结构：
+ *
+ * @param data
+ */
+function  renderBody(data) {
+      post(data.url,data,function (res) {
+          // 加工数据
+         if(res.state == 1){
+             var rs = res.data;
+             var  templateVOData = []
+             if(rs!=undefined && rs.templateVO!=undefined){
+                 var id= rs.id;
+                 var  templateVOList
+                 if(data.openPage){
+                     templateVOList   = rs.templateVO.data.data;
+                 }else {
+                     templateVOList   = rs.templateVO.data;
+                 }
+                 for (var i = 0; i < templateVOList.length; i++) {
+                     var  templateVO = {};
+                     templateVO.data =templateVOList[i]
+                     var fieldList = [];
+                     if(data.list!=undefined){
+                         for (var j = 0; j < data.list.length; j++) {
+                             var filed = data.list[j]
+                             filed.w = $("#"+filed.field+"_th").width();
+                             fieldList.push(filed)
+                         }
+                     }
+                     templateVO.fieldList = fieldList;
+                     templateVOData.push(templateVO)
+                 }
+             }
+             var tbodyData = {}
+             tbodyData.id=rs.id;
+             tbodyData.templateId = rs.templateVO.templateId
+             tbodyData.data = templateVOData
+             renderBodyData(tbodyData)
+             tipsBind("showAll")
+             bindWidth(rs.id)
+             $(window).resize(data.list,function () {
+                // console.log("xxx")
+                 bindWidth(rs.id)
+                 for (var j = 0; j < data.list.length; j++) {
+                     bindWidth(data.list[j].field);
+                 }
+             })
+             if(data.openPage){
+                 var count = rs.count;
+
+             }
+         }else {
+             showError(res.msg)
+         }
+      })
+}
+function  renderBodyData(data) {
+     var tableBody = document.getElementById(data.id+"_div");
+     if(tableBody != null || tableBody!=undefined){
+       $(tableBody).replaceWith(template(data.templateId,data.templateVO));
+     }else{
+         $("#"+data.id).append(template(data.templateId,data))
+     }
+}
 function postAsyn(uri, formData, isAnsy, success) {
     $.ajax({
         type: "POST",
@@ -168,7 +257,13 @@ function get(uri, success) {
         }
     });
 }
-
+function  handler(data) {
+    if(data.url == undefined){
+        return {'title':data}
+    }else {
+        return data;
+    }
+}
 
 function toast(msg, duration) {
     duration = isNaN(duration) ? 3000 : duration;
@@ -263,7 +358,7 @@ $("."+className).hover(function() {
             target: $(self),
             position: 't', // 默认属性值
             align: 'c',
-            content: "<div style='overflow:hidden'>" + $(self).text() + "</div>",
+            content: "<div style='overflow:hidden'>" + $(self).html() + "</div>",
             leaveClose: true
         });
     }

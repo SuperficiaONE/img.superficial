@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
+import com.superficial.img.api.arttemplate.vo.ElementVO;
+import com.superficial.img.api.arttemplate.vo.TemplateVO;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -65,7 +68,9 @@ public class TbArtTemplateController {
     }
 
     @RequestMapping("/api/tbArtTemplate/list")
-    public ResultVO addTemplate(Boolean openPage,Integer page ,Integer pageSize){
+    public ResultVO addTemplate(Boolean openPage,Integer page ,Integer pageSize,
+                                @Param("elementId") String elementId,
+                                @Param("templateId") String templateId){
         try {
             if(CommonUtil.isEmpty(openPage)){
                 openPage =false;
@@ -88,14 +93,13 @@ public class TbArtTemplateController {
                 );
                 LayUIPage layUIPage = new LayUIPage();
                 layUIPage.setData(tbArtTemplateList).setCount(count).setCode(1).setMsg("获取模板列表成功");
-                return ResultVO.newSuccess("获取成功",layUIPage);
+                return ResultVO.newSuccess("获取成功",ElementVO.newElementVO(elementId,templateId,layUIPage));
             }else {
                 tbArtTemplateList = artTemplateService.selectList(
                         new EntityWrapper<>()
                 );
             }
-
-            return ResultVO.newSuccess("获取模板列表成功",tbArtTemplateList);
+            return ResultVO.newSuccess("获取模板列表成功",ElementVO.newElementVO(elementId,templateId,tbArtTemplateList));
         }catch (Exception e){
             log.error("获取模板列表发生了异常",e);
             return ResultVO.newSuccess("获取模板列表了异常"+e.getMessage());

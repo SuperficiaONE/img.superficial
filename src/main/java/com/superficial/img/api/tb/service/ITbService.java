@@ -1,6 +1,6 @@
 package com.superficial.img.api.tb.service;
 
-import com.superficial.img.api.tb.vo.TableHeaderVO;
+import com.superficial.img.api.tb.vo.ThVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.baomidou.mybatisplus.service.IService;
@@ -19,5 +19,5 @@ public interface ITbService extends IService<Tb> {
 
     List<SelectVO> getSelectVOList();
 
-    List<TableHeaderVO> selectTableHeaderVoList(Integer type);
+    List<ThVO> selectTableHeaderVoList(Integer type);
 }

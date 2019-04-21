@@ -3,15 +3,17 @@ package com.superficial.img.api.tb.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
-import com.superficial.img.api.tb.vo.TableHeaderVO;
+import com.superficial.img.api.arttemplate.vo.ElementVO;
+import com.superficial.img.api.arttemplate.vo.TemplateVO;
+import com.superficial.img.api.tb.vo.ThVO;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.ResultVO;
-import com.superficial.img.common.vo.TableColVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -40,7 +42,6 @@ public class TbController {
     @RequestMapping("/webapi/tb/formSelectVo")
     public ResultVO getFormItemSelectVO(){
         try {
-
             FormItemSelectVO formItemSelectVO = new FormItemSelectVO();
             formItemSelectVO.setLabelText("表名");
             formItemSelectVO.setElementId("parentId");
@@ -87,10 +88,15 @@ public class TbController {
     }
 
     @RequestMapping("/webapi/tb/tableHeaderVoList")
-    public  ResultVO getHeaderVOList(@RequestParam(value = "type") Integer type){
+    public  ResultVO getHeaderVOList(@RequestParam(value = "type") Integer type,
+                                     @Param("elementId") String elementId,
+                                     @Param("templateId") String templateId,
+                                     Boolean openPage,@Param("url") String url){
         try {
-            List<TableHeaderVO> tableHeaderVOList = tbService.selectTableHeaderVoList(type);
-            return ResultVO.newSuccess("获取表格头部数据成功",tableHeaderVOList);
+            List<ThVO> tableHeaderVOList = tbService.selectTableHeaderVoList(type);
+            TemplateVO< List<ThVO>> templateVO = new TemplateVO<>().setTemplateId(templateId).setData(tableHeaderVOList);
+            ElementVO<List<ThVO>> elementVO  = new ElementVO<>().setId(elementId).setTemplateVO(templateVO).setPage(openPage).setUrl(url);
+            return ResultVO.newSuccess("获取表格头部数据成功",elementVO);
         }catch (Exception e){
             log.error("获取表格头部数据出现了异常",e);
             return ResultVO.newError("获取表格头部数据出现了异常"+e.getMessage());

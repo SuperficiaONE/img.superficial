@@ -1,6 +1,6 @@
 package com.superficial.img.api.tb.service.impl;
 
-import com.superficial.img.api.tb.vo.TableHeaderVO;
+import com.superficial.img.api.tb.vo.ThVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.mapper.TbMapper;
 import com.superficial.img.api.tb.pojo.Tb;
@@ -28,7 +28,7 @@ public class TbServiceImpl extends ServiceImpl<TbMapper, Tb> implements ITbServi
     }
 
     @Override
-    public List<TableHeaderVO> selectTableHeaderVoList(Integer type) {
+    public List<ThVO> selectTableHeaderVoList(Integer type) {
         return this.baseMapper.selectTableHeaderVoList(type);
     }
 }
