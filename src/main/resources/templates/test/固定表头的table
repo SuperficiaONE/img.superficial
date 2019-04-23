@@ -1,0 +1,161 @@
+<html c>
+
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="module/scollerStyle.css"  />
+		<style>
+			th {
+				width: 200px;
+				padding: 5px,10px;
+
+			}
+
+			td {
+				width: 200px;
+				text-align: center;
+				padding: 5px,10px;
+			}
+			.table_box{
+				width: 80%;
+			}
+			#table_content ,#table_header{
+				width:120%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div  style="height: 200px; z-index: 9;"></div>
+		<div id="table" class="table_box" style="overflow-y: hidden;overflow-x: hidden; height: 300px;">
+			<div  class="table_box" style="overflow-x: hidden;overflow-y: scroll;">
+					<table id="table_header"  class="table_box"  style="background-color: #009F95;">
+						<thead>
+							<th>xxxxxx1</th>
+							<th>xxxxxx2</th>
+							<th>xxxxxx3</th>
+							<th>xxxxxx4</th>
+							<th>xxxxxx5</th>
+							<th>xxxxxx6</th>
+							<th>xxxxxx7</th>
+							<th>xxxxxx8</th>
+
+						</thead>
+					</table>
+
+			</div>
+
+			<div id="table_content_div"  class="table_box"  style="display: inline-block;overflow: auto;height: 200px;">
+					<table id="table_content" >
+						<tbody>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+							<tr>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+								<td> aaaa</td>
+							</tr>
+						</tbody>
+					</table>
+
+			</div>
+
+		</div>
+		<script>
+			function ready() {
+				var tabel = document.getElementById("table_content_div");
+				tabel.addEventListener("scroll", function() {
+					var head = document.getElementById("table" + "_header");
+					var content = document.getElementById("table" + "_content_div");
+					head.style.marginLeft=-tabel.scrollLeft
+					console.log("左右" + tabel.scrollLeft);
+					console.log("上下：" + tabel.scrollTop)
+				})
+			}
+			ready();
+		</script>
+	</body>
+
+</html>
