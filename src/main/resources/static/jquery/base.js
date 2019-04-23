@@ -156,7 +156,7 @@ function  getTemplateHtml(data) {
     return template(data.templateId,data);
 }
 function  replaceOldHtml(data,clear) {
-    $("#"+data.id).replaceWith("<div id='"+data.id+"' style='overflow-y: auto'></div>")
+    $("#"+data.id).replaceWith("<div id='"+data.id+"' style=''></div>")
     if(clear){
         $("#"+data.id).html("")
     }
@@ -348,7 +348,6 @@ function  initArtTemplate(url) {
     })
 }
 function  tipsBind(className) {
-
 $("."+className).hover(function() {
     var self = this;
     var width = $(self).width()

@@ -52,8 +52,8 @@
 </script>
 <#--   {id:xxx , data:xxx}-->
 <script type="text/html" id="tableBody">
-     <div class="{{id}}_div" style="overflow: auto;height: 40px;">
-         <table id="{{id}}_body " class="layui-table {{id}}_slaver_width">
+     <div class="{{id}}_div" style="">
+         <table id="{{id}}_body " class="layui-table {{id}}_slaver_width" style="margin: 0px;">
              <tbody>
              {{each data}}
                    {{include "tableTr" $value}}
@@ -72,23 +72,23 @@
         <% for(var i = 0 ; i < fieldList.length ; i ++){%>
         <% var field = fieldList[i].field %>
         <% var w = fieldList[i].w %>
-        <td class="<%=field%>_td {{field}}_slaver_width" style="width: <%= w %>px;display: inline-block; " >   <div class="showAll <%=field%>_td" style="box-sizing: border-box;
-    text-overflow: ellipsis;
-    overflow: hidden;
-   white-space: nowrap;margin:0;padding: 0;">
-            <% var c={"title":data[field]} %>
-          {{include "menuName"  $imports.handler(data[field], handler) }}
-        <div> </td>
+        <td class="<%=field%>_td {{field}}_slaver_width" style="width: <%= w %>px;display: inline-block; " >
+          {{include "test"  $imports.handler(data[field], handler) }}
+        </td>
         <%};%>
     </tr>
 
 </script>
 <script type="text/html" id="test">
+    <div class="showAll <%=field%>_td" style="box-sizing: border-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+   white-space: nowrap;margin:0;padding: 0;">
     <% if(url!= undefined){%>
       <a href="{{url}}" style="color: #01AAED;" target="_blank">{{title}}</a>
    <%}else{%>
     {{title}}
-   <%}%>
+   <%}%><div>
 </script>
  </body>
 
