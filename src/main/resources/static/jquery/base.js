@@ -13,18 +13,22 @@ function post(uri, formData, success) {
         }
     });
 }
+
 function showError(msg) {
-    showMsg(msg,2)
+    showMsg(msg, 2)
 }
+
 function showSuccess(msg) {
- showMsg(msg,1)
+    showMsg(msg, 1)
 }
-function  showMsg(msg,icon) {
-    layui.use(['layer'],function () {
+
+function showMsg(msg, icon) {
+    layui.use(['layer'], function () {
         var layer = layui.layer;
         layer.msg(msg, {icon: icon});
     })
 }
+
 function renderForm() {
     layui.use('form', function () {
         var form = layui.form;
@@ -93,7 +97,7 @@ function addSelect(data) {
     $("#" + data.elementId).html("");
     $("#" + data.elementId).append(" <label class=\"layui-form-label\">" + data.labelText + "</label>\n" +
         "            <div class=\"layui-input-inline\" >\n" +
-        "                <select class=\"layui-select\" lay-filter=\""+data.elementId+"\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
+        "                <select class=\"layui-select\" lay-filter=\"" + data.elementId + "\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
         "                </select>\n" +
         "            </div> ")
     var list = data.list;
@@ -112,8 +116,8 @@ function addSelect(data) {
  * @param changeFnc
  */
 function initSelect(url, changeFnc) {
-    layui.use(['layer','form'], function () {
-        var  form = layui.form;
+    layui.use(['layer', 'form'], function () {
+        var form = layui.form;
         addWaiting();
         var layer = layui.layer
         getAsync(url, false, function (res) {
@@ -123,7 +127,7 @@ function initSelect(url, changeFnc) {
                     addSelect(data);
                     if (changeFnc != undefined) {
                         changeFnc();
-                       form.on("select("+data.elementId+")",changeFnc);
+                        form.on("select(" + data.elementId + ")", changeFnc);
                     }
                     renderForm();
                 }
@@ -152,87 +156,150 @@ function getSelectObject() {
  *   }
  * @param data
  */
-function  getTemplateHtml(data) {
-    return template(data.templateId,data);
+function getTemplateHtml(data) {
+    return template(data.templateId, data);
 }
-function  replaceOldHtml(data,clear) {
-    $("#"+data.id).replaceWith("<div id='"+data.id+"' style=''></div>")
-    if(clear){
-        $("#"+data.id).html("")
-    }
-    var templateVO = data.templateVO;
-    templateVO.id = data.id
-    $("#"+data.id).html(getTemplateHtml(templateVO))
-}
-function  bindWidth(id) {
-    var w = $("."+id+"_master_width").width();
-    $("."+id+"_slaver_width").css("width",w);
-}
+
 /**
- * 数据结构：
+ * 数据类型：
+ *    data: {
+ *     id:xxx,
+ *     templateVO:{
+ *         templateId:xxx,
+ *         data:[{"field":"id","title":"模板id"}]
+ *         }
+ *     }
  *
  * @param data
+ * @param clear
  */
-function  renderBody(data) {
-      post(data.url,data,function (res) {
-          // 加工数据
-         if(res.state == 1){
-             var rs = res.data;
-             var  templateVOData = []
-             if(rs!=undefined && rs.templateVO!=undefined){
-                 var id= rs.id;
-                 var  templateVOList
-                 if(data.openPage){
-                     templateVOList   = rs.templateVO.data.data;
-                 }else {
-                     templateVOList   = rs.templateVO.data;
-                 }
-                 for (var i = 0; i < templateVOList.length; i++) {
-                     var  templateVO = {};
-                     templateVO.data =templateVOList[i]
-                     var fieldList = [];
-                     if(data.list!=undefined){
-                         for (var j = 0; j < data.list.length; j++) {
-                             var filed = data.list[j]
-                             filed.w = $("#"+filed.field+"_th").width();
-                             fieldList.push(filed)
-                         }
-                     }
-                     templateVO.fieldList = fieldList;
-                     templateVOData.push(templateVO)
-                 }
-             }
-             var tbodyData = {}
-             tbodyData.id=rs.id;
-             tbodyData.templateId = rs.templateVO.templateId
-             tbodyData.data = templateVOData
-             renderBodyData(tbodyData)
-             tipsBind("showAll")
-             bindWidth(rs.id)
-             $(window).resize(data.list,function () {
-                // console.log("xxx")
-                 bindWidth(rs.id)
-                 for (var j = 0; j < data.list.length; j++) {
-                     bindWidth(data.list[j].field);
-                 }
-             })
-             if(data.openPage){
-                 var count = rs.count;
+function renderTable(id, height) {
+    var style = $("#" + id).attr("style")
+    $("#" + id).replaceWith("<div id='" + id + "' class='" + id + "_master_width'  style='" + style + "overflow: hidden;" + "'></div>")
+    $("#" + id).css("height", height)
 
-             }
-         }else {
-             showError(res.msg)
-         }
-      })
 }
-function  renderBodyData(data) {
-     var tableBody = document.getElementById(data.id+"_div");
-     if(tableBody != null || tableBody!=undefined){
-       $(tableBody).replaceWith(template(data.templateId,data.templateVO));
-     }else{
-         $("#"+data.id).append(template(data.templateId,data))
-     }
+
+function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith, height) {
+    renderTable(id, height);
+    var fieldList = initTableHeader(id, headerUrl, scrollWith)
+    initTableBody(bodyUrl, id, openPage, fieldList, scrollWith, height)
+    // 统一宽度
+    bindWidth(id);
+
+    //
 }
+
+function initTableHeader(id, url, scrollWith) {
+    var templateVo = getTableHeaderData(url);
+    renderTableHeader(getFormatTableHeaderData(id, scrollWith, templateVo))
+    return templateVo.data;
+}
+
+function getTableHeaderData(url) {
+    var data = {}
+    getAsync(url, false, function (res) {
+        if (res.state == 1) {
+            data = res.data.templateVO;
+        }
+    })
+    return data;
+}
+
+function getFormatTableHeaderData(id, scrollWidth, templateVo) {
+    if (templateVo == undefined) {
+        return {'id': id, "scrollWidth": scrollWidth};
+    }
+    templateVo.id = id
+    templateVo.scrollWidth = scrollWidth;
+    return templateVo;
+}
+
+function renderTableHeader(templateVO) {
+    $("#" + templateVO.id).html(getTemplateHtml(templateVO))
+}
+function renderTableBody(templateVO) {
+    $("#" + templateVO.id).append(getTemplateHtml(templateVO))
+}
+
+function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
+    var tableBodyData = getTableBodyData(url, true, 1, 10);
+    var templateVO = getFormatTableBodyData(id, tableBodyData, openPage, fieldList, scrollWidth, height)
+    renderTableBody(templateVO)
+}
+
+function getTableBodyData(url, openPage, page, pageSize) {
+    if (!openPage) {
+        var data = {}
+        getAsync(url, false, function (res) {
+            if (res.state == 1) {
+                data = res.data.templateVO;
+            }
+        })
+    } else {
+        getAsync(url + "&openPage=" + openPage + "&page=" + page + "&pageSize" + pageSize, false, function (res) {
+            if (res.state == 1) {
+                data = res.data.templateVO;
+            }
+        })
+    }
+    return data;
+
+}
+
+function getFormatTableBodyData(id, tableBodyTemplateVo, openPage, fieldList, scrollWidth, height) {
+    var templateVO = {}
+    templateVO.scrollWidth = scrollWidth;
+    templateVO.height = height;
+    templateVO.id = id;
+    templateVO.templateId=tableBodyTemplateVo.templateId
+    if (tableBodyTemplateVo!=undefined) {
+
+        var data = []
+        var list = undefined;
+        if (openPage) {
+            list = tableBodyTemplateVo.data.data;
+            templateVO.count = tableBodyTemplateVo.data.count;
+        } else {
+            list = tableBodyTemplateVo.data;
+        }
+        if (list!=undefined && list.length>0) {
+            for (var i = 0; i < list.length; i++) {
+                var f = {};
+                f.fieldList = fieldList;
+                f.data = list[i]
+                data.push(f)
+            }
+        }
+        templateVO.data = data;
+    }
+    return templateVO;
+}
+
+function bindWidth(id) {
+    var w = $("." + id + "_master_width").width();
+    $("." + id + "_slaver_width").css("width", w);
+}
+
+/**
+ * 数据结构：
+ * 定义一个过滤器 将data对象 转换一下
+ *
+ *       {
+ *
+ *           {
+ *               templateId:xxx,
+ *               data:[
+ *
+ *               ]
+ *           }
+ *       }
+ * @param data
+ */
+function renderBody(id, fieldList, data) {
+
+}
+
 function postAsyn(uri, formData, isAnsy, success) {
     $.ajax({
         type: "POST",
@@ -257,10 +324,11 @@ function get(uri, success) {
         }
     });
 }
-function  handler(data) {
-    if(data.url == undefined){
-        return {'title':data}
-    }else {
+
+function handler(data) {
+    if (data.url == undefined) {
+        return {'title': data}
+    } else {
         return data;
     }
 }
@@ -334,39 +402,41 @@ function addMenuUrl(url, menu_name) {
     document.body.appendChild(m);
 
 }
-function  initArtTemplate(url) {
-    getAsync(url,false, function (res) {
-          if(res.state==1){
-              if(res.data!=undefined){
-                  for (var i = 0; i < res.data.length; i++) {
-                     $("body").append(res.data[i])
-                  }
-              }
-          }else{
-              showError(res.msg)
-          }
+
+function initArtTemplate(url) {
+    getAsync(url, false, function (res) {
+        if (res.state == 1) {
+            if (res.data != undefined) {
+                for (var i = 0; i < res.data.length; i++) {
+                    $("body").append(res.data[i])
+                }
+            }
+        } else {
+            showError(res.msg)
+        }
     })
 }
-function  tipsBind(className) {
-$("."+className).hover(function() {
-    var self = this;
-    var width = $(self).width()
-    var scrollWidth = self.scrollWidth;
-    if(scrollWidth > width) {
-        $.pt({
-            target: $(self),
-            position: 't', // 默认属性值
-            align: 'c',
-            content: "<div style='overflow:hidden'>" + $(self).html() + "</div>",
-            leaveClose: true
-        });
-    }
-    },function (){
+
+function tipsBind(className) {
+    $("." + className).hover(function () {
         var self = this;
         var width = $(self).width()
         var scrollWidth = self.scrollWidth;
-        if(scrollWidth > width) {
-            $(".pt").css("display","none")
+        if (scrollWidth > width) {
+            $.pt({
+                target: $(self),
+                position: 't', // 默认属性值
+                align: 'c',
+                content: "<div style='overflow:hidden'>" + $(self).html() + "</div>",
+                leaveClose: true
+            });
+        }
+    }, function () {
+        var self = this;
+        var width = $(self).width()
+        var scrollWidth = self.scrollWidth;
+        if (scrollWidth > width) {
+            $(".pt").css("display", "none")
         }
     });
 }

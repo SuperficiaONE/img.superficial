@@ -11,56 +11,61 @@
 
 <body>
 <div style="width: 100;height: 200px;"></div>
-<table id="table"></table>
+<table id="table" style="width: 1000px;"></table>
 <#include  "/commonJS.ftl">
 
 <script>
     layui.use(['layer'],function () {
         var layer = layui.layer;
-        initArtTemplate("/api/templateScript/list?types=2,1");
-        var url ="/api/tbArtTemplate/list?";
-        post("/webapi/tb/tableHeaderVoList?type=2&templateId=tableHeader&elementId=table&openPage=true",{'url':url},function (res) {
-            if(res.state == 1){
-                if(res.data != undefined){
-                    var id=res.data.id;
-                     replaceOldHtml(res.data)
-                    // 判断page
-                    var bodyData = {};
-                     bodyData.openPage = res.data.page;
-                     bodyData.url = res.data.url;
-                     bodyData.pageSize = 10;
-                     bodyData.curr = 1;
-                     bodyData.elementId= res.data.id
-                     bodyData.templateId='tableBody';
-                     bodyData.list = res.data.templateVO.data;
-                    template.defaults.imports.handler = function(data) {
-                        if(data.url == undefined){
-                            return {'url':'http://www.baidu.com','title':data}
-                        }else {
-                            return data;
-                        }
-                    }
-                     renderBody(bodyData)
-                }else {
-                    $("#table").html("<h3 style='color:lightslategrey;text-align: center;'>无数据</h3>")
-                }
-            }else {
-                layer.msg(res.msg);
-            }
-        })
+      //  initArtTemplate("/api/templateScript/list?types=2,1");
+        var bodyUrl ="/api/tbArtTemplate/list?templateId=tableBody";
+        var headerUrl = "/webapi/tb/tableHeaderVoList?type=2&templateId=tableHeader&elementId=table"
+       initTable("table",headerUrl,bodyUrl,true,1,10,"120%",200)
     })
 </script>
-<#--   {id:xxx , data:xxx}-->
+
+<script type="text/html" id="tableHeader">
+      <div class="{{id}}_table_header {{id}}_slaver_width " style="height:40px;" >
+          <%if(data == undefined || data.length<=0){%>
+              <div style="text-align: center;width: {{scrollWidth}}">
+                  服务器无法拉取到数据<span class=" layui-icon-loading  layui-anim layui-anim-rotate layui-anim-loop"></span>
+              </div>
+          <%}else{%>
+          <table class="layui-table" style="margin: 0;width: {{scrollWidth}}">
+
+              <thead>
+              {{each data}}
+                {{include "tableTh" $value}}
+              {{/each}}
+              </thead>
+          </table>
+          <%}%>
+      </div>
+</script>
+
+<script type="text/html" id="tableTh">
+      <th class="{{field}}_master_width  {{field}}_th" style="background-color: #009688;text-align: center; color: white;">
+          <div>
+              {{title}}
+          </div>
+      </th>
+</script>
+
 <script type="text/html" id="tableBody">
-     <div class="{{id}}_div" style="">
-         <table id="{{id}}_body " class="layui-table {{id}}_slaver_width" style="margin: 0px;">
+     <div class="{{id}}_table_body {{id}}_slaver_width" style=" overflow:auto;height:<%if(height){ %><%= height-40 %>px<%}%>">
+         <%if(data == undefined || data.length<=0){%>
+         <div style="text-align: center;width: {{scrollWidth}}">
+             服务器无法拉取到数据<span class=" layui-icon-loading  layui-anim layui-anim-rotate layui-anim-loop"></span>
+         </div>
+         <%}else{%>
+         <table id="{{id}}_body " class="layui-table" style="width: {{scrollWidth}};margin: 0px;">
              <tbody>
              {{each data}}
                    {{include "tableTr" $value}}
              {{/each}}
              </tbody>
-
          </table>
+         <%}%>
      </div>
 </script>
  <#--  id :
@@ -71,9 +76,8 @@
     <tr class="<%=data.parentId%>">
         <% for(var i = 0 ; i < fieldList.length ; i ++){%>
         <% var field = fieldList[i].field %>
-        <% var w = fieldList[i].w %>
-        <td class="<%=field%>_td {{field}}_slaver_width" style="width: <%= w %>px;display: inline-block; " >
-          {{include "test"  $imports.handler(data[field], handler) }}
+        <td class="<%=field%>_td {{field}}_slaver_width" style="display: inline-block; " >
+            <%= data[field]%>
         </td>
         <%};%>
     </tr>
