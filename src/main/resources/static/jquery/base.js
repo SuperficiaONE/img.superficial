@@ -141,12 +141,7 @@ function initSelect(url, changeFnc) {
 
 }
 
-/**
- * 获取select对象
- */
-function getSelectObject() {
 
-}
 
 /**
  *  data的数据类型为
@@ -183,13 +178,50 @@ function renderTable(id, height) {
 function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith, height) {
     renderTable(id, height);
     var fieldList = initTableHeader(id, headerUrl, scrollWith)
+    template.defaults.imports.handler=function (title,field) {
+        if(title == undefined){
+            return {'title':title,'field':field};
+        }
+        if(title.url != undefined){
+            title.field = field;
+            return title;
+        }
+        return {'title':title,'field':field};
+    }
     initTableBody(bodyUrl, id, openPage, fieldList, scrollWith, height)
+    bindTableScroll(id)
     // 统一宽度
-    bindWidth(id);
-
+    bindWidthByTable(id,fieldList)
     //
-}
+    tipsBind("showAll")
 
+}
+function bindTableScroll(id) {
+    var t = document.getElementById(id+"_table_body_div");
+    if(t.scrollHeight > $(t).height()){
+        console.log(t.scrollHeight +"xxx"+$(t).height())
+        var head = document.getElementById(id+ "_table_header_div");
+        $(head).css("overflow-y","scroll")
+        $(head).css("overflow-x","hidden")
+    }else {
+        var head = document.getElementById(id+ "_table_header_div");
+        $(head).css("overflow-y","hidden")
+        $(head).css("overflow-x","hidden")
+    }
+    t.addEventListener("scroll", function() {
+        var head = document.getElementById(id+ "_table_header");
+        $(head).css("margin-left",-t.scrollLeft)
+    })
+}
+function  bindWidthByTable(id,fieldList) {
+    bindWidth(id);
+    for (var i = 0; i <fieldList.length ; i++) {
+        bindWidth(fieldList[i].field)
+    }
+    $( document.getElementById(id+"_table_body_div")).resize(function () {
+        bindWidthByTable(id,fieldList)
+    })
+}
 function initTableHeader(id, url, scrollWith) {
     var templateVo = getTableHeaderData(url);
     renderTableHeader(getFormatTableHeaderData(id, scrollWith, templateVo))
@@ -223,7 +255,7 @@ function renderTableBody(templateVO) {
 }
 
 function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
-    var tableBodyData = getTableBodyData(url, true, 1, 10);
+    var tableBodyData = getTableBodyData(url, openPage, 1, 10);
     var templateVO = getFormatTableBodyData(id, tableBodyData, openPage, fieldList, scrollWidth, height)
     renderTableBody(templateVO)
 }
@@ -252,9 +284,9 @@ function getFormatTableBodyData(id, tableBodyTemplateVo, openPage, fieldList, sc
     templateVO.scrollWidth = scrollWidth;
     templateVO.height = height;
     templateVO.id = id;
+    templateVO.openPage = openPage;
     templateVO.templateId=tableBodyTemplateVo.templateId
     if (tableBodyTemplateVo!=undefined) {
-
         var data = []
         var list = undefined;
         if (openPage) {
