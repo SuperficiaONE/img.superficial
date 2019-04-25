@@ -26,4 +26,7 @@
                </foreach>
                order by dict_key asc
     </select>
+    <select id="getAllSelectList" resultType="com.superficial.img.common.vo.SelectVO">
+            select  dict_value as dict_text ,dict_key as dict_value ,dict_type from  tb_dict
+    </select>
 </mapper>

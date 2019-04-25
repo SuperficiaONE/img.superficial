@@ -182,29 +182,39 @@ function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith,
         if(title == undefined){
             return {'title':title,'field':field};
         }
-        if(title.url != undefined){
+        if(title.url != undefined || title.title!=undefined){
+
             title.field = field;
             return title;
         }
         return {'title':title,'field':field};
     }
     initTableBody(bodyUrl, id, openPage, fieldList, scrollWith, height)
-    bindTableScroll(id)
+
     // 统一宽度
     bindWidthByTable(id,fieldList)
     //
+    bindTableScroll(id)
+    // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
+    bindWidthByTable(id,fieldList)
     tipsBind("showAll")
+
 
 }
 function bindTableScroll(id) {
     var t = document.getElementById(id+"_table_body_div");
-    if(t.scrollHeight > $(t).height()){
-        console.log(t.scrollHeight +"xxx"+$(t).height())
+    var tableBody = document.getElementById(id+"_table_body")
+    if($(tableBody).height() > $(t).height()){
+        console.log($(tableBody).height()  +"xxx"+$(t).height())
         var head = document.getElementById(id+ "_table_header_div");
+        var body = document.getElementById(id+"_table_body_div")
+        $(body).css("overflow-y","scroll")
         $(head).css("overflow-y","scroll")
         $(head).css("overflow-x","hidden")
     }else {
         var head = document.getElementById(id+ "_table_header_div");
+        var body = document.getElementById(id+"_table_body_div")
+        $(body).css("overflow-y","hidden")
         $(head).css("overflow-y","hidden")
         $(head).css("overflow-x","hidden")
     }
@@ -213,13 +223,17 @@ function bindTableScroll(id) {
         $(head).css("margin-left",-t.scrollLeft)
     })
 }
+
 function  bindWidthByTable(id,fieldList) {
     bindWidth(id);
     for (var i = 0; i <fieldList.length ; i++) {
         bindWidth(fieldList[i].field)
     }
-    $( document.getElementById(id+"_table_body_div")).resize(function () {
-        bindWidthByTable(id,fieldList)
+    $( window).resize(function () {
+        bindWidth(id);
+        for (var i = 0; i <fieldList.length ; i++) {
+            bindWidth(fieldList[i].field)
+        }
     })
 }
 function initTableHeader(id, url, scrollWith) {
@@ -251,15 +265,51 @@ function renderTableHeader(templateVO) {
     $("#" + templateVO.id).html(getTemplateHtml(templateVO))
 }
 function renderTableBody(templateVO) {
-    $("#" + templateVO.id).append(getTemplateHtml(templateVO))
+    var e = document.getElementById(templateVO.id+"_table_body_div");
+    if(e != undefined){
+        $("#" + templateVO.id+"_table_body_div").replaceWith(getTemplateHtml(templateVO))
+    }else{
+        $("#" + templateVO.id).append(getTemplateHtml(templateVO))
+    }
 }
 
 function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
     var tableBodyData = getTableBodyData(url, openPage, 1, 10);
     var templateVO = getFormatTableBodyData(id, tableBodyData, openPage, fieldList, scrollWidth, height)
+    templateVO.first = true;
     renderTableBody(templateVO)
+    renderTablePage(id,url,openPage,fieldList,scrollWidth,height,templateVO.count)
 }
 
+function renderTablePage(id,url,openPage,fieldList,scrollWidth,height,count) {
+    if(openPage){
+        layui.use(['laypage'],function () {
+            var laypage = layui.laypage;
+            laypage.render({
+                elem: id+"_table_page_div"
+                ,count: count //数据总数，从服务端得到
+                   , limits: [10, 20, 30, 40, 50, 100],
+                    layout: ['prev', 'page', 'next', 'limit', "skip", "count", "refresh"],
+                jump: function(obj, first){
+                    //首次不执行
+                    if(!first){
+                        var tableBodyData = getTableBodyData(url, openPage, obj.curr, obj.limit);
+                        var templateVO = getFormatTableBodyData(id, tableBodyData, openPage, fieldList, scrollWidth, height)
+                        templateVO.first = false;
+                        obj.count = templateVO.count
+                        renderTableBody(templateVO)
+                        bindWidthByTable(id,fieldList)
+                        //
+                        bindTableScroll(id)
+                        // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
+                        bindWidthByTable(id,fieldList)
+                        tipsBind("showAll")
+                    }
+                }
+            });
+        })
+    }
+}
 function getTableBodyData(url, openPage, page, pageSize) {
     if (!openPage) {
         var data = {}

@@ -4,6 +4,10 @@ package com.superficial.img.api.menu.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.superficial.img.api.arttemplate.vo.ElementVO;
+import com.superficial.img.api.dict.service.ITbDictService;
+import com.superficial.img.api.tb.service.ITbService;
+import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
@@ -33,17 +37,19 @@ public class TbMenuController {
 
     @Autowired
     private ITbMenuService menuService;
+    @Autowired
+    private ITbDictService dictService;
 
     @RequestMapping("/webapi/menu/search")
-    public LayUIPage search(String searchText ,Integer menuLogin ,Integer menuBack, Integer page ,Integer limit){
+    public ResultVO search(String searchText ,String templateId,Integer menuLogin ,Integer menuBack, Integer page ,Integer pageSize){
         try {
             page = CommonUtil.isEmpty(page)?1:page;
-            limit = CommonUtil.isEmpty(limit)?10:limit;
+            pageSize = CommonUtil.isEmpty(pageSize)?10:pageSize;
             if(page<1){
                 page = 1;
             }
-            if(limit<1){
-                limit = 10;
+            if(pageSize<1){
+                pageSize = 10;
             }
 
             Wrapper<TbMenu> wrapper = new EntityWrapper<TbMenu>();
@@ -61,14 +67,15 @@ public class TbMenuController {
 
             Integer count  = menuService.selectCount(wrapper);
             List<TbMenu> menuList = menuService.selectList(
-                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)*limit+","+ limit)
+                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)*pageSize+","+ pageSize)
                   );
-
-            return new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(menuList);
+            List<Map<String, UrlVo>> rmList = dictService.changeMenuList(menuList);
+            LayUIPage layUIPage = new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(rmList);
+            return   ResultVO.newSuccess("成功", ElementVO.newElementVO("",templateId,layUIPage));
 
         }catch (Exception e){
             log.error("获取菜单链接列表出现了异常",e);
-            return new LayUIPage().setCode(-1).setMsg("获取菜单链接列表出现了异常");
+            return  ResultVO.newSuccess("获取菜单链接列表出现了异常");
         }
 
     }
