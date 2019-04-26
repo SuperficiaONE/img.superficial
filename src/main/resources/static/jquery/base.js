@@ -172,7 +172,7 @@ function renderTable(id, height) {
     var style = $("#" + id).attr("style")
     $("#" + id).replaceWith("<div id='" + id + "' class='" + id + "_master_width'  style='" + style + "overflow: hidden;" + "'></div>")
     $("#" + id).css("height", height)
-
+   // $("#" + id).attr("class", "layui-anim layui-anim-scale")
 }
 
 function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith, height) {
@@ -190,13 +190,6 @@ function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith,
         return {'title':title,'field':field};
     }
     initTableBody(bodyUrl, id, openPage, fieldList, scrollWith, height)
-
-    // 统一宽度
-    bindWidthByTable(id,fieldList)
-    //
-    bindTableScroll(id)
-    // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
-    bindWidthByTable(id,fieldList)
     tipsBind("showAll")
 
 
@@ -204,8 +197,8 @@ function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith,
 function bindTableScroll(id) {
     var t = document.getElementById(id+"_table_body_div");
     var tableBody = document.getElementById(id+"_table_body")
+   // console.log($(tableBody).height()  +"xxx"+$(t).height())
     if($(tableBody).height() > $(t).height()){
-        console.log($(tableBody).height()  +"xxx"+$(t).height())
         var head = document.getElementById(id+ "_table_header_div");
         var body = document.getElementById(id+"_table_body_div")
         $(body).css("overflow-y","scroll")
@@ -279,6 +272,12 @@ function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
     templateVO.first = true;
     renderTableBody(templateVO)
     renderTablePage(id,url,openPage,fieldList,scrollWidth,height,templateVO.count)
+    // 统一宽度
+    bindWidthByTable(id,fieldList)
+    //
+    bindTableScroll(id)
+    // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
+    bindWidthByTable(id,fieldList)
 }
 
 function renderTablePage(id,url,openPage,fieldList,scrollWidth,height,count) {
@@ -310,7 +309,8 @@ function renderTablePage(id,url,openPage,fieldList,scrollWidth,height,count) {
         })
     }
 }
-function getTableBodyData(url, openPage, page, pageSize) {
+
+function  getTableBodyData(url, openPage, page, pageSize) {
     if (!openPage) {
         var data = {}
         getAsync(url, false, function (res) {
@@ -319,7 +319,7 @@ function getTableBodyData(url, openPage, page, pageSize) {
             }
         })
     } else {
-        getAsync(url + "&openPage=" + openPage + "&page=" + page + "&pageSize" + pageSize, false, function (res) {
+        getAsync(url + "&openPage=" + openPage + "&page=" + page + "&pageSize=" + pageSize, false, function (res) {
             if (res.state == 1) {
                 data = res.data.templateVO;
             }

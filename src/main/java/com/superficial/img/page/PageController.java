@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/page")
 public class PageController {
-
-
     @RequestMapping("/common.htm")
     public String getCommon() {
         log.info("进入首页");
@@ -27,5 +25,6 @@ public class PageController {
     public String getTbAdd(){
         return "/page/tb/add";
     }
+
 
 }

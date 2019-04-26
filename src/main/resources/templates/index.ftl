@@ -42,7 +42,13 @@
         initArtTemplate("/api/templateScript/list?types=3,4");
         var bodyUrl ="/webapi/menu/search?templateId=tableBody";
         var headerUrl = "/webapi/tb/tableHeaderVoList?type=1&templateId=tableHeader&elementId=table"
-        initTable("dataTable",headerUrl,bodyUrl,true,1,10,"120%",300)
+        initTable("dataTable",headerUrl,bodyUrl,true,1,10,"100%",300)
+        $("#search").click(function () {
+          //  initArtTemplate("/api/templateScript/list?types=3,4");
+            var bodyUrl ="/webapi/menu/search?templateId=tableBody&searchText="+$("input[name='searchText']").val();
+            var headerUrl = "/webapi/tb/tableHeaderVoList?type=1&templateId=tableHeader&elementId=table"
+            initTable("dataTable",headerUrl,bodyUrl,true,1,10,"100%",300)
+        })
     })
 </script>
 

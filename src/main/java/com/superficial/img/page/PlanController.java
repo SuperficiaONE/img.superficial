@@ -19,4 +19,9 @@ public class PlanController {
         log.info("即将进入获取计划列表页面了");
         return "/page/plan/list";
     }
+    @RequestMapping("/show.htm")
+    public String showPlan(){
+        log.info("进入个人计划展示页面");
+        return "/page/plan/show";
+    }
 }

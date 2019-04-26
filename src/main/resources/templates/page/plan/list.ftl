@@ -10,19 +10,13 @@
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
-
-
   <#include  "/commonJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+<script type="text/html" id="planTab">
+
+</script>
 <script>
 
-    layui.use(['form','jquery'], function(){
-        var $ = layui.jquery;
-        var w = document.documentElement.clientWidth;
-        var h = document.documentElement.clientHeight;
-
-
-    })
 </script>
 
 </body>
