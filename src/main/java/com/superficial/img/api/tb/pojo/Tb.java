@@ -33,6 +33,12 @@ public class Tb implements Serializable {
     private String tbName;
     private Date createAt;
     private Date updateAt;
+    private  Integer tbOrder;
+
+    public Tb setTbOrder(Integer tbOrder) {
+        this.tbOrder = tbOrder;
+        return this;
+    }
 
     public Tb setTbId(Long tbId) {
         this.tbId = tbId;

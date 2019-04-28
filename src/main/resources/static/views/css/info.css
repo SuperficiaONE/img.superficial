@@ -1,0 +1,122 @@
+@media only screen and (min-width:1200px) {
+	#link_nav div {
+		float: left;
+		border-radius: 10px;
+		margin-left: 10px;
+		list-style: none;
+		margin-top: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	.pagination select {
+		border: 0px solid #000000;
+	}
+	.pagination select:hover {
+		border: 0px solid #000000;
+	}
+	#self_info {
+		border: 1px solid #122B40;
+		border-radius: 5px;
+		margin-top: 70px;
+		margin-left: 2px;
+		margin-right: 2px;
+		margin-bottom: 5px;
+	}
+	#self_info .line_div {
+		display: inline-table;
+	}
+	#index {
+		margin: 20px;
+		width: 100px;
+		font-size: 20px;
+		font-weight: bold;
+		text-align: center;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		border-radius: 5px;
+	}
+	#index a {
+		text-decoration: none;
+	}
+	#index a:hover {
+		color: white;
+	}
+	#left_div {
+		margin-left: 10px;
+		margin-top: 50px;
+		margin-bottom: 10px;
+		width: 150px;
+		background-color: #122B40;
+		border-top: 1px solid black;
+		text-align: center;
+	}
+	#left_div div {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		font-size: 20px;
+		border-bottom: 1px solid black;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+	}
+	#left_div div:hover {
+		background-color: #204D74;
+	}
+	#left_div div a {
+		text-decoration: none;
+		color: white;
+	}
+	#right_div {
+		width: 70%;
+		margin-top: 50px;
+		border: 1px solid black;
+		height: 560px;
+		margin-bottom: 20px;
+		margin-left: -5px;
+	}
+	/* 设置选中button的样式  */
+	#info {
+		background: #204D74;
+		border-right: 2px solid white;
+	}
+	#person_img {
+		width: 80px;
+		height: 80px;
+		margin-left: 50px;
+	}
+	.name {
+		display: inline-block;
+	}
+	#article_page_div {
+		margin-bottom: 10px;
+	}
+}
+
+@media only screen and (max-width:900px) {
+	#link_nav {
+		border-top: 1px solid #122B40;
+		border-left: 1px solid #122B40;
+		border-right: 1px solid #122B40;
+	}
+	#link_nav div {
+		border-bottom: 1px solid #122B40;
+	}
+	#link_nav div {
+		padding-bottom: 10px;
+		padding-top: 10px;
+	}
+	#link_nav div a {
+		margin-left: 10px;
+	}
+	#self_info {
+		margin-top: 50px;
+	}
+	#updateImg {
+		width: 80px;
+	}
+}
+
+#link_nav div a {
+	text-decoration: none;
+}

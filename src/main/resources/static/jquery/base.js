@@ -270,14 +270,19 @@ function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
     var tableBodyData = getTableBodyData(url, openPage, 1, 10);
     var templateVO = getFormatTableBodyData(id, tableBodyData, openPage, fieldList, scrollWidth, height)
     templateVO.first = true;
-    renderTableBody(templateVO)
-    renderTablePage(id,url,openPage,fieldList,scrollWidth,height,templateVO.count)
-    // 统一宽度
-    bindWidthByTable(id,fieldList)
-    //
-    bindTableScroll(id)
-    // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
-    bindWidthByTable(id,fieldList)
+    addWaiting()
+    setTimeout(function () {
+        renderTableBody(templateVO)
+        renderTablePage(id,url,openPage,fieldList,scrollWidth,height,templateVO.count)
+        // 统一宽度
+        bindWidthByTable(id,fieldList)
+        //
+        bindTableScroll(id)
+        // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
+        bindWidthByTable(id,fieldList)
+        removeWaiting()
+    },1200)
+
 }
 
 function renderTablePage(id,url,openPage,fieldList,scrollWidth,height,count) {
@@ -325,6 +330,7 @@ function  getTableBodyData(url, openPage, page, pageSize) {
             }
         })
     }
+
     return data;
 
 }

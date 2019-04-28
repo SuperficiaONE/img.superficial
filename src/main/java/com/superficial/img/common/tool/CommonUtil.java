@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -123,5 +124,11 @@ public class CommonUtil {
         return reMap;
     }
 
-
+   public static  String getDataPath(Date date){
+        if (date==null){
+            return "";
+        }
+        SimpleDateFormat smf = new SimpleDateFormat("yyyy/MM/dd/");
+        return  smf.format(date);
+   }
 }

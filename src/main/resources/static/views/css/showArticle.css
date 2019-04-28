@@ -1,0 +1,123 @@
+@media only screen and (min-width:1200px) {
+	/* 导航条样式 */
+	#link_nav div {
+		float: left;
+		border-radius: 10px;
+		margin-left: 10px;
+		list-style: none;
+		margin-top: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	/* 设置选中button的样式  */
+	#info {
+		background: #204D74;
+		border-right: 2px solid white;
+	}
+	#person_img {
+		width: 80px;
+		height: 80px;
+		margin-left: 50px;
+	}
+	/* 导航条样式 */
+	#img_nickName img {
+		width: 150px;
+		height: 150px;
+	}
+	#nicckName {
+		margin-left: 5px;
+		font-weight: bold;
+		width: 140px;
+		text-align: center;
+		color: red;
+	}
+	#myImg_comment {
+		width: 100px;
+		height: 100px;
+	}
+}
+
+@media only screen and (max-width:900px) {
+	/* 导航条样式 */
+	#link_nav {
+		border-top: 1px solid #122B40;
+		border-left: 1px solid #122B40;
+		border-right: 1px solid #122B40;
+	}
+	#link_nav div {
+		border-bottom: 1px solid #122B40;
+	}
+	#link_nav div {
+		padding-bottom: 10px;
+		padding-top: 10px;
+	}
+	#link_nav div a {
+		margin-left: 10px;
+	}
+	/* 导航条样式 */
+	#img_nickName img {
+		width: 100px;
+		height: 100px;
+	}
+	#nicckName {
+		margin-left: 5px;
+		font-weight: bold;
+		width: 90px;
+		text-align: center;
+		color: red;
+	}
+	#author_div {
+		display: none;
+	}
+	#myImg_comment {
+		width: 50px;
+		height: 50px;
+	}
+}
+/* 导航条样式 */
+#link_nav div a {
+	text-decoration: none;
+}
+/* 导航条样式 */
+#showArticle_div {
+	margin-top: 70px;
+}
+
+#img_nickName a:hover {
+	text-decoration: none;
+}
+
+.title {
+	margin-top: 5px;
+}
+
+#nicckName:hover {
+	color: gray;
+}
+
+#author a {
+	color: red;
+	font-weight: bold;
+}
+
+.same_article_title {
+	margin-top: 8px;
+}
+
+.back_comment {
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 5px;
+}
+
+.back_span {
+	margin-right: 5px;
+	margin-top: 5px;
+	font-size: 16px;
+}
+
+.back_span:hover {
+	color: red;
+}

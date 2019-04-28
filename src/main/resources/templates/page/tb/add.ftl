@@ -17,13 +17,13 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">添加的字段名/表名</label>
-            <div class="layui-input-inline" >
+            <div class="layui-input-inline">
                 <input class="layui-input" style="height: 30px;" name="tbName"/>
             </div>
         </div>
-        <div class="layui-form-item " >
+        <div class="layui-form-item ">
             <label class="layui-form-label">添加的含义</label>
-            <div class="layui-input-inline" >
+            <div class="layui-input-inline">
                 <input class="layui-input" style="height: 30px;" name="tbMean"/>
             </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="layui-form-item" style="padding-bottom: 20px;">
             <div class="layui-input-block">
                 <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary" >重置</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </div>
@@ -40,29 +40,29 @@
   <#include  "/commonJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
-     layui.use(['jquery','form','layer'],function () {
-         var layer = layui.layer;
-         initSelects("/webapi/dict/formSelectList?dictTypes=tbType")
-         $("#submit").click(function () {
-             var tbType = $("select[name='tbType']").val();
-             var tbName = $("input[name='tbName']").val();
-             var tbMean = $("input[name='tbMean']").val();
-             var data = {};
-             data['tbType'] = tbType;
-             data['tbName'] = tbName;
-             data['tbMean'] = tbMean;
-             post("/api/tb/add",data,function (res) {
-                 if(res.state == 1){
-                     layer.msg(res.msg)
-                 }else {
-                     layer.open({
-                         title: '提示'
-                         , content: res.msg
-                     });
-                 }
-             })
-         })
-     })
+    layui.use(['jquery', 'form', 'layer'], function () {
+        var layer = layui.layer;
+        initSelects("/webapi/dict/formSelectList?dictTypes=tbType")
+        $("#submit").click(function () {
+            var tbType = $("select[name='tbType']").val();
+            var tbName = $("input[name='tbName']").val();
+            var tbMean = $("input[name='tbMean']").val();
+            var data = {};
+            data['tbType'] = tbType;
+            data['tbName'] = tbName;
+            data['tbMean'] = tbMean;
+            post("/api/tb/add", data, function (res) {
+                if (res.state == 1) {
+                    layer.msg(res.msg)
+                } else {
+                    layer.open({
+                        title: '提示'
+                        , content: res.msg
+                    });
+                }
+            })
+        })
+    })
 </script>
 
 </body>

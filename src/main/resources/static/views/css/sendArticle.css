@@ -1,0 +1,56 @@
+@media only screen and (min-width:1200px) {
+	/* 导航条样式 */
+	#link_nav div {
+		float: left;
+		border-radius: 10px;
+		margin-left: 10px;
+		list-style: none;
+		margin-top: 10px;
+		padding-right: 10px;
+		padding-left: 10px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	/* 设置选中button的样式  */
+	#info {
+		background: #204D74;
+		border-right: 2px solid white;
+	}
+	#person_img {
+		width: 80px;
+		height: 80px;
+		margin-left: 50px;
+	}
+	/* 导航条样式 */
+	.form-inline {
+		margin-top: 10px;
+	}
+}
+
+@media only screen and (max-width:900px) {
+	/* 导航条样式 */
+	#link_nav {
+		border-top: 1px solid #122B40;
+		border-left: 1px solid #122B40;
+		border-right: 1px solid #122B40;
+	}
+	#link_nav div {
+		border-bottom: 1px solid #122B40;
+	}
+	#link_nav div {
+		padding-bottom: 10px;
+		padding-top: 10px;
+	}
+	#link_nav div a {
+		margin-left: 10px;
+	}
+	/* 导航条样式 */
+}
+/* 导航条样式 */
+#link_nav div a {
+	text-decoration: none;
+}
+/* 导航条样式 */
+#sendArticle_div {
+	margin-top: 70px;
+}

@@ -1,0 +1,37 @@
+     form{
+	    	padding-top: 50px;
+	    	padding-bottom:50px;
+	    	width:60%;
+	    	margin-left: auto;
+	    	margin-right: auto;
+    	}
+    	body{
+	    	background-color: rgba(255,255,255,0);
+	    	background: url('../img/bg2.jpg') no-repeat;
+    	}
+    	html{
+	    	 width:100%;
+	    	 height:100%;
+	    	}
+	    .form-group{
+		    margin-top: 20px;
+	    }
+	   .checkbox label{
+		    color: white;
+		    font-weight:bold;
+		    
+	    }
+	    .form-horizontal{
+		    margin-top: 5%;
+	    }
+	    button{
+		    width:150px;  
+		    margin-top: 10px;
+	    }
+	    h2{
+		   font-family:'Bookman Old Style'; 
+		   color: white;
+		   font-weight:bold;
+		   letter-spacing: 4px;
+		   font-size:36px;
+	    }

@@ -78,7 +78,7 @@ public class TbController {
               if ( !CommonUtil.isEmpty(parent) ){
                   parentId = parent.getTbParentId();
               }
-            tb.setTbId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date()).setTbParentId(parentId);
+            tb.setTbId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date()).setTbParentId(parentId).setTbOrder(0);
             tbService.insert(tb);
             return ResultVO.newSuccess("插入数据成功",tb);
         }catch (Exception e){
