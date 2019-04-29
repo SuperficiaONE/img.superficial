@@ -60,10 +60,12 @@
         laydate.render({
             elem: '#planStartTime' //指定元素
             ,type: 'datetime'
+            ,zIndex: 99999999
         });
         laydate.render({
             elem: '#planEndTime' //指定元素
             ,type: 'datetime'
+            ,zIndex: 99999999
         });
         $('#planContent').froalaEditor({
             imageUploadURL : "/api/img/upload",
