@@ -19,7 +19,7 @@
         <div class="layui-form-item" style="">
             <label class="layui-form-label">计划名称：</label>
             <div class="layui-input-inline">
-                <input class="layui-input" style="height: 30px;" name="planName"/>
+                <input id="planName" class="layui-input" style="height: 30px;" name="planName"/>
             </div>
         </div>
         <div class="layui-form-item">
@@ -43,7 +43,7 @@
         <div class="layui-form-item" style="padding-bottom: 20px;">
             <div class="layui-input-block">
                 <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                <button id="reset" type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </div>
@@ -73,6 +73,14 @@
         $("#submit").click(function () {
             var html = $("#planContent").froalaEditor("html.get");
             console.log(html)
+        })
+
+        $("#reset").click(function () {
+            $("#planContent").html("")
+            $("#planStartTime").val("")
+            $("#planEndTime").val("")
+            $("#planName").val("")
+
         })
     })
 </script>
