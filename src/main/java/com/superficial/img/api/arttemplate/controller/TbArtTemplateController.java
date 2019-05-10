@@ -9,6 +9,7 @@ import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ElementVO;
 import com.superficial.img.api.arttemplate.vo.TemplateVO;
 import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
@@ -55,10 +56,13 @@ public class TbArtTemplateController {
             if(artTemplateService.selectCount(new EntityWrapper<TbArtTemplate>().eq("template_type",tbArtTemplate.getTemplateType()))>0){
                 return ResultVO.newFail("你已经添加该类型模板了");
             }
+            String loginName = JwtHelper.getLoginName();
              artTemplateService.insert(tbArtTemplate
                      .setCreateAt(new Date())
                      .setId(IdWorker.getId())
                      .setUpdateAt(new Date())
+                     .setCreateUser(loginName)
+                     .setUpdateUser(loginName)
                      );
             return ResultVO.newSuccess("添加成功",tbArtTemplate);
         }catch (Exception e){

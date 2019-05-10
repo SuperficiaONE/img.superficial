@@ -15,6 +15,8 @@ import java.io.UnsupportedEncodingException;
 public class HttpUtils {
 
   public static final String TOKEN_KEY = "TOKEN";
+  public static final String TOKEN_HEADER = "auth";
+  public static final Integer COOKIE_EXPIRE_TIME=24*3600;
 
   public static HttpServletRequest currentRequest() {
     try {
@@ -24,6 +26,7 @@ public class HttpUtils {
       return null;
     }
   }
+
 
   public static HttpServletResponse currentResponse() {
     try {
@@ -66,6 +69,8 @@ public class HttpUtils {
   }
 
   public static void writeToken(String token) {
+    HttpServletResponse response = HttpUtils.currentResponse();
+    response.addHeader(TOKEN_HEADER,token);
     Cookie cookie = new Cookie(TOKEN_KEY, token);
     cookie.setPath("/");
     writeCookie(cookie);
@@ -124,7 +129,8 @@ public class HttpUtils {
       return;
     }
     HttpServletResponse response = currentResponse();
-
+    // 单位是秒
+    cookie.setMaxAge(COOKIE_EXPIRE_TIME);
     if (response != null) {
       response.addCookie(cookie);
     }
@@ -167,5 +173,20 @@ public class HttpUtils {
     response.setDateHeader("Expires", 0);
     response.setContentType("image/jpeg");
     return response;
+  }
+  public static String  getToken(){
+    HttpServletRequest request = currentRequest();
+    if(CommonUtil.isEmpty(request)){
+      return "";
+    }
+    String header = request.getHeader(TOKEN_HEADER);
+    if(!CommonUtil.isEmpty(header)){
+      return header;
+    }
+    String token = getCookieValue(TOKEN_KEY);
+    if(CommonUtil.isEmpty(token)){
+      return "";
+    }
+    return token;
   }
 }

@@ -2,6 +2,8 @@ package com.superficial.img.api.dict.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -14,7 +16,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-04-06
  */
-@Data
+@Setter
+@Getter
 public class TbDict implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,6 +47,20 @@ public class TbDict implements Serializable {
      * 更新时间
      */
     private Date updateAt;
+
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbDict setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbDict setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
 
     public TbDict setDictId(Long dictId) {
         this.dictId = dictId;

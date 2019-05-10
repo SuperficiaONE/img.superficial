@@ -1,8 +1,11 @@
 package com.superficial.img.api.arttemplate.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class TemplateVO<T> {
     private String templateId;
     T data;

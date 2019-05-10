@@ -1,10 +1,13 @@
 package com.superficial.img.common.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
-@Data
+@Setter
+@Getter
 public class LayPageVO {
     /**
      * 指向存放分页的容器，值可以是容器ID、DOM对象。如：

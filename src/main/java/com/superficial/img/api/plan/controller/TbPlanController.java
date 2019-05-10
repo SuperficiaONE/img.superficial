@@ -1,6 +1,7 @@
 package com.superficial.img.api.plan.controller;
 
 
+import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.ResultVO;
 import com.superficial.img.api.plan.pojo.TbPlan;
 import com.superficial.img.api.plan.service.ITbPlanService;
@@ -27,7 +28,28 @@ public class TbPlanController {
 
     @RequestMapping("/api/plan/add")
     public ResultVO addPlan(TbPlan plan){
-       return ResultVO.newSuccess("");
+        try {
+            if (CommonUtil.isEmpty(plan)){
+                return ResultVO.newFail("没有参数");
+            }
+            if(CommonUtil.isEmpty(plan.getPlanName())){
+
+            }
+            if(CommonUtil.isEmpty(plan.getPlanStartTime())){
+
+            }
+            if(CommonUtil.isEmpty(plan.getPlanEndTime())){
+
+            }
+            if(CommonUtil.isEmpty(plan.getPlanContent())){
+
+            }
+
+        }catch (Exception e){
+            log.error("添加计划出现了异常：",e);
+            return ResultVO.newError(e.getMessage());
+        }
+        return ResultVO.newSuccess("");
     }
 
 }

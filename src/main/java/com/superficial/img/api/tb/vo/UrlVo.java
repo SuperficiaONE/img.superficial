@@ -1,8 +1,11 @@
 package com.superficial.img.api.tb.vo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class UrlVo {
     private String title;
     private String url;

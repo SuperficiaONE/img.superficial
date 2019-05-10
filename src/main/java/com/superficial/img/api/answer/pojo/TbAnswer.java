@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.FieldFill;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -16,7 +18,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-03-20
  */
-@Data
+@Setter
+@Getter
 public class TbAnswer implements Serializable {
 
     @TableId
@@ -31,6 +34,20 @@ public class TbAnswer implements Serializable {
 
     @TableField(fill=FieldFill.INSERT_UPDATE)
     private Date updateAt;
+
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbAnswer setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbAnswer setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
 
     public TbAnswer setAnswerId(Long answerId) {
         this.answerId = answerId;

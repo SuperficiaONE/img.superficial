@@ -1,7 +1,11 @@
 package com.superficial.img.common.vo;
 
 import lombok.Data;
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class EmailVo {
     private String host;
     private Integer port;

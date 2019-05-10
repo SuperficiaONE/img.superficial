@@ -190,9 +190,6 @@ function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith,
         return {'title':title,'field':field};
     }
     initTableBody(bodyUrl, id, openPage, fieldList, scrollWith, height)
-    tipsBind("showAll")
-
-
 }
 function bindTableScroll(id) {
     var t = document.getElementById(id+"_table_body_div");
@@ -280,7 +277,9 @@ function initTableBody(url, id, openPage, fieldList, scrollWidth, height) {
         bindTableScroll(id)
         // 再次同一宽度 因为滚动条的出现会再次影响宽度可能
         bindWidthByTable(id,fieldList)
+        tipsBind("showAll")
         removeWaiting()
+
     },1200)
 
 }

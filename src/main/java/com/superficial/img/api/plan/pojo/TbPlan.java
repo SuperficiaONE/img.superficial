@@ -2,6 +2,8 @@ package com.superficial.img.api.plan.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -15,7 +17,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-04-05
  */
-@Data
+@Setter
+@Getter
 public class TbPlan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -61,6 +64,20 @@ public class TbPlan implements Serializable {
      * 更新时间
      */
     private Date updateAt;
+
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbPlan setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbPlan setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
 
     public TbPlan setPlanId(Long planId) {
         this.planId = planId;

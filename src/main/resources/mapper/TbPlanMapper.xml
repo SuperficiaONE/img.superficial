@@ -6,22 +6,12 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.api.plan.pojo.TbPlan">
-        <id column="plan_id" property="planId" />
-        <result column="user_id" property="userId" />
-        <result column="plan_name" property="planName" />
-        <result column="plan_content" property="planContent" />
-        <result column="plan_start_time" property="planStartTime" />
-        <result column="plan_end_time" property="planEndTime" />
-        <result column="plan_expect_days" property="planExpectDays" />
-        <result column="plan_out_time_reason" property="planOutTimeReason" />
-        <result column="create_at" property="createAt" />
-        <result column="update_at" property="updateAt" />
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.plan.pojo.TbPlan" autoMapping="true">
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        plan_id, user_id, plan_name, plan_content, plan_start_time, plan_end_time, plan_expect_days, plan_out_time_reason, create_at, update_at
+        plan_id, user_id, plan_name, plan_content, plan_start_time, plan_end_time, plan_expect_days, plan_out_time_reason, create_at, update_at,create_user,update_user
     </sql>
 
 </mapper>

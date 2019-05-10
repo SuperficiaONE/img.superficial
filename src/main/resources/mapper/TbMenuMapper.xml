@@ -12,7 +12,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        menu_id,parent_id ,menu_name,menu_level, menu_order, url, menu_login, menu_back, create_at, update_at
+        menu_id,parent_id ,menu_name,menu_level, menu_order, url, menu_login, menu_back, create_at, update_at,create_user,update_user
     </sql>
 
     <select id="getSelectVoList" resultType="com.superficial.img.common.vo.SelectVO">

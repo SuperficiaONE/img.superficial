@@ -2,9 +2,12 @@ package com.superficial.img.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@Data
+@Setter
+@Getter
 @Slf4j
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultVO {

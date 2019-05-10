@@ -49,6 +49,20 @@ public class TbMenu implements Serializable {
 
     private Date updateAt;
 
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbMenu setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbMenu setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
+
     public TbMenu setMenuId(Long menuId) {
         this.menuId = menuId;
         return this;

@@ -2,9 +2,12 @@ package com.superficial.img.common.vo;
 
 import com.superficial.img.common.vo.TableColVO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
-@Data
+@Setter
+@Getter
 public class TableVO<T,D> {
     /**
      * 指定原始 table 容器的选择器或

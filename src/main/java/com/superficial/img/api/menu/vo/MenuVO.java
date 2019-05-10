@@ -2,9 +2,12 @@ package com.superficial.img.api.menu.vo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
-@Data
+@Setter
+@Getter
 public class MenuVO {
 
         private static final long serialVersionUID = 1L;

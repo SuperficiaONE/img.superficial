@@ -2,6 +2,8 @@ package com.superficial.img.api.comment.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -14,7 +16,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-03-11
  */
-@Data
+@Setter
+@Getter
 public class TbComment implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -30,6 +33,19 @@ public class TbComment implements Serializable {
     private Date updateAt;
     private Integer likeCount;
     private Integer dislikeCount;
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbComment setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbComment setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
 
     public TbComment setCommentId(Long commentId) {
         this.commentId = commentId;

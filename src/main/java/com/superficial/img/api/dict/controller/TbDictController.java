@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.api.dict.tool.ConvTool;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
@@ -70,6 +71,7 @@ public class TbDictController {
             if(CommonUtil.isEmpty(tbDict.getDictValue())){
                 return ResultVO.newFail("dictValue不能为空");
             }
+            String loginName = JwtHelper.getLoginName();
             // 判断有无 chineseText 有表示插入的数据为 dataType 为 dict_type 或者 dict_value  "dict_type"
             if(CommonUtil.isEmpty(chineseText)){
                 if(CommonUtil.isEmpty(tbDict.getDictType())){
@@ -79,7 +81,9 @@ public class TbDictController {
                 tbDict.setDictId(IdWorker.getId())
                         .setDictKey(count)
                         .setUpdateAt(new Date())
-                        .setCreateAt(new Date());
+                        .setCreateAt(new Date())
+                        .setCreateUser(loginName)
+                        .setUpdateUser(loginName);
                 dictService.insert(tbDict);
 
             }else {
@@ -94,7 +98,9 @@ public class TbDictController {
                        tbDict.setDictId(IdWorker.getId())
                                .setDictKey(0)
                                .setDictType(tbDict.getDictValue())
-                               .setDictValue(chineseText);
+                               .setDictValue(chineseText)
+                               .setCreateUser(loginName)
+                               .setUpdateUser(loginName);
                        dictService.insert(tbDict);
                    }else {
                        tbDict.setDictType(tbDict.getDictValue())
@@ -102,7 +108,9 @@ public class TbDictController {
                                .setCreateAt(new Date())
                                .setUpdateAt(new Date())
                                .setDictValue(chineseText)
-                               .setDictKey(0);
+                               .setDictKey(0)
+                               .setCreateUser(loginName)
+                               .setUpdateUser(loginName);
                        dictService.insert(tbDict);
                    }
 

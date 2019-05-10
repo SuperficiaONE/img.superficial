@@ -8,6 +8,7 @@ import com.superficial.img.api.arttemplate.vo.ElementVO;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.api.tb.vo.UrlVo;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
@@ -167,7 +168,10 @@ public class TbMenuController {
             if(count>0){
                 return ResultVO.newFail("添加菜单失败：该链接可能已存在");
             }
-            menu.setMenuId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date());
+            String loginName = JwtHelper.getLoginName();
+            menu.setMenuId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date())
+                    .setCreateUser(loginName)
+                    .setUpdateUser(loginName);
             menuService.insert(menu);
             return ResultVO.newSuccess("添加菜单成功",menu);
         }catch (Exception e){

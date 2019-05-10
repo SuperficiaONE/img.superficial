@@ -1,7 +1,8 @@
 package com.superficial.img.api.tb.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -14,7 +15,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-04-08
  */
-@Data
+@Setter
+@Getter
 public class Tb implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,6 +36,18 @@ public class Tb implements Serializable {
     private Date createAt;
     private Date updateAt;
     private  Integer tbOrder;
+    private String createUser;
+    private String updateUser;
+
+    public Tb setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
+
+    public Tb setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
 
     public Tb setTbOrder(Integer tbOrder) {
         this.tbOrder = tbOrder;

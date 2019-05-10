@@ -7,13 +7,13 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -131,4 +131,247 @@ public class CommonUtil {
         SimpleDateFormat smf = new SimpleDateFormat("yyyy/MM/dd/");
         return  smf.format(date);
    }
+    public static int asInteger(Object o) {
+        return asInteger(o, 0);
+    }
+
+    public static int asInteger(Object o, int df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Integer) {
+            return (Integer) o;
+        }
+        if (o instanceof Byte) {
+            return (Byte) o;
+        }
+        if (o instanceof Short) {
+            return (Short) o;
+        }
+        if (o instanceof Double) {
+            return ((Double) o).intValue();
+        }
+        if (o instanceof Float) {
+            return ((Float) o).intValue();
+        }
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).intValue();
+        }
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).intValue();
+        }
+        try {
+            return Integer.parseInt(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static long asLong(Object o) {
+        return asLong(o, 0L);
+    }
+
+    public static long asLong(Object o, long df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Long) {
+            return (Long) o;
+        }
+        if (o instanceof Integer) {
+            return (Integer) o;
+        }
+        if (o instanceof Byte) {
+            return (Byte) o;
+        }
+        if (o instanceof Short) {
+            return (Short) o;
+        }
+        if (o instanceof Double) {
+            return ((Double) o).longValue();
+        }
+        if (o instanceof Float) {
+            return ((Float) o).longValue();
+        }
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).longValue();
+        }
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).longValue();
+        }
+        try {
+            return Long.parseLong(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static String asString(Object o) {
+        return asString(o, "");
+    }
+
+    public static String asString(Object o, String df) {
+        try {
+            return o.toString();
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static short asShort(Object o) {
+        return asShort(o, (short) 0);
+    }
+
+    public static short asShort(Object o, short df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Byte) {
+            return (Byte) o;
+        }
+        if (o instanceof Short) {
+            return (Short) o;
+        }
+        if (o instanceof BigInteger) {
+            return ((BigInteger) o).shortValue();
+        }
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).shortValue();
+        }
+        try {
+            return Short.parseShort(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static boolean asBoolean(Object o) {
+        return asBoolean(o, false);
+    }
+
+    public static boolean asBoolean(Object o, boolean df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Boolean) {
+            return (Boolean) o;
+        }
+        if (o instanceof Short || o instanceof Long || o instanceof Byte || o instanceof Integer) {
+            return (asInteger(o, 0) != 0);
+        }
+        if (o instanceof String) {
+            String v = asString(o);
+            return (v.equalsIgnoreCase("true") || v.equalsIgnoreCase("yes"));
+        }
+        try {
+            return Boolean.parseBoolean(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static float asFloat(Object o) {
+        return asFloat(o, 0F);
+    }
+
+    public static float asFloat(Object o, float df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Float) {
+            return (Float) o;
+        }
+        if (o instanceof Short || o instanceof Long || o instanceof Byte || o instanceof Integer) {
+            return asLong(o, 0);
+        }
+        try {
+            return Float.parseFloat(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static double asDouble(Object o) {
+        return asDouble(o, 0D);
+    }
+
+    public static double asDouble(Object o, double df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Double) {
+            return (Double) o;
+        }
+        if (o instanceof Float) {
+            return (Float) o;
+        }
+        if (o instanceof Short || o instanceof Long || o instanceof Byte || o instanceof Integer) {
+            return asLong(o, 0);
+        }
+        if (o instanceof BigDecimal) {
+            return ((BigDecimal) o).doubleValue();
+        }
+        try {
+            return Double.parseDouble(o.toString());
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static BigDecimal asDecimal(Object o) {
+        return asDecimal(o, BigDecimal.ZERO);
+    }
+
+    public static BigDecimal asDecimal(Object o, BigDecimal df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof BigDecimal) {
+            return (BigDecimal) o;
+        }
+        if (o instanceof Long || o instanceof Integer || o instanceof Byte || o instanceof Short) {
+            return BigDecimal.valueOf(asLong(o));
+        }
+        if (o instanceof Float || o instanceof Double) {
+            return BigDecimal.valueOf(asDouble(o));
+        }
+        try {
+            return BigDecimal.valueOf(asDouble(o));
+        } catch (Exception e) {
+            return df;
+        }
+    }
+
+    public static Date asDate(Object o) {
+        return asDate(o, new Date());
+    }
+
+
+    public static Date asDate(Object o, Date df) {
+        if (o == null) {
+            return df;
+        }
+        if (o instanceof Date) {
+            return (Date) o;
+        }
+        if (o instanceof Long) {
+            return new Date((Long) o);
+        }
+        if (o instanceof Integer || (o instanceof String && ((String) o).length() == 8)) {
+            String v = o.toString();
+            if (v.length() == 8) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(
+                        Integer.parseInt(v.substring(0, 4)),
+                        Integer.parseInt(v.substring(5, 6)) - 1,
+                        Integer.parseInt(v.substring(7, 8)));
+                return calendar.getTime();
+            }
+        }
+        try {
+            return new DateTime(o.toString()).toDate();
+        } catch (Exception e) {
+            return df;
+        }
+    }
 }

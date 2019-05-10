@@ -6,18 +6,12 @@
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.api.arttemplate.pojo.TbArtTemplate">
-        <id column="id" property="id" />
-        <result column="template_type" property="templateType" />
-        <result column="template_script" property="templateScript" />
-        <result column="tempalte_data" property="tempalteData" />
-        <result column="create_at" property="createAt" />
-        <result column="update_at" property="updateAt" />
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.arttemplate.pojo.TbArtTemplate" autoMapping="true">
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, template_type, template_script, tempalte_data, create_at, update_at
+        id, template_type, template_script, tempalte_data, create_at, update_at,create_user,update_user
     </sql>
    <select id="getTemplateScriptList" resultType="String">
        select template_script from tb_art_template where template_type in

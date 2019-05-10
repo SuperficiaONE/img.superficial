@@ -10,7 +10,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        tb_id, tb_type, tb_parent_id,tb_order, tb_mean, tb_name, create_at, update_at
+        tb_id, tb_type, tb_parent_id,tb_order, tb_mean, tb_name, create_at, update_at,create_user,update_user
     </sql>
    <select id="getSelectVOList" resultType="com.superficial.img.common.vo.SelectVO">
        select  tb_parent_id as dict_value ,tb_mean as dict_text from tb where ISNULL(tb_parent_id)

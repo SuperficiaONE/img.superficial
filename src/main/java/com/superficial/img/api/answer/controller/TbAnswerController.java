@@ -4,6 +4,7 @@ package com.superficial.img.api.answer.controller;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.ResultVO;
 import com.superficial.img.api.answer.pojo.TbAnswer;
 import com.superficial.img.api.answer.service.ITbAnswerService;
@@ -46,13 +47,16 @@ public class TbAnswerController {
           if(count>0){
               return ResultVO.newFail("已添加过");
           }
+          String loginName = JwtHelper.getLoginName();
           Long id = IdWorker.getId();
           TbAnswer answer = new TbAnswer()
                   .setAnswerId(id)
                   .setContent(content)
                   .setEnglishContent(englishContent)
                   .setCreateAt(new Date())
-                  .setUpdateAt(new Date());
+                  .setUpdateAt(new Date())
+                  .setCreateUser(loginName)
+                  .setUpdateUser(loginName);
           answerService.insert(answer);
           Map<String,Object> map = new HashMap<>(2);
           map.put("answerId",id);

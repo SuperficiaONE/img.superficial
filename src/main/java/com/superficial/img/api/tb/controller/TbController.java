@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.vo.ElementVO;
 import com.superficial.img.api.arttemplate.vo.TemplateVO;
 import com.superficial.img.api.tb.vo.ThVO;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.tb.pojo.Tb;
@@ -78,7 +79,14 @@ public class TbController {
               if ( !CommonUtil.isEmpty(parent) ){
                   parentId = parent.getTbParentId();
               }
-            tb.setTbId(IdWorker.getId()).setCreateAt(new Date()).setUpdateAt(new Date()).setTbParentId(parentId).setTbOrder(0);
+            String loginName = JwtHelper.getLoginName();
+            tb.setTbId(IdWorker.getId())
+                    .setCreateAt(new Date())
+                    .setUpdateAt(new Date())
+                    .setTbParentId(parentId)
+                    .setTbOrder(0)
+                    .setCreateUser(loginName)
+                    .setUpdateUser(loginName);
             tbService.insert(tb);
             return ResultVO.newSuccess("插入数据成功",tb);
         }catch (Exception e){

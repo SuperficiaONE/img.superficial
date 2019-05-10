@@ -1,6 +1,8 @@
 package com.superficial.img.api.arttemplate.pojo;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -13,7 +15,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-04-18
  */
-@Data
+@Setter
+@Getter
 public class TbArtTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,6 +30,19 @@ public class TbArtTemplate implements Serializable {
     private String tempalteData;
     private Date createAt;
     private Date updateAt;
+    private  String updateUser;
+
+    private String createUser;
+
+    public TbArtTemplate setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+        return this;
+    }
+
+    public TbArtTemplate setCreateUser(String createUser) {
+        this.createUser = createUser;
+        return this;
+    }
 
     public TbArtTemplate setId(Long id) {
         this.id = id;

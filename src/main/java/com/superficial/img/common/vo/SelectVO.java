@@ -2,8 +2,11 @@ package com.superficial.img.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Setter
+@Getter
 public class SelectVO {
     String dictValue ;
     String dictText ;
