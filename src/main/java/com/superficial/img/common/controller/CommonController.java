@@ -4,6 +4,7 @@ import com.google.zxing.WriterException;
 import com.superficial.img.common.service.CommonService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.EmailTool;
+import com.superficial.img.common.tool.JwtTool;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -20,6 +23,25 @@ public class CommonController {
 
     @Autowired
     private CommonService commonService;
+
+    @RequestMapping("/page/test/token.htm")
+    public String getTokenPage() throws IOException {
+        return "/page/test/token";
+    }
+
+
+    @RequestMapping("/api/test/getToken")
+    @ResponseBody
+    public ResultVO getToken(Long userAgentId,String dataId,String loginName,String tokenVersion,String userType,String stationId,String linkName) throws IOException {
+        try {
+            Map<String,String> map =new HashMap<>();
+            map.put("token", "");
+            return  ResultVO.newSuccess("获取token成功",map);
+        }catch (Exception e){
+            log.error("获取banner验证码出现异常:",e);
+            return ResultVO.newError("获取banner验证码出现异常:"+e.getMessage());
+        }
+    }
 
 
     @RequestMapping("/api/common/getQRCode")
