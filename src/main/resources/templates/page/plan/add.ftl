@@ -53,9 +53,10 @@
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <#--$('#editor').froalaEditor("destroy")-->
 <script>
-    layui.use(['form', 'laydate', 'jquery', 'layedit'], function () {
-        var layedit = layui.layedit;
+    layui.use(['form', 'laydate', 'jquery', 'layedit','layer'], function () {
+
         var laydate = layui.laydate;
+        var layer = layui.layer;
         var $ = layui.jquery;
         laydate.render({
             elem: '#planStartTime' //指定元素
@@ -71,8 +72,23 @@
             imageUploadURL : "/api/img/upload",
         });
         $("#submit").click(function () {
-            var html = $("#planContent").froalaEditor("html.get");
-            console.log(html)
+            var planContent = $("#planContent").froalaEditor("html.get");
+            var planStartTime=$("#planStartTime").val()
+            var planEndTime=$("#planEndTime").val()
+            var planName=$("#planName").val()
+            var data ={}
+            data['planContent'] =planContent;
+            data['planStartTime'] =planStartTime;
+            data['planEndTime'] =planEndTime;
+            data['planName'] =planName;
+            post("/api/plan/add",data,function (res) {
+                if (res.state==1){
+                    showSuccess(res.msg)
+                } else {
+                    showError(res.msg)
+                }
+            })
+
         })
 
         $("#reset").click(function () {

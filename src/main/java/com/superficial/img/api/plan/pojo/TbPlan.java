@@ -1,9 +1,12 @@
 package com.superficial.img.api.plan.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.superficial.img.common.deserializer.DateDeserializer;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -43,10 +46,12 @@ public class TbPlan implements Serializable {
     /**
      * 计划开始时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date planStartTime;
     /**
      * 计划结束时间
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date planEndTime;
     /**
      * 计划完成预计完成时间(单位天 保留两位小数四舍五入)

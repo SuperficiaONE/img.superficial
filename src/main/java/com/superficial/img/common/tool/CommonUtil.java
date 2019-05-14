@@ -4,8 +4,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.deser.std.DateDeserializers;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 
@@ -47,8 +51,7 @@ public class CommonUtil {
 
     public  static ObjectMapper getObjectMapper(){
         ObjectMapper objectMapper = new ObjectMapper();
-      //  SimpleDateFormat sdf = new SimpleDateFormat("yyyyHH");
-     //   objectMapper.setDateFormat(sdf);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
         SimpleModule longSimpleModule = new SimpleModule();
         longSimpleModule.addSerializer(Long.class, ToStringSerializer.instance);
         longSimpleModule.addSerializer(Long.TYPE, ToStringSerializer.instance);
@@ -96,8 +99,9 @@ public class CommonUtil {
 
     public static Map ConvertObjToMap(Object obj){
         Map<String,Object> reMap = new HashMap<String,Object>();
-        if (obj == null)
+        if (obj == null) {
             return null;
+        }
         Field[] fields = obj.getClass().getDeclaredFields();
         try {
             for(int i=0;i<fields.length;i++){
@@ -374,4 +378,16 @@ public class CommonUtil {
             return df;
         }
     }
+
+    public static   BigDecimal getDays(Date startDate,Date endDate){
+        if(CommonUtil.isEmpty(startDate)|| CommonUtil.isEmpty(endDate)){
+            return BigDecimal.ZERO;
+        }
+        long startDateTime = startDate.getTime();
+        long endDateTime = endDate.getTime();
+        BigDecimal bigDecimal = BigDecimal.valueOf(endDateTime - startDateTime);
+        BigDecimal divide = bigDecimal.divide(new BigDecimal(24 * 1000 * 3600),2,BigDecimal.ROUND_HALF_UP);
+        return divide;
+    }
+
 }

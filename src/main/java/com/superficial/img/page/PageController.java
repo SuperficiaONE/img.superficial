@@ -25,6 +25,9 @@ public class PageController {
     public String getTbAdd(){
         return "/page/tb/add";
     }
-
+    @RequestMapping("/test/test.htm")
+    public String toTest(){
+        return "/page/test/test";
+    }
 
 }
