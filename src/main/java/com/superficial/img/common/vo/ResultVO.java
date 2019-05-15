@@ -10,14 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ResultVO {
+public class ResultVO{
     private  Integer state;
     private String msg ;
     private Object data;
     public  ResultVO(){
 
     }
-
     public  static  ResultVO newSuccess(String msg,Object data){
         return new ResultVO().setData(data).setMsg(msg).setState(1);
     }

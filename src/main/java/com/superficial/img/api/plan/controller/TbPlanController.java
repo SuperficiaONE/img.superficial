@@ -1,7 +1,10 @@
 package com.superficial.img.api.plan.controller;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.superficial.img.api.plan.vo.FlowResultVO;
+import com.superficial.img.common.Cons;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.ResultVO;
@@ -13,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
+import javax.validation.constraints.Max;
+import java.util.*;
 
 /**
  * <p>
@@ -75,5 +79,33 @@ public class TbPlanController {
         }
     }
 
+    /**
+     *  用于 流加载的链接
+     * @param year
+     * @param page
+     * @return
+     */
+    @RequestMapping("/api/plan/showList")
+    public FlowResultVO getShowList(String year, Integer page ){
+            List<TbPlan> planList = planService.getShowList(year,page);
+            Integer pages = planService.getShowListPages(year);
+            Map<String ,Object> map = new HashMap<>();
+            map.put("list",planList);
+            map.put("pages",planList==null ?0:planList.size());
+            return FlowResultVO.newSuccess("成功",pages,map);
+    }
+    @RequestMapping("/api/plan/showVo")
+    public  ResultVO getShowVO(){
+        try {
+            List<String> titles = planService.getRangeYear();
+            titles.add(0,"正在进行的计划");
+            Map<String ,Object> map = new HashMap<>();
+            map.put("titles",titles);
+            return ResultVO.newSuccess("获取成功",map);
+        }catch (Exception e){
+            log.error("获取计划页面渲染的数据出现了异常",e);
+            return ResultVO.newError(e.getMessage());
+        }
+    }
 }
 

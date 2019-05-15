@@ -389,5 +389,11 @@ public class CommonUtil {
         BigDecimal divide = bigDecimal.divide(new BigDecimal(24 * 1000 * 3600),2,BigDecimal.ROUND_HALF_UP);
         return divide;
     }
+    public  static  Integer getPages(Integer count , Integer pageSize){
+        if(CommonUtil.isEmpty(count)|| count<=0|| CommonUtil.isEmpty(pageSize)||pageSize<=0){
+            return 0;
+        }
+        return count/pageSize+(count%pageSize==0?0:1);
+    }
 
 }

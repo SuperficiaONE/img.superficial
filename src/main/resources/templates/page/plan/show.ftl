@@ -111,16 +111,11 @@
         flow.load({
             elem: '#demo'
             , done: function (page, next) {
-                var lis = [];
-
-                $.get('/api/list?page=' + page, function (res) {
-
-                    layui.each(res.data, function (index, item) {
-                        lis.push('<li>' + item.title + '</li>');
-                    });
 
 
-                    next(lis.join(''), page < res.pages);
+                $.get('/api/plan/showList?page=' + page, function (res) {
+                    console.log(res)
+                    next(undefined,page<res.pages)
                 });
             }
         })
