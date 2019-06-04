@@ -16,16 +16,16 @@
 
 
     <select id="getRangeYear"  resultType="String">
-        select   concat(date_format(plan_start_time, '%Y' )," 年度计划") as year from tb_plan group by  year;
+        select   concat(date_format(plan_start_time, '%Y' )) as year from tb_plan group by  year;
     </select>
     <select id="getShowListWithStarting" resultType="com.superficial.img.api.plan.pojo.TbPlan" >
-        select * from tb_plan where plan_start_time > #{date} limit #{s},#{pageSize}
+        select * from tb_plan where  #{date}>plan_start_time  limit #{s},#{pageSize}
     </select>
     <select id="getShowList" resultType="com.superficial.img.api.plan.pojo.TbPlan">
         select  * from tb_plan where date_format(plan_start_time, '%Y)=#{year}  limit #{s} ,#{pageSize}
     </select>
     <select id="getShowListWithStartingCount" resultType="Integer">
-        select count(0) from tb_plan where plan_start_time > #{date}
+        select count(0) from tb_plan where   #{date} >plan_start_time
     </select>
     <select id="getShowListCount" resultType="Integer">
         select  count(0) from tb_plan where date_format(plan_start_time, '%Y)=#{year}

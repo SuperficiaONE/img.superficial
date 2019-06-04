@@ -30,4 +30,15 @@ public class PageController {
         return "/page/test/test";
     }
 
+    @RequestMapping("/module/back.htm" +
+            "")
+    public String module(){
+        return "/page/module/back";
+    }
+    @RequestMapping("/module/index.htm" +
+            "")
+    public String moduleConfig(){
+        return "/page/module/index";
+    }
+
 }
