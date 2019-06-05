@@ -4,7 +4,11 @@ import com.superficial.img.api.moduleconfig.domain.ModuleConfig;
 import com.superficial.img.api.moduleconfig.mapper.ModuleConfigMapper;
 import com.superficial.img.api.moduleconfig.service.IModuleConfigService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.superficial.img.api.moduleconfig.vo.BackModuleConfigVo;
+import com.superficial.img.api.moduleconfig.vo.IndexModuleConfigVo;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +21,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class ModuleConfigServiceImpl extends ServiceImpl<ModuleConfigMapper, ModuleConfig> implements IModuleConfigService {
 
+    @Override
+    public List<IndexModuleConfigVo> getIndexModuleConfigList(String siteId) {
+        return this.baseMapper.getIndexModuleConfigList(siteId);
+    }
+
+    @Override
+    public List<BackModuleConfigVo> getBackModuleList(String siteId) {
+        return this.baseMapper.getBackModuleList(siteId);
+    }
 }

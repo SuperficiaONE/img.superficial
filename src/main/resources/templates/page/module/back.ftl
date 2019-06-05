@@ -20,6 +20,7 @@
   <table>
       <thead>
           <th>操作</th>
+          <th>预览图片</th>
           <th>排序</th>
           <th>模块名称</th>
           <th>楼层名称</th>
@@ -37,6 +38,7 @@
               <button id="delete"  >删除</button>
               <%}%>
           </td>
+          <td><img style="width:100px;height: 60px;" src="<%=data[i].modulePreviewImg%>"/></td>
           <td><%=data[i].order%></td>
           <td><%=data[i].typeName%></td>
           <td><%=data[i].moduleName%></td>
