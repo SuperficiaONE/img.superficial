@@ -25,7 +25,8 @@
     </select>
 
     <select id="getBackModuleList" resultMap="BackModuleRM">
-          select mc.module_config_id, m.module_json, m.module_type, mc.site_id, mc.module_order  from module m inner  join module_config mc
+          select mc.module_config_id, m.module_json, m.module_type, mc.site_id, mc.module_order ,m.module_preview_img
+           ,mc.module_name,m.module_title from module m inner  join module_config mc
         on m.module_id=mc.module_id
         where mc.site_id=#{siteId} order by mc.module_order
     </select>

@@ -26,4 +26,15 @@ public interface Cons {
     int MENU_LEVEL_3 = 3;
 
 
+    /**
+     * //0.顶部广告模板 1.商品模板 2.图片楼层 3.首页翅膀 4.轮播图 5.导航栏
+     */
+    String MODULE_TYPE_0="0";
+    String MODULE_TYPE_1="1";
+    String MODULE_TYPE_2="2";
+    String MODULE_TYPE_3="3";
+    String MODULE_TYPE_4="4";
+    String MODULE_TYPE_5="5";
+
+
 }
