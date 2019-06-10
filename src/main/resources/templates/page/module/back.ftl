@@ -8,30 +8,68 @@
 
 </body>
 <script type="application/javascript" >
-    function  showLay(content,commitFnc) {
-        layui.use('layer', function(){
+    function  showLay(res,commitFnc) {
+        var type= res.moduleType
+        var moduleJson = res.moduleJson;
+        var data = JSON.parse(res.dataJson)
+        var table_str = "<table id='layer_table'>"
+        table_str+="<thead><th>操作</th><th>序号</th><th>图片</th></thead><tbody>"
+        for (var i = 0; i <data.length ; i++) {
+            table_str+="<tr><td><button class=\"layui-btn delete_row\" >删除</button></td><td><div class='double_click'>"+(i+1)+"</div></td><td><img style='width: 100px;height:100px;' src='"+data[i]+"'/></td></tr>"
+        }
+        table_str+="</tbody></table>"
+        var content =table_str+"<button type=\"button\" class=\"layui-btn\" id=\"uploadImage\">\n" +
+                "  <i class=\"layui-icon\">&#xe67c;</i>上传图片\n" +
+                "</button>"
+                layui.use(['layer','upload'], function(){
             var layer = layui.layer;
+            var upload = layui.upload;
             layer.open({
                 title:"编辑",
+                maxWidth: 800,
+                maxHeight: 300,
                 content:content,
                 btn: ['取消', '提交'],
                 yes: function(index, layero){
                   layer.close(index)
                 }
                 ,btn2: function(index, layero){
-                    commitFnc()
+                    console.log(getData("layer_table"))
+                    return false
                 }
             });
+                    var uploadInst = upload.render({
+                        elem: '#uploadImage'
+                        ,url: '/api/layImg/upload'
+                        ,size:10240
+                        ,done: function(res){
+                          var length =  $('#layer_table tbody').children("tr").length;
+                         $("#layer_table tbody").append("<tr><td><button class=\"layui-btn delete_row\" >删除</button></td><td><div class='double_click'>"+(length+1)+"</div></td><td><img style='width: 100px;height:100px;' src='"+res.data.src+"'/></td></tr>")
+                        }
+                        ,error: function(){
+
+                        }
+                    });
+
 
         });
 
     }
+    function  getData(id) {
+       var ths = $("#"+id+" tbody tr")
+        var arr=[]
+        for (var i = 0; i <ths.length ; i++) {
+            var data = {}
+           var order= $(ths[i]).find(".double_click").html();
+            data['order']=order
+            data['imgUrl'] = $(ths[i]).find("img").attr("src")
+            arr.push(data)
+        }
+        return arr;
+    }
     function  edite(moduleConfigId) {
         get("/api/moduleConfig/getSiteModuleConfigVo?moduleConfigId="+moduleConfigId,function (res) {
-            var content = res.moduleJson;
-            showLay(content,function () {
-                alert(content)
-            })
+            showLay(res)
         })
 
     }

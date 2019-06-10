@@ -7,9 +7,15 @@ import lombok.Setter;
 @Getter
 public class ModuleConfigVo {
     private String moduleJson;
+    private String moduleType;
     private String moduleConfigId;
     private String dataJson;
     private String dataUrl;
+
+    public ModuleConfigVo setModuleType(String moduleType) {
+        this.moduleType = moduleType;
+        return this;
+    }
 
     public ModuleConfigVo setDataUrl(String dataUrl) {
         this.dataUrl = dataUrl;
