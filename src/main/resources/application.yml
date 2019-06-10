@@ -2,7 +2,7 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
   profiles:
-    active: test
+    active: dev
   freemarker:
     cache: false
     check-template-location: true
@@ -13,8 +13,8 @@ spring:
     request-context-attribute: request
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    password: root
-    url: jdbc:mysql://localhost:3307/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    password: wozaizheli
+    url: jdbc:mysql://192.168.65.131:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: root
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1

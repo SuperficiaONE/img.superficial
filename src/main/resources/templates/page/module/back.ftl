@@ -16,11 +16,10 @@
                 content:content,
                 btn: ['取消', '提交'],
                 yes: function(index, layero){
-                  layero.cancel()
+                  layer.close(index)
                 }
                 ,btn2: function(index, layero){
                     commitFnc()
-                    layero.cancel()
                 }
             });
 
@@ -28,9 +27,13 @@
 
     }
     function  edite(moduleConfigId) {
-        showLay(11,function () {
-           alert("11")
+        get("/api/moduleConfig/getSiteModuleConfigVo?moduleConfigId="+moduleConfigId,function (res) {
+            var content = res.moduleJson;
+            showLay(content,function () {
+                alert(content)
+            })
         })
+
     }
 
     function  del(moduleConfigId) {
@@ -64,13 +67,13 @@
 
       <tr>
           <td>
-              <button id="edite"  onclick="edite(<%=data[i].moduleConfigId%>)">编辑</button>
+              <button id="edite"  onclick="edite('<%=data[i].moduleConfigId%>')">编辑</button>
               <%if(data[i].type==4||data[i].type==4){%>
-              <button id="delete" onclick="del(<%=data[i].moduleConfigId%>)"  >删除</button>
+              <button id="delete" onclick="del('<%=data[i].moduleConfigId%>')"  >删除</button>
               <%}%>
           </td>
           <td><img style="width:100px;height: 60px;" src="<%=data[i].modulePreviewImg%>"/></td>
-          <td><%=data[i].moduleOrder%></td>
+          <td><div class="double_click" data="<%=data[i].moduleConfigId%>" name="moduleOrder"><%=data[i].moduleOrder%></div></td>
           <td><%=data[i].typeName%></td>
           <td><%=data[i].moduleName%></td>
           <td><%=data[i].moduleTitle%></td>
@@ -80,6 +83,7 @@
   </table>
 </script>
 <script>
+
     //0.顶部广告模板 1.商品模板 2.图片楼层 3.首页翅膀 4.轮播图 5.导航栏
     $(function () {
         var d = [{type:0,title:"添加顶部广告模板"},{type:1,title:"添加商品模板"},{type:2,title:"添加图片楼层"},{type:3,title:"添加首页翅膀"},{type:4,title:"添加轮播图"},{type:5,title:"添加导航栏"}]
@@ -87,7 +91,28 @@
         // 获取模块数据
         getAsync("/api/moduleConfig/getBackModuleList?siteId=1",false,function (d) {
             $("#t").append(template("templateTable",{'data':d}))
+            $("body").on('click','div',function(){
+                $(".double_click").click(function () {
+                    var dd = $(this).attr("data");
+                    var name =$(this).attr("name");
+                    var val= $(this).html();
+                    var className =$(this).attr("class");
+                    var s = "<input  name=\""+name+"\"  data='"+dd+"' value='"+val+"'></input>"
+                    $(this).replaceWith(s);
+                    $("input[name='"+name+"']").blur(function () {
+                        var  val = $(this).val();
+                        if(val!=""){
+                            $(this).replaceWith("<div class=\""+className+"\" data=\""+dd+"\" name=\""+name+"\">"+val+"</div>");
+                        }else {
+                            showError("输入的内容不能为空")
+                        }
+                    })
+                })
+
+            })
+
         })
+
     })
 
 

@@ -6,6 +6,7 @@ import com.superficial.img.api.moduleconfig.service.IModuleConfigService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.superficial.img.api.moduleconfig.vo.BackModuleConfigVo;
 import com.superficial.img.api.moduleconfig.vo.IndexModuleConfigVo;
+import com.superficial.img.api.moduleconfig.vo.ModuleConfigVo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,5 +30,10 @@ public class ModuleConfigServiceImpl extends ServiceImpl<ModuleConfigMapper, Mod
     @Override
     public List<BackModuleConfigVo> getBackModuleList(String siteId) {
         return this.baseMapper.getBackModuleList(siteId);
+    }
+
+    @Override
+    public ModuleConfigVo getModuleConfigVo(String moduleConfigId) {
+        return this.baseMapper.getModuleConfigVo(moduleConfigId);
     }
 }

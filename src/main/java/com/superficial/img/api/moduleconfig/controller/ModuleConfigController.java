@@ -3,17 +3,15 @@ package com.superficial.img.api.moduleconfig.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
-import com.superficial.img.api.module.domain.Module;
 import com.superficial.img.api.moduleconfig.domain.ModuleConfig;
 import com.superficial.img.api.moduleconfig.service.IModuleConfigService;
 import com.superficial.img.api.moduleconfig.vo.BackModuleConfigVo;
 import com.superficial.img.api.moduleconfig.vo.IndexModuleConfigVo;
+import com.superficial.img.api.moduleconfig.vo.ModuleConfigVo;
 import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -55,6 +53,10 @@ public class ModuleConfigController {
     @RequestMapping("/getBackModuleList")
     public List<BackModuleConfigVo> getBackModuleList(String siteId){
         return moduleConfigService.getBackModuleList(siteId);
+    }
+    @RequestMapping("/getSiteModuleConfigVo")
+    public ModuleConfigVo getModuleConfigVo(String moduleConfigId){
+        return moduleConfigService.getModuleConfigVo(moduleConfigId);
     }
 }
 
