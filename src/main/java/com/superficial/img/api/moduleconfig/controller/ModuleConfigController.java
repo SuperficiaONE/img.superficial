@@ -46,6 +46,14 @@ public class ModuleConfigController {
         moduleConfigService.insert(module);
         return ResultVO.newSuccess("插入成功",module);
     }
+
+    @RequestMapping("/save")
+    public ResultVO save(ModuleConfig module){
+        module.setUpdateAt(new Date()).
+                setUpdateBy(JwtHelper.getLoginName());
+        moduleConfigService.update(module,new EntityWrapper<ModuleConfig>().eq("module_config_id",module.getModuleConfigId()));
+        return ResultVO.newSuccess("插入成功",module);
+    }
     @RequestMapping("/getSiteModule")
     public List<IndexModuleConfigVo>  getIndexModuleConfigList(String  siteId){
         return moduleConfigService.getIndexModuleConfigList(siteId);
