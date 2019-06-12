@@ -4,8 +4,9 @@
  <#include  "/commonCss.ftl">
 <#include  "/commonJS.ftl">
     <style>
-        td{
+        th,td{
             padding: 3px;
+            text-align: center;
         }
     </style>
 </head>
@@ -19,10 +20,10 @@
              <td>
                  <button class="layui-btn delete_row" onclick="javascript:removeTr(this)" >删除</button>
              </td>
-             <td style="text-align: center;">
+             <td >
                  <div class='double_click'  onclick="javascript:doubleClick(this)"><%=i+1%></div>
              </td>
-             <td style="text-align: center;">
+             <td>
                  <img  onclick="javascript:showLargeImg(this)" style='width: 100px;height:100px;' src="<%=data[i]['imgUrl']%>"/>
              </td>
 
@@ -68,7 +69,7 @@
                         ,size:10240
                         ,done: function(res){
                           var length =  $('#layer_table tbody').children("tr").length;
-                         $("#layer_table tbody").append("<tr><td><button class=\"layui-btn delete_row\" onclick=\"javascript:removeTr(this)\"  >删除</button></td><td><div class='double_click'>"+(length+1)+"</div></td><td><img style='width: 100px;height:100px;' src='"+res.data.src+"'/></td></tr>")
+                         $("#layer_table tbody").append("<tr><td ><button class=\"layui-btn delete_row\" onclick=\"javascript:removeTr(this)\"  >删除</button></td><td><div class='double_click'>"+(length+1)+"</div></td><td><img style='width: 100px;height:100px;' src='"+res.data.src+"'/></td></tr>")
                         }
                         ,error: function(){
 

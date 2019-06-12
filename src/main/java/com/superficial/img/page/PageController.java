@@ -40,5 +40,8 @@ public class PageController {
     public String moduleConfig(){
         return "/page/module/index";
     }
-
+    @RequestMapping("/third.htm")
+    public String third(){
+        return "/page/test/third/common-home";
+    }
 }

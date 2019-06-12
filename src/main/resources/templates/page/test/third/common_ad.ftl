@@ -1,0 +1,1 @@
+<div class="layout1200"><img src="/static/images/home/show-at.jpg" alt=""></div>
