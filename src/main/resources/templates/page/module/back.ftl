@@ -108,8 +108,11 @@
 <%}%>
 <br>
 <hr>
-<button id="add" >新增模板</button>
+<button id="add" >新增模板</button><button style="margin-left: 10px;" id="edite" >编辑模板</button>
     <div id="t"></div>
+</script>
+
+
 </script>
 <script type="text/html" id="templateTable">
   <table>
