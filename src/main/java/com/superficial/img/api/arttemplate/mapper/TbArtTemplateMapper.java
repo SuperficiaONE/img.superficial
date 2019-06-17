@@ -2,6 +2,7 @@ package com.superficial.img.api.arttemplate.mapper;
 
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -17,4 +18,6 @@ import java.util.List;
 public interface TbArtTemplateMapper extends BaseMapper<TbArtTemplate> {
 
     List<String> getTemplateScriptList(@Param("typeList") List<String> typeList);
+
+    List<ArtTemplateVo> getArtTemplateVoList(@Param("from") Integer from, @Param("pageSize") Integer pageSize);
 }

@@ -1,5 +1,6 @@
 package com.superficial.img.api.arttemplate.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,18 +22,26 @@ public class TbArtTemplate implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
     private Long id;
     private Integer templateType;
     private String templateScript;
     /**
      * 模板需要的数据结构
      */
-    private String tempalteData;
+    private String templateData;
+    private  String templateElements;
     private Date createAt;
     private Date updateAt;
     private  String updateUser;
-
+    private String beforeScript;
+    private String afterScript;
     private String createUser;
+
+    public TbArtTemplate setTemplateElements(String templateElements) {
+        this.templateElements = templateElements;
+        return this;
+    }
 
     public TbArtTemplate setUpdateUser(String updateUser) {
         this.updateUser = updateUser;
@@ -49,6 +58,16 @@ public class TbArtTemplate implements Serializable {
         return this;
     }
 
+    public TbArtTemplate setBeforeScript(String beforeScript) {
+        this.beforeScript = beforeScript;
+        return this;
+    }
+
+    public TbArtTemplate setAfterScript(String afterScript) {
+        this.afterScript = afterScript;
+        return this;
+    }
+
     public TbArtTemplate setTemplateType(Integer templateType) {
         this.templateType = templateType;
         return this;
@@ -59,8 +78,8 @@ public class TbArtTemplate implements Serializable {
         return this;
     }
 
-    public TbArtTemplate setTempalteData(String tempalteData) {
-        this.tempalteData = tempalteData;
+    public TbArtTemplate setTemplateData(String templateData) {
+        this.templateData = templateData;
         return this;
     }
 

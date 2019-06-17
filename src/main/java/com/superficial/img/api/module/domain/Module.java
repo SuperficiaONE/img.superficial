@@ -1,5 +1,6 @@
 package com.superficial.img.api.module.domain;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,14 +18,15 @@ import java.io.Serializable;
 public class Module implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId
     private Long moduleId;
     private String moduleTitle;
     private String modulePreviewImg;
     private String moduleJson;
     private String moduleDataTemplateJson;
     private String moduleData;
-
+    private Date createAt;
+    private Date updateAt;
     private Integer moduleType;
 
     public Module setModuleType(Integer moduleType) {
@@ -38,9 +40,6 @@ public class Module implements Serializable {
     }
 
 
-
-    private Date createAt;
-    private Date updateAt;
 
 
 

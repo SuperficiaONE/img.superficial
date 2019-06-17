@@ -1,5 +1,6 @@
-package com.superficial.img.api.moduleconfig.domain;
+package com.superficial.img.api.moduleconfig.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 
 import java.util.Date;
@@ -17,13 +18,12 @@ import java.io.Serializable;
 public class ModuleConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId
     private Long moduleConfigId;
     private Long siteId;
     private String moduleName;
     private Integer moduleOrder;
     private Long moduleId;
-    private String dataJson;
     private String dataUrl;
     private String createBy;
     private String updateBy;
@@ -45,10 +45,7 @@ public class ModuleConfig implements Serializable {
         return this;
     }
 
-    public ModuleConfig setDataJson(String dataJson) {
-        this.dataJson = dataJson;
-        return this;
-    }
+
 
     public ModuleConfig setDataUrl(String dataUrl) {
         this.dataUrl = dataUrl;

@@ -1,6 +1,6 @@
 package com.superficial.img.api.moduleconfig.mapper;
 
-import com.superficial.img.api.moduleconfig.domain.ModuleConfig;
+import com.superficial.img.api.moduleconfig.pojo.ModuleConfig;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.superficial.img.api.moduleconfig.vo.BackModuleConfigVo;
 import com.superficial.img.api.moduleconfig.vo.IndexModuleConfigVo;

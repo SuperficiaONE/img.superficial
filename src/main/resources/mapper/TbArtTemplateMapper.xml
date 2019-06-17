@@ -11,7 +11,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, template_type, template_script, tempalte_data, create_at, update_at,create_user,update_user
+        id, template_type, template_script, template_data, create_at, update_at,create_user,update_user ,before_script,after_script,template_elements
     </sql>
    <select id="getTemplateScriptList" resultType="String">
        select template_script from tb_art_template where template_type in
@@ -19,4 +19,7 @@
            #{type}
        </foreach>
    </select>
+    <select id="getArtTemplateVoList" resultType="com.superficial.img.api.arttemplate.vo.ArtTemplateVo">
+        select * from tb_art_template limit #{from},#{pageSize}
+    </select>
 </mapper>

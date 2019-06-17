@@ -18,6 +18,7 @@ public class JwtHelper {
     private final static   String  LOGIN_NAME="0";
     private final static   String  secret="2";
     private final  static  String USER_ID="1";
+    private final static  String SITE_ID="3";
 
     private  final static Map<String, Object> HEADER = new ImmutableMap.Builder<String, Object>()
             .build();
@@ -50,6 +51,17 @@ public class JwtHelper {
             return 0L;
         }
         return m.get(USER_ID).asLong();
+    }
+    public static Long getSiteId(){
+        String token=getToken();
+        if (Strings.isNullOrEmpty(token)) {
+            return 0L;
+        }
+        Map<String, Claim> m = JWT.decode(token).getClaims();
+        if (CommonUtil.isEmpty(m.get(SITE_ID)) ) {
+            return 0L;
+        }
+        return m.get(SITE_ID).asLong();
     }
 
     public static String sign(String loginName,Long userId, int expireOfMinutes) {

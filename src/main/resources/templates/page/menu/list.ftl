@@ -8,9 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <#include  "/commonCss.ftl">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
-    <style>
-
-    </style>
 </head>
 <body>
 <div style="text-align:center;margin-left: auto;margin-right: auto;margin-top: 30px;">

@@ -1,5 +1,6 @@
 package com.superficial.img.api.dict.service.impl;
 
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.mapper.TbDictMapper;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
@@ -77,5 +78,17 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
             list.add(rm);
         }
         return list;
+    }
+
+    @Override
+    public void changeArtTemplateVoList(List<ArtTemplateVo> tbArtTemplateList) {
+        List<SelectVO> selectList = this.getSelectList("template_type");
+        if(!CommonUtil.isEmpty(selectList) && !CommonUtil.isEmpty(tbArtTemplateList)){
+            Map<String, SelectVO> collect = selectList.stream().collect(Collectors.toMap(SelectVO::getDictValue, t -> t));
+            for (int i = 0; i <tbArtTemplateList.size() ; i++) {
+                SelectVO selectVO = collect.get(tbArtTemplateList.get(i).getTemplateType()+"");
+                tbArtTemplateList.get(i).setTemplateTypeText(selectVO!=null?selectVO.getDictText():"");
+            }
+        }
     }
 }

@@ -14,6 +14,31 @@ function post(uri, formData, success) {
     });
 }
 
+function addAndShowTemplate(res){
+    if(res!=undefined && res.data!=undefined && res.data.length>0){
+        for (var i = 0; i <res.data.length ; i++) {
+            if(res.data[i]['templateElements']!=undefined){
+                $("body").append(res.data[i]['templateElements'])
+            }
+        }
+        for (var i = 0; i <res.data.length ; i++) {
+            if(res.data[i]['templateScript']!=undefined){
+                $("body").append(res.data[i]['templateScript'])
+            }
+        }
+        for (var i = 0; i <res.data.length ; i++) {
+            if(res.data[i]['beforeScript']!=undefined){
+                $("body").append(res.data[i]['beforeScript'])
+            }
+        }
+        for (var i = 0; i <res.data.length ; i++) {
+            if(res.data[i]['afterScript']!=undefined){
+                $("body").append(res.data[i]['afterScript'])
+            }
+        }
+    }
+}
+
 function showError(msg) {
     showMsg(msg, 2)
 }
@@ -47,7 +72,14 @@ function getAsync(uri, isAnsy, success) {
         }
     });
 }
-
+function getParam(paramName) {
+    paramValue = "", isFound = !1;
+    if (this.location.search.indexOf("?") == 0 && this.location.search.indexOf("=") > 1) {
+        arrSource = unescape(this.location.search).substring(1, this.location.search.length).split("&"), i = 0;
+        while (i < arrSource.length && !isFound) arrSource[i].indexOf("=") > 0 && arrSource[i].split("=")[0].toLowerCase() == paramName.toLowerCase() && (paramValue = arrSource[i].split("=")[1], isFound = !0), i++
+    }
+    return paramValue == "" && (paramValue = null), paramValue
+}
 /**
  * 从服务器获取如下格式数据
  * {
@@ -59,7 +91,7 @@ function getAsync(uri, isAnsy, success) {
  * @param url
  * @param elementIds
  */
-function initSelects(url) {
+function initSelects(url,type,disable) {
     layui.use(['layer'], function () {
         getAsync(url, false, function (res) {
             if (res.state == 1) {
@@ -71,7 +103,8 @@ function initSelects(url) {
                     if (list != undefined) {
                         for (var i = 0; i < list.length; i++) {
                             var data = list[i]
-                            addSelect(data)
+
+                            addSelect(data,type,disable)
                         }
                         renderForm();
                     }
@@ -90,21 +123,34 @@ function initSelects(url) {
 
 }
 
-function addSelect(data) {
+function addSelect(data,type,disable) {
     if (data == undefined) {
         return;
     }
     $("#" + data.elementId).html("");
-    $("#" + data.elementId).append(" <label class=\"layui-form-label\">" + data.labelText + "</label>\n" +
-        "            <div class=\"layui-input-inline\" >\n" +
-        "                <select class=\"layui-select\" lay-filter=\"" + data.elementId + "\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
-        "                </select>\n" +
-        "            </div> ")
+    if(disable){
+        $("#" + data.elementId).append(" <label class=\"layui-form-label\">" + data.labelText + "</label>\n" +
+            "            <div class=\"layui-input-inline\" >\n" +
+            "                <select  disabled='disabled' class=\"layui-select\" lay-filter=\"" + data.elementId + "\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
+            "                </select>\n" +
+            "            </div> ")
+    }else{
+        $("#" + data.elementId).append(" <label class=\"layui-form-label\">" + data.labelText + "</label>\n" +
+            "            <div class=\"layui-input-inline\" >\n" +
+            "                <select class=\"layui-select\" lay-filter=\"" + data.elementId + "\" style=\"height: 30px; width: 200px;\" name=\"" + data.elementId + "\">\n" +
+            "                </select>\n" +
+            "            </div> ")
+    }
     var list = data.list;
     if (list != undefined) {
         for (var i = 0; i < list.length; i++) {
             var item = list[i]
-            $("select[name='" + data.elementId + "']").append("<option value='" + item.dictValue + "'   >" + item.dictText + "</option>")
+            if(type!=undefined&&type==item.dictValue){
+                $("select[name='" + data.elementId + "']").append("<option selected='selected' value='" + item.dictValue + "'   >" + item.dictText + "</option>")
+            }else {
+                $("select[name='" + data.elementId + "']").append("<option value='" + item.dictValue + "'   >" + item.dictText + "</option>")
+
+            }
         }
     }
 }
@@ -175,7 +221,10 @@ function renderTable(id, height) {
    // $("#" + id).attr("class", "layui-anim layui-anim-scale")
 }
 
-function initTable(id, headerUrl, bodyUrl, openPage, page, pageSize, scrollWith, height) {
+function initTable(id,urls, openPage, page, pageSize, scrollWith, height) {
+
+   var headerUrl=urls['headerUrl']
+    var bodyUrl=urls['bodyUrl']
     renderTable(id, height);
     var fieldList = initTableHeader(id, headerUrl, scrollWith)
     template.defaults.imports.handler=function (title,field) {

@@ -15,16 +15,24 @@ public class PageController {
 
     @RequestMapping("/menu.htm")
     public String getIndex(){
-        return "index";
+        return "/page/menu/list";
     }
+
     @RequestMapping("/")
     public String getDefault(){
         return "/common/index";
     }
+
     @RequestMapping("/tb/add.htm")
     public String getTbAdd(){
         return "/page/tb/add";
     }
+
+    @RequestMapping("/test/list.htm")
+    public String toList(){
+        return "/page/test/list";
+    }
+
     @RequestMapping("/test/test.htm")
     public String toTest(){
         return "/page/test/test";

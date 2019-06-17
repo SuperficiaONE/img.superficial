@@ -85,9 +85,10 @@
     layui.use(['jquery','form','layer'],function () {
         var layer = layui.layer;
         var form = layui.form;
-        initSelects("/webapi/dict/formSelectList?dictTypes=templateType")
-        var templateType = $("select[name='templateType']").val();
-       changeType(templateType)
+        initSelects("/webapi/dict/formSelectList?dictTypes=templateType",getParam("templateType"),true)
+
+        var templateType=$("select[name='templateType']").val();
+        changeType(templateType)
         form.on('select(templateType)', function(data){
             var val=data.value;
             console.info(val);

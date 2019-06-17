@@ -18,6 +18,7 @@
        where  dict_key = 0
    </select>
 
+
     <select id="getSelectVOList" resultType="com.superficial.img.common.vo.SelectVO">
                select  dict_value as dict_text ,dict_key as dict_value ,dict_type from  tb_dict
                where dict_type in

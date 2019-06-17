@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.arttemplate.vo.ElementVO;
 import com.superficial.img.api.arttemplate.vo.TemplateVO;
+import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,7 +41,9 @@ import java.util.Optional;
 public class TbArtTemplateController {
     @Autowired
     private ITbArtTemplateService artTemplateService;
-    @RequestMapping("/api/tbArtTemplate/add")
+    @Autowired
+    private ITbDictService dictService;
+    @RequestMapping("/api/tbArtTemplate/save")
     public ResultVO addTemplate(TbArtTemplate tbArtTemplate){
         try {
             if(CommonUtil.isEmpty(tbArtTemplate)){
@@ -47,39 +52,51 @@ public class TbArtTemplateController {
             if(CommonUtil.isEmpty(tbArtTemplate.getTemplateScript())){
                 return ResultVO.newFail("模板脚本参数不能为空");
             }
-            if(CommonUtil.isEmpty(tbArtTemplate.getTempalteData())){
+            if(CommonUtil.isEmpty(tbArtTemplate.getTemplateData())){
                 return ResultVO.newFail("模板结构数据参数不能为空");
             }
             if(CommonUtil.isEmpty(tbArtTemplate.getTemplateType())){
                 return ResultVO.newFail("模板类型参数不能为空");
             }
             if(artTemplateService.selectCount(new EntityWrapper<TbArtTemplate>().eq("template_type",tbArtTemplate.getTemplateType()))>0){
-                return ResultVO.newFail("你已经添加该类型模板了");
+                artTemplateService.update(tbArtTemplate,new EntityWrapper<TbArtTemplate>().eq("template_type",tbArtTemplate.getTemplateType()));
+            }else {
+                String loginName = JwtHelper.getLoginName();
+                artTemplateService.insert(tbArtTemplate
+                        .setCreateAt(new Date())
+                        .setId(IdWorker.getId())
+                        .setUpdateAt(new Date())
+                        .setCreateUser(loginName)
+                        .setUpdateUser(loginName)
+                );
             }
-            String loginName = JwtHelper.getLoginName();
-             artTemplateService.insert(tbArtTemplate
-                     .setCreateAt(new Date())
-                     .setId(IdWorker.getId())
-                     .setUpdateAt(new Date())
-                     .setCreateUser(loginName)
-                     .setUpdateUser(loginName)
-                     );
-            return ResultVO.newSuccess("添加成功",tbArtTemplate);
+
+            return ResultVO.newSuccess("保存成功",tbArtTemplate);
         }catch (Exception e){
-            log.error("添加模板发生了异常",e);
-            return ResultVO.newSuccess("添加模板发生了异常"+e.getMessage());
+            log.error("保存模板发生了异常",e);
+            return ResultVO.newSuccess("保存模板发生了异常"+e.getMessage());
+        }
+    }
+    @RequestMapping("/api/artTemplate/list")
+    public ResultVO getList(String types){
+        try {
+            if(CommonUtil.isEmpty(types)){
+                types="0";
+            }
+            List<String> list = Arrays.asList( types.split(","));
+            List<TbArtTemplate> tbArtTemplateList = artTemplateService.selectList(new EntityWrapper<TbArtTemplate>().in("template_type",list));
+            return ResultVO.newSuccess("获取模板数据成功",tbArtTemplateList);
+        }catch (Exception e){
+            return ResultVO.newError("获取模板数据失败"+e.getMessage());
         }
     }
 
     @RequestMapping("/api/tbArtTemplate/list")
-    public ResultVO addTemplate(Boolean openPage,Integer page ,Integer pageSize,
+    public LayUIPage addTemplate(Integer page ,Integer pageSize,
                                 @Param("elementId") String elementId,
                                 @Param("templateId") String templateId){
         try {
-            if(CommonUtil.isEmpty(openPage)){
-                openPage =false;
-            }
-            List<TbArtTemplate> tbArtTemplateList;
+            List<ArtTemplateVo> tbArtTemplateList;
             page = Optional.ofNullable(page).orElse(1);
             pageSize = Optional.ofNullable(pageSize).orElse(10);
             if(page<1){
@@ -88,25 +105,15 @@ public class TbArtTemplateController {
             if(pageSize<1){
                 pageSize = 10;
             }
-
-            if(openPage){
                 Integer count = artTemplateService.selectCount(  new EntityWrapper<TbArtTemplate>());
-                tbArtTemplateList = artTemplateService.selectList(
-                        new EntityWrapper<TbArtTemplate>()
-                        .last("limit "+(page-1)*pageSize+","+pageSize)
-                );
+                tbArtTemplateList = artTemplateService.getArtTemplateVoList(page,pageSize);
+                dictService.changeArtTemplateVoList(tbArtTemplateList);
                 LayUIPage layUIPage = new LayUIPage();
-                layUIPage.setData(tbArtTemplateList).setCount(count).setCode(1).setMsg("获取模板列表成功");
-                return ResultVO.newSuccess("获取成功",ElementVO.newElementVO(elementId,templateId,layUIPage));
-            }else {
-                tbArtTemplateList = artTemplateService.selectList(
-                        new EntityWrapper<>()
-                );
-            }
-            return ResultVO.newSuccess("获取模板列表成功",ElementVO.newElementVO(elementId,templateId,tbArtTemplateList));
+                layUIPage.setData(tbArtTemplateList).setCount(count).setCode(0).setMsg("获取模板列表成功");
+              return layUIPage;
+
         }catch (Exception e){
-            log.error("获取模板列表发生了异常",e);
-            return ResultVO.newSuccess("获取模板列表了异常"+e.getMessage());
+            return new LayUIPage().setCode(-1).setMsg("获取模板列表了异常"+e.getMessage());
         }
     }
     @RequestMapping("/api/templateScript/list")

@@ -2,6 +2,7 @@ package com.superficial.img.api.arttemplate.service;
 
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.baomidou.mybatisplus.service.IService;
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 
 import java.util.List;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface ITbArtTemplateService extends IService<TbArtTemplate> {
 
     List<String> getTemplateScriptList(String types);
+
+    List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize);
 }

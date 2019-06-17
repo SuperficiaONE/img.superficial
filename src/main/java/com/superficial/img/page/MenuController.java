@@ -15,6 +15,6 @@ public class MenuController {
     }
     @RequestMapping("/list.htm")
     public String getIndex(){
-        return "index";
+        return "/page/menu/list";
     }
 }

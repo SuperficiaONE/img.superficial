@@ -1,6 +1,6 @@
 package com.superficial.img.api.moduleconfig.service.impl;
 
-import com.superficial.img.api.moduleconfig.domain.ModuleConfig;
+import com.superficial.img.api.moduleconfig.pojo.ModuleConfig;
 import com.superficial.img.api.moduleconfig.mapper.ModuleConfigMapper;
 import com.superficial.img.api.moduleconfig.service.IModuleConfigService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

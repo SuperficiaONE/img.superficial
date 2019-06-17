@@ -1,5 +1,6 @@
 package com.superficial.img.api.planlog.pojo;
 
+import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,7 @@ public class TbPlanLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId
     private Long planLogId;
     private Long planId;
     private Integer process;

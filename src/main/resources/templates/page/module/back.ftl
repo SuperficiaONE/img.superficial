@@ -96,10 +96,8 @@
         })
 
     }
-
     function  del(moduleConfigId) {
         alert("delete"+moduleConfigId)
-
     }
 </script>
 <script type="text/html" id="templateBtn">
@@ -111,8 +109,6 @@
 <button id="add" >新增模板</button><button style="margin-left: 10px;" id="edite" >编辑模板</button>
     <div id="t"></div>
 </script>
-
-
 </script>
 <script type="text/html" id="templateTable">
   <table>
@@ -125,10 +121,7 @@
           <th>模板名称</th>
       </thead>
       <tbody>
-
-
       <% for(var i=0;i<data.length;i++){%>
-
       <tr>
           <td>
               <button id="edite"  onclick="edite('<%=data[i].moduleConfigId%>')">编辑</button>

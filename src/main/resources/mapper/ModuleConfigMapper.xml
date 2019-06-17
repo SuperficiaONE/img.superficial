@@ -4,12 +4,12 @@
 
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.superficial.img.api.moduleconfig.domain.ModuleConfig" autoMapping="true">
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.moduleconfig.pojo.ModuleConfig" autoMapping="true">
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        module_config_id, site_id, module_id, data_json, data_url, create_by, update_by, create_at, update_at,module_order,module_name
+        module_config_id, site_id, module_id, data_url, create_by, update_by, create_at, update_at,module_order,module_name
     </sql>
 
     <resultMap id="IndexModuleConfigVoRM" type="com.superficial.img.api.moduleconfig.vo.IndexModuleConfigVo" autoMapping="true">
@@ -22,7 +22,7 @@
 
     </resultMap>
     <select id="getIndexModuleConfigList" resultMap="IndexModuleConfigVoRM" >
-        select mc.module_config_id, m.module_json,m.module_type,mc.data_json,mc.site_id,mc.module_order,mc.data_url  from module m inner  join module_config mc
+        select mc.module_config_id, m.module_json,m.module_type,mc.site_id,mc.module_order,mc.data_url  from module m inner  join module_config mc
         on m.module_id=mc.module_id
         where mc.site_id=#{siteId} order by mc.module_order
     </select>

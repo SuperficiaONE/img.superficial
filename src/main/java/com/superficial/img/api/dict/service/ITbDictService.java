@@ -1,5 +1,6 @@
 package com.superficial.img.api.dict.service;
 
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.service.IService;
 import com.superficial.img.api.menu.pojo.TbMenu;
@@ -25,4 +26,6 @@ public interface ITbDictService extends IService<TbDict> {
     List<SelectVO> getSelectList(String dictTypes);
 
     List<Map<String, UrlVo>> changeMenuList(List<TbMenu> menuList);
+
+    void changeArtTemplateVoList(List<ArtTemplateVo> tbArtTemplateList);
 }

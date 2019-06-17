@@ -9,11 +9,8 @@ import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.tool.JwtHelper;
-import com.superficial.img.common.vo.FormItemSelectVO;
-import com.superficial.img.common.vo.SelectVO;
+import com.superficial.img.common.vo.*;
 import com.superficial.img.common.tool.CommonUtil;
-import com.superficial.img.common.vo.LayUIPage;
-import com.superficial.img.common.vo.ResultVO;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.menu.service.ITbMenuService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +39,7 @@ public class TbMenuController {
     private ITbDictService dictService;
 
     @RequestMapping("/webapi/menu/search")
-    public ResultVO search(String searchText ,String templateId,Integer menuLogin ,Integer menuBack, Integer page ,Integer pageSize){
+    public LayUIPage search(String searchText , String templateId, Integer menuLogin , Integer menuBack, Integer page , Integer pageSize){
         try {
             page = CommonUtil.isEmpty(page)?1:page;
             pageSize = CommonUtil.isEmpty(pageSize)?10:pageSize;
@@ -70,13 +67,13 @@ public class TbMenuController {
             List<TbMenu> menuList = menuService.selectList(
                     wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)*pageSize+","+ pageSize)
                   );
-            List<Map<String, UrlVo>> rmList = dictService.changeMenuList(menuList);
-            LayUIPage layUIPage = new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(rmList);
-            return   ResultVO.newSuccess("成功", ElementVO.newElementVO("",templateId,layUIPage));
+            //List<Map<String, UrlVo>> rmList = dictService.changeMenuList(menuList);
+            LayUIPage layUIPage = new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(menuList);
+            return   layUIPage;
 
         }catch (Exception e){
             log.error("获取菜单链接列表出现了异常",e);
-            return  ResultVO.newSuccess("获取菜单链接列表出现了异常");
+            return new  LayUIPage().setMsg("获取菜单链接列表出现了异常").setCode(-1);
         }
 
     }

@@ -5,6 +5,7 @@ import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.common.tool.CommonUtil;
 import org.springframework.stereotype.Service;
 
@@ -29,5 +30,11 @@ public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, T
         }
         List<String> typeList = Arrays.asList(types.split(","));
         return this.baseMapper.getTemplateScriptList(typeList);
+    }
+
+    @Override
+    public List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize) {
+        Integer from = (page-1)*pageSize;
+        return this.baseMapper.getArtTemplateVoList(from,pageSize);
     }
 }
