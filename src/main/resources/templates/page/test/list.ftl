@@ -20,6 +20,7 @@
    <button id="addImg">添加图片</button>
    <table id="table" >
        <thead>
+           <th style="width: 100px">操作</th>
            <th style="width: 100px">序列</th>
            <th style="height: 100px;">图片</th>
        </thead>
@@ -28,6 +29,17 @@
    </table>
 
   <#include  "/commonJS.ftl">
+   <script type="text/html" id="tableTr">
+       <tr>
+           <td><button onclick="deleteTr(this)"> </td>
+           <td><%=length+1%></td>
+           <td>
+           <div style="border: 1px solid #3d3d3d;border-radius: 10px; width: 100px;height: 100px;z-index: 99;"  id='<%=upload_id%>'>
+           <img onclick='' hidden='hidden' style='border-radius: 10px;width:100%;height:100%;'/>
+           </div>
+       </td>
+       </tr>
+</script>
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
     function bindUpload(id){
@@ -58,7 +70,7 @@
         $("#addImg").click(function () {
             var length = $("#table tbody tr").length;
             var upload_id="upload"+length
-            $("#table tbody").append("<tr><td>"+(length+1)+"</td><td><div style=\"border: 1px solid #3d3d3d;border-radius: 10px; width: 100px;height: 100px;z-index: 99;\"  id='"+upload_id+"'>"+"<img onclick='javascript:alert(11)' hidden='hidden' style='border-radius: 10px;width:100%;height:100%;'/></div></td></tr>")
+            $("#table tbody").append(template("tableTr",{'length':length,'upload_id':upload_id}))
             bindUpload(upload_id)
         })
     })
