@@ -29,9 +29,15 @@
    </table>
 
   <#include  "/commonJS.ftl">
+   <script type="">
+       function  deleteTr(elem) {
+           $(elem).parents('tr').remove()
+       }
+   </script>
+
    <script type="text/html" id="tableTr">
        <tr>
-           <td><button onclick="deleteTr(this)"> </td>
+           <td><button onclick="deleteTr(this)">删除 </td>
            <td><%=length+1%></td>
            <td>
            <div style="border: 1px solid #3d3d3d;border-radius: 10px; width: 100px;height: 100px;z-index: 99;"  id='<%=upload_id%>'>
