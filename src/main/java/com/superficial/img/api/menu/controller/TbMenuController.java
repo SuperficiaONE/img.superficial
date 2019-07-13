@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
@@ -39,7 +40,7 @@ public class TbMenuController {
     private ITbDictService dictService;
 
     @RequestMapping("/webapi/menu/search")
-    public LayUIPage search(String searchText , String templateId, Integer menuLogin , Integer menuBack, Integer page , Integer pageSize){
+    public LayUIPage search(String searchText , String templateId, Integer menuLogin , Integer menuBack, Integer page ,@RequestParam(value = "limit",required = false) Integer pageSize){
         try {
             page = CommonUtil.isEmpty(page)?1:page;
             pageSize = CommonUtil.isEmpty(pageSize)?10:pageSize;
