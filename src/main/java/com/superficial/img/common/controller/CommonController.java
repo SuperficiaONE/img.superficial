@@ -9,6 +9,7 @@ import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -73,6 +74,23 @@ public class CommonController {
            log.error("获取banner验证码出现异常:",e);
 
        }
+
+    }
+
+    @PostMapping("/api/post/getCenterQRCode")
+    @ResponseBody
+    public ResultVO getCenterQRCodeByPost(String code) {
+        try {
+            if (CommonUtil.isEmpty(code)) {
+                code = "这是一个带icon图片的二维码";
+            }
+            log.info("生成二维码:{}", code);
+            Map<String, Object> base64 = commonService.createBannerCodeToStr(code);
+            return ResultVO.newSuccess(base64);
+        } catch (Exception e) {
+            log.error("获取banner验证码出现异常:", e);
+            return ResultVO.newError("异常");
+        }
 
     }
 

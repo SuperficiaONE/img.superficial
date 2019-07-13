@@ -168,10 +168,10 @@ public class HttpUtils {
   }
   public  static  HttpServletResponse getByImageHeader(){
     HttpServletResponse response = currentResponse();
-    response.setHeader("Pragma", "no-cache");
-    response.setHeader("Cache-Control", "no-cache");
-    response.setDateHeader("Expires", 0);
-    response.setContentType("image/jpeg");
+//    response.setHeader("Pragma", "no-cache");S
+//    response.setHeader("Cache-Control", "no-cache");
+//    response.setDateHeader("Expires", 0);
+    response.setContentType("application/octet-stream");
     return response;
   }
   public static String  getToken(){
