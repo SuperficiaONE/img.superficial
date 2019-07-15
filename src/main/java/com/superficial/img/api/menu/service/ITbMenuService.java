@@ -1,5 +1,7 @@
 package com.superficial.img.api.menu.service;
 
+import com.superficial.img.api.menu.vo.MenuSearchVo;
+import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.baomidou.mybatisplus.service.IService;
@@ -17,4 +19,6 @@ import java.util.List;
 public interface ITbMenuService extends IService<TbMenu> {
 
     List<SelectVO> getSelectVoList(int menuLevel);
+
+    LayUIPage getLayPageDataBy(MenuSearchVo menuSearchVo);
 }

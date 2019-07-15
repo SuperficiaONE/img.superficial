@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.vo.ElementVO;
 import com.superficial.img.api.dict.service.ITbDictService;
+import com.superficial.img.api.menu.vo.MenuSearchVo;
 import com.superficial.img.api.tb.service.ITbService;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.tool.JwtHelper;
@@ -36,40 +37,11 @@ public class TbMenuController {
 
     @Autowired
     private ITbMenuService menuService;
-    @Autowired
-    private ITbDictService dictService;
 
     @RequestMapping("/webapi/menu/search")
-    public LayUIPage search(String searchText , String templateId, Integer menuLogin , Integer menuBack, Integer page ,@RequestParam(value = "limit",required = false) Integer pageSize){
+    public LayUIPage search(MenuSearchVo menuSearchVo){
         try {
-            page = CommonUtil.isEmpty(page)?1:page;
-            pageSize = CommonUtil.isEmpty(pageSize)?10:pageSize;
-            if(page<1){
-                page = 1;
-            }
-            if(pageSize<1){
-                pageSize = 10;
-            }
-
-            Wrapper<TbMenu> wrapper = new EntityWrapper<TbMenu>();
-            if(!CommonUtil.isEmpty(searchText)){
-                wrapper .like("menu_name", searchText)
-                        .or()
-                        .like("url", searchText);
-            }
-            if(!CommonUtil.isEmpty(menuLogin)){
-                wrapper .eq("menu_login", menuLogin);
-            }
-            if(!CommonUtil.isEmpty(menuBack)){
-                wrapper .eq("menu_back", menuBack);
-            }
-
-            Integer count  = menuService.selectCount(wrapper);
-            List<TbMenu> menuList = menuService.selectList(
-                    wrapper.last("order by menu_order asc , create_at desc  limit "+(page-1)*pageSize+","+ pageSize)
-                  );
-            //List<Map<String, UrlVo>> rmList = dictService.changeMenuList(menuList);
-            LayUIPage layUIPage = new LayUIPage().setCode(0).setMsg("获取成功").setCount(count).setData(menuList);
+            LayUIPage layUIPage = menuService.getLayPageDataBy(menuSearchVo);
             return   layUIPage;
 
         }catch (Exception e){
