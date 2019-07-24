@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <#include  "/commonCss.ftl">
-    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->、
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
     <style>
         th,td{
             width: 100px;
@@ -33,6 +33,7 @@
        function  deleteTr(elem) {
            $(elem).parents('tr').remove()
        }
+
    </script>
 
    <script type="text/html" id="tableTr">

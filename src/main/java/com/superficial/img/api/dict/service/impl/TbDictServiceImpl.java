@@ -1,15 +1,17 @@
 package com.superficial.img.api.dict.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.mapper.TbDictMapper;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
-
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.tb.vo.UrlVo;
-import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.JwtHelper;
+import com.superficial.img.common.vo.SelectVO;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -90,5 +92,60 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
                 tbArtTemplateList.get(i).setTemplateTypeText(selectVO!=null?selectVO.getDictText():"");
             }
         }
+    }
+
+    @Override
+    public TbDict addDict(TbDict tbDict, String chineseText) throws Exception {
+        if(CommonUtil.isEmpty(tbDict)){
+            throw  new Exception("参数不能为空");
+        }
+        if(CommonUtil.isEmpty(tbDict.getDictValue())){
+            throw  new Exception("dictValue不能为空");
+        }
+        String loginName = JwtHelper.getLoginName();
+        // 判断有无 chineseText 有表示插入的数据为 dataType 为 dict_type 或者 dict_value  "dict_type"
+        if(CommonUtil.isEmpty(chineseText)){
+            if(CommonUtil.isEmpty(tbDict.getDictType())){
+                throw  new Exception("dataType不能为空");
+            }
+            Integer count= selectCount(new EntityWrapper<TbDict>().eq("dict_type",tbDict.getDictType()));
+            tbDict.setDictId(IdWorker.getId())
+                    .setDictKey(count)
+                    .setUpdateAt(new Date())
+                    .setCreateAt(new Date())
+                    .setCreateUser(loginName)
+                    .setUpdateUser(loginName);
+            insert(tbDict);
+
+        }else {
+            if("dict_type".equals(tbDict.getDictType())){
+                // 需要插入两条
+                Integer count = selectCount(new EntityWrapper<TbDict>().eq("dict_type",tbDict.getDictType()));
+                tbDict.setDictId(IdWorker.getId())
+                        .setDictKey(count)
+                        .setUpdateAt(new Date())
+                        .setCreateAt(new Date());
+                insert(tbDict);
+                tbDict.setDictId(IdWorker.getId())
+                        .setDictKey(0)
+                        .setDictType(tbDict.getDictValue())
+                        .setDictValue(chineseText)
+                        .setCreateUser(loginName)
+                        .setUpdateUser(loginName);
+                insert(tbDict);
+            }else {
+                tbDict.setDictType(tbDict.getDictValue())
+                        .setDictId(IdWorker.getId())
+                        .setCreateAt(new Date())
+                        .setUpdateAt(new Date())
+                        .setDictValue(chineseText)
+                        .setDictKey(0)
+                        .setCreateUser(loginName)
+                        .setUpdateUser(loginName);
+                insert(tbDict);
+            }
+
+        }
+        return tbDict;
     }
 }

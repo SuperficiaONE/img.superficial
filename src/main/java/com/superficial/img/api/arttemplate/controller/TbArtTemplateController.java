@@ -2,29 +2,21 @@ package com.superficial.img.api.arttemplate.controller;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
-import com.superficial.img.api.arttemplate.vo.ElementVO;
-import com.superficial.img.api.arttemplate.vo.TemplateVO;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.common.tool.CommonUtil;
-import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,35 +38,12 @@ public class TbArtTemplateController {
     @RequestMapping("/api/tbArtTemplate/save")
     public ResultVO addTemplate(TbArtTemplate tbArtTemplate){
         try {
-            if(CommonUtil.isEmpty(tbArtTemplate)){
-                return ResultVO.newFail("参数不能为空");
-            }
-            if(CommonUtil.isEmpty(tbArtTemplate.getTemplateScript())){
-                return ResultVO.newFail("模板脚本参数不能为空");
-            }
-            if(CommonUtil.isEmpty(tbArtTemplate.getTemplateData())){
-                return ResultVO.newFail("模板结构数据参数不能为空");
-            }
-            if(CommonUtil.isEmpty(tbArtTemplate.getTemplateType())){
-                return ResultVO.newFail("模板类型参数不能为空");
-            }
-            if(artTemplateService.selectCount(new EntityWrapper<TbArtTemplate>().eq("template_type",tbArtTemplate.getTemplateType()))>0){
-                artTemplateService.update(tbArtTemplate,new EntityWrapper<TbArtTemplate>().eq("template_type",tbArtTemplate.getTemplateType()));
-            }else {
-                String loginName = JwtHelper.getLoginName();
-                artTemplateService.insert(tbArtTemplate
-                        .setCreateAt(new Date())
-                        .setId(IdWorker.getId())
-                        .setUpdateAt(new Date())
-                        .setCreateUser(loginName)
-                        .setUpdateUser(loginName)
-                );
-            }
 
+            tbArtTemplate = artTemplateService.insertArtTemplate(tbArtTemplate);
             return ResultVO.newSuccess("保存成功",tbArtTemplate);
         }catch (Exception e){
             log.error("保存模板发生了异常",e);
-            return ResultVO.newSuccess("保存模板发生了异常"+e.getMessage());
+            return ResultVO.newSuccess(e.getMessage());
         }
     }
     @RequestMapping("/api/artTemplate/list")

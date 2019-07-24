@@ -19,4 +19,6 @@ public interface ITbArtTemplateService extends IService<TbArtTemplate> {
     List<String> getTemplateScriptList(String types);
 
     List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize);
+
+    TbArtTemplate insertArtTemplate(TbArtTemplate tbArtTemplate) throws Exception;
 }

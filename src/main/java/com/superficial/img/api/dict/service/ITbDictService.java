@@ -28,4 +28,6 @@ public interface ITbDictService extends IService<TbDict> {
     List<Map<String, UrlVo>> changeMenuList(List<TbMenu> menuList);
 
     void changeArtTemplateVoList(List<ArtTemplateVo> tbArtTemplateList);
+
+    TbDict addDict(TbDict tbDict, String chineseText) throws Exception;
 }
