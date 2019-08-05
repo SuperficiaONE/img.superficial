@@ -95,5 +95,14 @@ public class TbArtTemplateController {
             return ResultVO.newError("获取模板脚本列表出现了异常"+e.getMessage());
         }
     }
+    @RequestMapping("/api/tbArtTemplate/delete")
+    public ResultVO deleteArtTemplate(String templateId){
+        try {
+            return ResultVO.newSuccess("");
+        }catch (Exception e){
+            log.error("删除模板发生错误：",e.getMessage());
+            return ResultVO.newError("删除模板发生错误："+e.getMessage());
+        }
+    }
 }
 
