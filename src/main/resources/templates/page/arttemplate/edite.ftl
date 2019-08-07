@@ -12,36 +12,40 @@
 <form class="layui-form" onsubmit="return false;">
     <div style="margin-left: auto;margin-right: auto;margin-top: 30px; width: 45%; border-radius: 20px;background-color: rgba(100,100,100,0.2);padding-bottom: 20px">
         <h2 style="text-align: center;margin-bottom: 20px;padding-top: 10px;">保存模板</h2>
-        <div class="layui-form-item" id="templateType">
+        <div class="layui-form-item" >
+            <label class="layui-form-label">模板类型</label>
+            <div class="layui-input-block" >
+                <button class="layui-btn" style="text-align: center;"  data="${vo.templateType!}" id="templateType">${dict.dictValue!}</button>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">before脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="beforeScript"></textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="beforeScript">${vo.beforeScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板元素</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateElements"></textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateElements">${vo.templateElements!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateScript"></textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateScript">${vo.templateScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">after脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="afterScript"></textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="afterScript">${vo.afterScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item " >
             <label class="layui-form-label">数据结构</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateData"></textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateData">${vo.templateData!}</textarea>
             </div>
         </div>
 
@@ -85,19 +89,9 @@
     layui.use(['jquery','form','layer'],function () {
         var layer = layui.layer;
         var form = layui.form;
-        initSelects("/webapi/dict/formSelectList?dictTypes=templateType",getParam("templateType"),true)
 
-        var templateType=$("select[name='templateType']").val();
-        changeType(templateType)
-        form.on('select(templateType)', function(data){
-            var val=data.value;
-            console.info(val);
-            var templateType = $("select[name='templateType']").val();
-            changeType(templateType)
-
-        });
         $("#submit").click(function () {
-            var templateType = $("select[name='templateType']").val();
+            var templateType = $("#templateTyp").attr('data');
             var templateScript = $("textarea[name='templateScript']").val();
             var beforeScript = $("textarea[name='beforeScript']").val();
             var afterScript = $("textarea[name='afterScript']").val();

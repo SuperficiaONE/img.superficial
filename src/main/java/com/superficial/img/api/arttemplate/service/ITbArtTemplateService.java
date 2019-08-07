@@ -3,8 +3,10 @@ package com.superficial.img.api.arttemplate.service;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.baomidou.mybatisplus.service.IService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
+import com.superficial.img.api.arttemplate.vo.TemplateSearchVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -21,4 +23,6 @@ public interface ITbArtTemplateService extends IService<TbArtTemplate> {
     List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize);
 
     TbArtTemplate insertArtTemplate(TbArtTemplate tbArtTemplate) throws Exception;
+
+    Map<String, Object> getDictList(TemplateSearchVo templateSearchVo);
 }

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
+import com.superficial.img.api.arttemplate.vo.TemplateSearchVo;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.LayUIPage;
@@ -12,12 +13,14 @@ import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -103,6 +106,16 @@ public class TbArtTemplateController {
             log.error("删除模板发生错误：",e.getMessage());
             return ResultVO.newError("删除模板发生错误："+e.getMessage());
         }
+    }
+    @RequestMapping("/api/tbArtTemplate/dictList?serachText")
+    public Map gerDictList( @Validated TemplateSearchVo templateSearchVo){
+       try {
+           Map<String ,Object> map = artTemplateService.getDictList(templateSearchVo);
+          return  map;
+       } catch (Exception e) {
+           log.error("", e.getMessage());
+           return ResultVO.newError("" + e.getMessage()).toMap();
+       }
     }
 }
 

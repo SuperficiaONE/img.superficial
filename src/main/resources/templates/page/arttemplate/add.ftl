@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>保存模板</title>
+    <title>添加模板</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -12,7 +12,11 @@
 <form class="layui-form" onsubmit="return false;">
     <div style="margin-left: auto;margin-right: auto;margin-top: 30px; width: 45%; border-radius: 20px;background-color: rgba(100,100,100,0.2);padding-bottom: 20px">
         <h2 style="text-align: center;margin-bottom: 20px;padding-top: 10px;">保存模板</h2>
-        <div class="layui-form-item" id="templateType">
+        <div class="layui-form-item">
+            <label class="layui-form-label">模板类型</label>
+            <div class="layui-input-block" >
+               <button class="layui-btn" style="text-align: center;"  data="" id="templateType">请选择类型</button>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">before脚本</label>
@@ -81,11 +85,52 @@
             }
         })
     }
+    function showDictTypeTableByLayer(){
+          layui.use(['layer','table'],function () {
+              var layer = layui.layer;
+              var table = layui.table;
+              layer.open({
+                  title:'选择需要添加的模板',
+                  content: "<div style='width: 100%;'> <label style=\"height: 30px;font-size:20px; \">搜索模板：</label>\n" +
+                          "    <input name=\"searchText\" style=\"height: 30px;width: 220px\" placeholder=\"请输入要搜索模板类型\">\n" +
+                          "    <button class=\"layui-btn\" id=\"search\">搜索</button></div>  <div id='dictType'></div>",
+                  area: '500px'
+              });
+              var option = {
+                  elem: '#dictType'
+                  , height: 300
+                  , width: 200
+                  , url: "/api/tbArtTemplate/dictList?serachText="+$("input[name='searchText']").val() //数据接口
+                  , page: true //开启分页
+                  , cols: [[ //表头
+                      {}
+
+                  ]]
+                  , parseData: function (res) { //res 即为原始返回的数据
+                      return {
+                          "code": res.code, //解析接口状态
+                          "msg": res.message, //解析提示文本
+                          "count": res.count, //解析数据长度
+                          "data": res.data //解析数据列表
+                      };
+                  }
+                  , done: function () {
+                      $("div[lay-id='dataTable']").css("text-align", "center");
+                      $("div[lay-id='dataTable']").css("margin-left", "auto")
+                      $("div[lay-id='dataTable']").css("margin-right", "auto");
+                      $("div[lay-id='dataTable'] th").css("background-color", "#5FB878")
+                      $("div[lay-id='dataTable'] th").css("text-align", "center")
+
+                  }
+              }
+              table.render(option)
+          })
+    }
 
     layui.use(['jquery','form','layer'],function () {
         var layer = layui.layer;
         var form = layui.form;
-        initSelects("/webapi/dict/formSelectList?dictTypes=templateType")
+       /** initSelects("/webapi/dict/formSelectList?dictTypes=templateType")
         var templateType = $("select[name='templateType']").val();
        changeType(templateType)
         form.on('select(templateType)', function(data){
@@ -94,9 +139,13 @@
             var templateType = $("select[name='templateType']").val();
             changeType(templateType)
 
-        });
+        }); **/
+        $('#templateType').click(function () {
+            showDictTypeTableByLayer()
+        })
+
         $("#submit").click(function () {
-            var templateType = $("select[name='templateType']").val();
+            var templateType = $("#templateType").attr("data");
             var templateScript = $("textarea[name='templateScript']").val();
             var beforeScript = $("textarea[name='beforeScript']").val();
             var afterScript = $("textarea[name='afterScript']").val();

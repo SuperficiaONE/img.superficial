@@ -1,10 +1,13 @@
 package com.superficial.img.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.superficial.img.common.tool.CommonUtil;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.Map;
 
 @Setter
 @Getter
@@ -58,5 +61,8 @@ public class ResultVO{
     public ResultVO setData(Object data) {
         this.data = data;
         return this;
+    }
+    public Map<String ,Object> toMap(){
+        return CommonUtil.ConvertObjToMap(this);
     }
 }

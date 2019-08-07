@@ -7,13 +7,13 @@ import com.superficial.img.api.arttemplate.mapper.TbArtTemplateMapper;
 import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
+import com.superficial.img.api.arttemplate.vo.TemplateDictVo;
+import com.superficial.img.api.arttemplate.vo.TemplateSearchVo;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.JwtHelper;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -68,5 +68,39 @@ public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, T
             );
         }
         return tbArtTemplate;
+    }
+
+    @Override
+    public Map<String, Object> getDictList(TemplateSearchVo templateSearchVo) {
+        Map<String ,Object> resultMap = new HashMap<>(6);
+        Map<String,Object> map = new HashMap<>(6);
+        /**
+         * searchText
+         * page
+         * limit
+         * create
+         */
+        if(templateSearchVo==null){
+            templateSearchVo = new TemplateSearchVo();
+
+        }else {
+            if(templateSearchVo.getPage()==null){
+                templateSearchVo.setPage(1);
+            }
+            if(templateSearchVo.getLimit()==null){
+                templateSearchVo.setLimit(10);
+            }
+
+        }
+        map.put("index",(templateSearchVo.getPage()-1)*templateSearchVo.getLimit());
+        map.put("pageSize",templateSearchVo.getLimit());
+        map.put("isCreate",templateSearchVo.getCreate());
+        List<TemplateDictVo> templateDictVoList = this.baseMapper.getDictList(map);
+        Integer count = this.baseMapper.getDictCount(map);
+        resultMap.put("code",0);
+        resultMap.put("msg","xxx");
+        resultMap.put("data",templateDictVoList);
+        resultMap.put("count",count);
+        return  map;
     }
 }
