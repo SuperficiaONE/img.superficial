@@ -61,6 +61,7 @@
   <#include  "/commonJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+    var index
     function renderAtrTemplate(res){
         if(res.data!=undefined&&res.data.length>0){
             $("textarea[name='templateScript']").text(res.data[0]['templateScript']==undefined?"":res.data[0]['templateScript']);
@@ -85,25 +86,84 @@
             }
         })
     }
+    function  reloadTable() {
+        layui.use(['table'],function () {
+            var table = layui.table ;
+            var option = {
+                elem: '#dictType'
+                , height: 300
+                , width: 600
+                ,limit: 5
+                ,limits: [5,10,20,50]
+                , url: "/api/tbArtTemplate/dictList?searchText="+$("input[name='searchText']").val()+"&create="+$("select[name='create']").val() //数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    /*templateType
+                templateName
+                isCreate*/
+                    {field: 'templateType', title: '模板类型id', width:200, sort: true, fixed: 'left'}
+                    ,{field: 'templateName', title: '模板名称', width:200}
+                    ,{field: 'isCreate', title: '是否已创建', width:200, sort: true}
+
+                ]]
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": res.code, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.count, //解析数据长度
+                        "data": res.data //解析数据列表
+                    };
+                }
+                , done: function () {
+                    $("div[lay-id='dataTable']").css("text-align", "center");
+                    $("div[lay-id='dataTable']").css("margin-left", "auto")
+                    $("div[lay-id='dataTable']").css("margin-right", "auto");
+                    $("div[lay-id='dataTable'] th").css("background-color", "#5FB878")
+                    $("div[lay-id='dataTable'] th").css("text-align", "center")
+
+                }
+            }
+            table.render(option)
+            table.on('row(test)', function(obj){
+                changeType(obj.data.templateType)
+                console.log(obj.data)
+                layer.close(index)
+            });
+        })
+    }
+
     function showDictTypeTableByLayer(){
           layui.use(['layer','table'],function () {
               var layer = layui.layer;
               var table = layui.table;
-              layer.open({
+              index= layer.open({
                   title:'选择需要添加的模板',
                   content: "<div style='width: 100%;'> <label style=\"height: 30px;font-size:20px; \">搜索模板：</label>\n" +
-                          "    <input name=\"searchText\" style=\"height: 30px;width: 220px\" placeholder=\"请输入要搜索模板类型\">\n" +
-                          "    <button class=\"layui-btn\" id=\"search\">搜索</button></div>  <div id='dictType'></div>",
-                  area: '500px'
+                          "    <input name=\"searchText\" style=\"height: 30px;width: 220px\" placeholder=\"请输入要搜索模板类型\">\n"
+                          +" <select name=\"create\" class='layui-select'  style='margin-left:5px;margin-right: 5px; border: 1px solid grey;border-radius: 4px; '>\n" +
+                          "  <option value='' >全部</option>\n" +
+                          "  <option value='false'>否</option>\n" +
+                          "  <option value='true'>是</option>\n" +
+                          "</select>     "+
+                          "    <button class=\"layui-btn\" id=\"search\">搜索</button></div>  <table  lay-filter=\"test\" id='dictType' style='display: inline-block; margin-left: auto;margin-right: auto; '></table>"
+                  ,offset: '100px'
+                  ,area:"700px"
               });
               var option = {
                   elem: '#dictType'
                   , height: 300
-                  , width: 200
-                  , url: "/api/tbArtTemplate/dictList?serachText="+$("input[name='searchText']").val() //数据接口
+                  , width: 600
+                  , url: "/api/tbArtTemplate/dictList?searchText="+$("input[name='searchText']").val() +"&create="+$("select[name='create']").val() //数据接口
                   , page: true //开启分页
+                  ,limit: 5
+                  ,limits: [5,10,20,50]
                   , cols: [[ //表头
-                      {}
+                          /*templateType
+                      templateName
+                      isCreate*/
+                      {field: 'templateType', title: '模板类型id', width:200, sort: true, fixed: 'left'}
+                      ,{field: 'templateName', title: '模板名称', width:200}
+                      ,{field: 'isCreate', title: '是否已创建', width:200, sort: true}
 
                   ]]
                   , parseData: function (res) { //res 即为原始返回的数据
@@ -124,6 +184,13 @@
                   }
               }
               table.render(option)
+              table.on('row(test)', function(obj){
+                 changeType(obj.data.templateType)
+                 layer.close(index)
+              });
+              $('#search').click(function () {
+                  reloadTable()
+              })
           })
     }
 

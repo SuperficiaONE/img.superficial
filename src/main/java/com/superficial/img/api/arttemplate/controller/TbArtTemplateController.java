@@ -107,7 +107,7 @@ public class TbArtTemplateController {
             return ResultVO.newError("删除模板发生错误："+e.getMessage());
         }
     }
-    @RequestMapping("/api/tbArtTemplate/dictList?serachText")
+    @RequestMapping("/api/tbArtTemplate/dictList")
     public Map gerDictList( @Validated TemplateSearchVo templateSearchVo){
        try {
            Map<String ,Object> map = artTemplateService.getDictList(templateSearchVo);

@@ -95,12 +95,13 @@ public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, T
         map.put("index",(templateSearchVo.getPage()-1)*templateSearchVo.getLimit());
         map.put("pageSize",templateSearchVo.getLimit());
         map.put("isCreate",templateSearchVo.getCreate());
+        map.put("searchText",templateSearchVo.getSearchText());
         List<TemplateDictVo> templateDictVoList = this.baseMapper.getDictList(map);
         Integer count = this.baseMapper.getDictCount(map);
         resultMap.put("code",0);
         resultMap.put("msg","xxx");
         resultMap.put("data",templateDictVoList);
         resultMap.put("count",count);
-        return  map;
+        return  resultMap;
     }
 }

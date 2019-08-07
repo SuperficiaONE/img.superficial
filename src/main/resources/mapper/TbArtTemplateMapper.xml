@@ -26,29 +26,29 @@
     <select id="getDictList" resultType="com.superficial.img.api.arttemplate.vo.TemplateDictVo">
         select d.dict_key as templateType ,d.dict_value as templateName  , case when isNULL(a.id) then '否' else '是' end as is_create    from tb_dict  d left  join tb_art_template a
         on d.dict_key = a.template_type
-         where d.dict_type='template_type'
+         where d.dict_type='template_type' and d.dict_key!=0
          <if test="searchText!=null">
              and d.dict_value like concat('%',#{searchText},'%')
          </if>
-        <if test="isCreate">
+        <if test="isCreate!=null and  isCreate">
             and not isNULL(a.id)
         </if>
-        <if test="!isCreate">
+        <if test="isCreate!=null and !isCreate">
             and isNULL(a.id)
         </if>
-        limit index , pageSize
+        limit #{index} , #{pageSize}
     </select>
     <select id="getDictCount" resultType="Integer">
         select  count(0) from tb_dict  d left  join tb_art_template a
         on d.dict_key = a.template_type
-         where d.dict_type='template_type'
+         where d.dict_type='template_type' and d.dict_key!=0
         <if test="searchText!=null">
             and d.dict_value like concat('%',#{searchText},'%')
         </if>
-        <if test="isCreate">
+        <if test="isCreate!=null and  isCreate">
             and not isNULL(a.id)
         </if>
-        <if test="!isCreate">
+        <if test="isCreate!=null and !isCreate">
             and isNULL(a.id)
         </if>
     </select>
