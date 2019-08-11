@@ -133,6 +133,7 @@
     }
 
     function showDictTypeTableByLayer(){
+
           layui.use(['layer','table'],function () {
               var layer = layui.layer;
               var table = layui.table;
@@ -142,8 +143,7 @@
                           "    <input name=\"searchText\" style=\"height: 30px;width: 220px\" placeholder=\"请输入要搜索模板类型\">\n"
                           +" <select name=\"create\" class='layui-select'  style='margin-left:5px;margin-right: 5px; border: 1px solid grey;border-radius: 4px; '>\n" +
                           "  <option value='' >全部</option>\n" +
-                          "  <option value='false'>否</option>\n" +
-                          "  <option value='true'>是</option>\n" +
+                          "  <option value='false'>否</option>\n" +                            "  <option value='true'>是</option>\n" +
                           "</select>     "+
                           "    <button class=\"layui-btn\" id=\"search\">搜索</button></div>  <table  lay-filter=\"test\" id='dictType' style='display: inline-block; margin-left: auto;margin-right: auto; '></table>"
                   ,offset: '100px'
