@@ -4,6 +4,7 @@ package com.superficial.img.api.dict.controller;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.api.dict.tool.ConvTool;
+import com.superficial.img.api.dict.vo.AddDictSearchVo;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.ResultVO;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -112,6 +114,27 @@ public class TbDictController {
         }catch (Exception e){
             log.info("获取数据出现异常",e);
             return ResultVO.newError("获取数据出现异常"+e.getMessage());
+        }
+    }
+
+    @RequestMapping("/api/dict/getAddDictList")
+    public Map getAddDictList(AddDictSearchVo addDictSearchVo){
+        try {
+           Map map = dictService.getAddDictList(addDictSearchVo);
+           return  map;
+        }catch (Exception e){
+            log.error("", e.getMessage());
+            return ResultVO.newError("" + e.getMessage()).toMap();
+        }
+    }
+
+    @RequestMapping("/api/dict/getDictList")
+    public Map getDictList(AddDictSearchVo addDictSearchVo){
+        try {
+          return dictService.getDictList(addDictSearchVo);
+        }catch (Exception e){
+            log.error("", e.getMessage());
+            return ResultVO.newError("" + e.getMessage()).toMap();
         }
     }
 }

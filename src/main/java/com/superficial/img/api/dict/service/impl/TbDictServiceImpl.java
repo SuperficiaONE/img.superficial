@@ -7,6 +7,8 @@ import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.mapper.TbDictMapper;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
+import com.superficial.img.api.dict.vo.AddDictSearchVo;
+import com.superficial.img.api.dict.vo.AddDictVo;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.tool.CommonUtil;
@@ -147,5 +149,73 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
 
         }
         return tbDict;
+    }
+
+
+    /**
+     * Map 中需要
+     * code  0 为成功
+     * msg   异常显示
+     * data   数据
+     * count  总数
+     *
+     * @param addDictSearchVo
+     * @return
+     */
+    @Override
+    public Map getAddDictList(AddDictSearchVo addDictSearchVo) {
+        Map<String ,Object> resultMap = new HashMap<>(6);
+        Map<String,Object> map = new HashMap<>(6);
+        if(addDictSearchVo==null){
+            addDictSearchVo = new AddDictSearchVo();
+
+        }else {
+            if(addDictSearchVo.getPage()==null){
+                addDictSearchVo.setPage(1);
+            }
+            if(addDictSearchVo.getLimit()==null){
+                addDictSearchVo.setLimit(10);
+            }
+
+        }
+        map.put("index",(addDictSearchVo.getPage()-1)*addDictSearchVo.getLimit());
+        map.put("pageSize",addDictSearchVo.getLimit());
+        map.put("searchText",addDictSearchVo.getSearchText());
+        List<AddDictVo> templateDictVoList = this.baseMapper.getAddDictList(map);
+        Integer count = this.baseMapper.getAddDictCount(map);
+        resultMap.put("code",0);
+        resultMap.put("msg","xxx");
+        resultMap.put("data",templateDictVoList);
+        resultMap.put("count",count);
+        return  resultMap;
+
+    }
+
+    @Override
+    public Map getDictList(AddDictSearchVo addDictSearchVo) {
+        Map<String ,Object> resultMap = new HashMap<>(6);
+        Map<String,Object> map = new HashMap<>(6);
+        if(addDictSearchVo==null){
+            addDictSearchVo = new AddDictSearchVo();
+
+        }else {
+            if(addDictSearchVo.getPage()==null){
+                addDictSearchVo.setPage(1);
+            }
+            if(addDictSearchVo.getLimit()==null){
+                addDictSearchVo.setLimit(10);
+            }
+
+        }
+        map.put("index",(addDictSearchVo.getPage()-1)*addDictSearchVo.getLimit());
+        map.put("pageSize",addDictSearchVo.getLimit());
+        map.put("searchText",addDictSearchVo.getSearchText());
+        List<TbDict> templateDictVoList = this.baseMapper.getDictList(map);
+        Integer count = this.baseMapper.getDictCount(map);
+        resultMap.put("code",0);
+        resultMap.put("msg","xxx");
+        resultMap.put("data",templateDictVoList);
+        resultMap.put("count",count);
+        return  resultMap;
     }
 }

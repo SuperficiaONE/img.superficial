@@ -13,6 +13,20 @@
     <sql id="Base_Column_List">
         dict_id, dict_value, dict_key, dict_type, create_at, update_at,create_user,update_user
     </sql>
+
+    <sql id="where_add_dict_list">
+        group  by  d.dict_type
+        <if test="searchText!=null">
+            having  dict_value like concat("%",#{searchText},"%")
+        </if>
+    </sql>
+    <sql id="where_dict_list">
+        where 1=1
+        <if test="searchText!=null">
+           and   dict_value like concat("%",#{searchText},"%")
+        </if>
+        order by dict_key asc
+    </sql>
    <select id="getSelectList" resultType="com.superficial.img.common.vo.SelectVO">
        select  dict_value as dict_text ,dict_type as dict_value  from  tb_dict
        where  dict_key = 0
@@ -29,5 +43,27 @@
     </select>
     <select id="getAllSelectList" resultType="com.superficial.img.common.vo.SelectVO">
             select  dict_value as dict_text ,dict_key as dict_value ,dict_type from  tb_dict
+    </select>
+    <select id="getAddDictList" resultType="com.superficial.img.api.dict.vo.AddDictVo">
+        select dict_id,dict_type,dict_value,count(0)-1 as dict_count from tb_dict d
+        <include refid="where_add_dict_list"></include>
+        limit #{index} ,#{pageSize}
+    </select>
+
+    <select id="getAddDictCount" resultType="Integer">
+        select count(0) from (
+        select dict_id , dict_value  as dict_count from tb_dict d
+        <include refid="where_add_dict_list"></include>
+        ) d;
+    </select>
+    <select id="getDictList"  resultMap="BaseResultMap">
+        select * from tb_dict
+       <include refid="where_dict_list"></include>
+        limit #{index},#{pageSize}
+    </select>
+    <select id="getDictCount" resultType="Integer">
+     select count(0) from (select dict_id from tb_dict
+        <include refid="where_dict_list"></include>
+        )d
     </select>
 </mapper>

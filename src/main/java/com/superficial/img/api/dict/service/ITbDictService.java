@@ -3,6 +3,7 @@ package com.superficial.img.api.dict.service;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.service.IService;
+import com.superficial.img.api.dict.vo.AddDictSearchVo;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.vo.SelectVO;
@@ -30,4 +31,8 @@ public interface ITbDictService extends IService<TbDict> {
     void changeArtTemplateVoList(List<ArtTemplateVo> tbArtTemplateList);
 
     TbDict addDict(TbDict tbDict, String chineseText) throws Exception;
+
+    Map getAddDictList(AddDictSearchVo addDictSearchVo);
+
+    Map getDictList(AddDictSearchVo addDictSearchVo);
 }

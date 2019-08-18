@@ -1,13 +1,12 @@
 package com.superficial.img.api.arttemplate.vo;
 
+import com.superficial.img.common.vo.PageVo;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class TemplateSearchVo {
+public class TemplateSearchVo extends PageVo {
     private String searchText;
-    private Integer page =1;
-    private Integer limit=10;
     private Boolean create;
 }
