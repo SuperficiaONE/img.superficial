@@ -30,60 +30,64 @@
   <#include  "/commonJS.ftl">
 
 <script>
+    function showTable() {
+        layui.use(['table'],function () {
+            var table = layui.table ;
 
-    layui.use(['table'],function () {
-        var table = layui.table ;
-        var option = {
-            elem: '#dictTable'
-            , height: 300
+            var option = {
+                elem: '#dictTable'
+                , height: 300
 
-            ,limit: 5
-            ,limits: [5,10,20,50]
-            , url: "/api/dict/getDictList?searchText="+$("input[name='searchText']").val()//数据接口
-            , page: true //开启分页
-            , cols: [[ //表头
-                /*templateType
-            templateName
-            isCreate*/
-                {field: '', title: '操作',  fixed: 'left',templet:function (d) {
-                        return "<a>删除</a>"
-                    }}
-                ,{field: 'dictId', title: '字典id', fixed: 'left'}
-                ,{field: 'dictValue', title: '含义'}
-                ,{field: 'dictType', title: '字典类型'}
-                ,{field: 'dictKey', title: '字典值'}
-                ,{field: 'createAt', title: '创建时间'}
-                ,{field: 'updateAt', title: '更新时间'}
-                ,{field: 'createUser', title: '创建人'}
-                ,{field: 'updateUser', title: '更新人'}
+                ,limit: 5
+                ,limits: [5,10,20,50]
+                , url: "/api/dict/getDictList?searchText="+$("input[name='searchText']").val()//数据接口
+                , page: true //开启分页
+                , cols: [[ //表头
+                    /*templateType
+                templateName
+                isCreate*/
+                    {field: '', title: '操作',  fixed: 'left',templet:function (d) {
+                            return "<a>删除</a>"
+                        }}
+                    ,{field: 'dictId', title: '字典id', fixed: 'left'}
+                    ,{field: 'dictValue', title: '含义'}
+                    ,{field: 'dictType', title: '字典类型'}
+                    ,{field: 'dictKey', title: '字典值'}
+                    ,{field: 'createAt', title: '创建时间'}
+                    ,{field: 'updateAt', title: '更新时间'}
+                    ,{field: 'createUser', title: '创建人'}
+                    ,{field: 'updateUser', title: '更新人'}
 
-            ]]
-            , parseData: function (res) { //res 即为原始返回的数据
-                return {
-                    "code": res.code, //解析接口状态
-                    "msg": res.message, //解析提示文本
-                    "count": res.count, //解析数据长度
-                    "data": res.data //解析数据列表
-                };
+                ]]
+                , parseData: function (res) { //res 即为原始返回的数据
+                    return {
+                        "code": res.code, //解析接口状态
+                        "msg": res.message, //解析提示文本
+                        "count": res.count, //解析数据长度
+                        "data": res.data //解析数据列表
+                    };
+                }
+                , done: function () {
+                    $("div[lay-id='dictTable']").css("text-align", "center");
+                    $("div[lay-id='dictTable']").css("margin-left", "auto")
+                    $("div[lay-id='dictTable']").css("margin-right", "auto");
+                    $("div[lay-id='dictTable'] th").css("background-color", "#5FB878")
+                    $("div[lay-id='dictTable'] th").css("text-align", "center")
+
+                }
             }
-            , done: function () {
-                $("div[lay-id='dictTable']").css("text-align", "center");
-                $("div[lay-id='dictTable']").css("margin-left", "auto")
-                $("div[lay-id='dictTable']").css("margin-right", "auto");
-                $("div[lay-id='dictTable'] th").css("background-color", "#5FB878")
-                $("div[lay-id='dictTable'] th").css("text-align", "center")
+            table.render(option)
+            table.on('row(test)', function(obj){
+            });
+        })
 
-            }
-        }
-        table.render(option)
-        table.on('row(test)', function(obj){
-            $("#templateType").text(obj.data.templateName)
-            changeType(obj.data.templateType)
-            console.log(obj.data)
-            layer.close(index)
-        });
+    }
+    layui.use(["layer"],function () {
+        showTable();
+        $("#search").click(function () {
+            showTable();
+        })
     })
-
 </script>
 
 </body>
