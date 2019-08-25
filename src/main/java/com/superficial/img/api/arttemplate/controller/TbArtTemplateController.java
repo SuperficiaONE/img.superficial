@@ -41,7 +41,6 @@ public class TbArtTemplateController {
     @RequestMapping("/api/tbArtTemplate/save")
     public ResultVO addTemplate(TbArtTemplate tbArtTemplate){
         try {
-
             tbArtTemplate = artTemplateService.insertArtTemplate(tbArtTemplate);
             return ResultVO.newSuccess("保存成功",tbArtTemplate);
         }catch (Exception e){

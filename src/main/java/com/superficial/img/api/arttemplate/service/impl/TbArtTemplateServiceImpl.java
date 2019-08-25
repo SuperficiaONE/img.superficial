@@ -9,8 +9,11 @@ import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.arttemplate.vo.TemplateDictVo;
 import com.superficial.img.api.arttemplate.vo.TemplateSearchVo;
+import com.superficial.img.api.dict.mapper.TbDictMapper;
+import com.superficial.img.common.Cons;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.JwtHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -26,6 +29,8 @@ import java.util.*;
 @Service
 public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, TbArtTemplate> implements ITbArtTemplateService {
 
+    @Autowired
+    private TbDictMapper dictMapper;
     @Override
     public List<String> getTemplateScriptList(String types) {
         if(CommonUtil.isEmpty(types)){
@@ -67,6 +72,7 @@ public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, T
                     .setUpdateUser(loginName)
             );
         }
+        dictMapper.updateCanDelete(Cons.DICT_TYPE_TEMPLATE_TYPE,tbArtTemplate.getTemplateType(),0);
         return tbArtTemplate;
     }
 

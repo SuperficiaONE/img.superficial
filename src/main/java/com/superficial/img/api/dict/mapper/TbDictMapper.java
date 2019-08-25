@@ -3,6 +3,7 @@ package com.superficial.img.api.dict.mapper;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.superficial.img.api.dict.vo.AddDictVo;
+import com.superficial.img.api.dict.vo.TbDictVo;
 import com.superficial.img.common.vo.SelectVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +37,8 @@ public interface TbDictMapper extends BaseMapper<TbDict> {
     List<TbDict> getDictList(Map<String, Object> map);
 
     Integer getDictCount(Map<String, Object> map);
+
+    TbDictVo getDictVo(String dictId);
+
+    int updateCanDelete(@Param("dictType") String dictType, @Param("dictKey") Integer dictKey,@Param("canDelete") Integer canDelete);
 }

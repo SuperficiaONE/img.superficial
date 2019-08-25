@@ -55,7 +55,17 @@
                 , {field: 'menuName', title: '菜单名称', templet: function (d) {
                         return " <a href=" + d.url + " class=\"layui-table-link\" target='_blank'>" + d.menuName + "</a>"
                     }}
-                , {field: 'menuType', title: '类型'}
+                , {field: 'menuType', title: '类型',templet:function (d) {
+                        if(d.menuLevel==1){
+                            return "菜单"
+                        }else if( d.menuLevel==2){
+                            return "页面"
+                        }else if(d.menuLevel==3){
+                            return "按钮"
+                        }else {
+                            return "";
+                        }
+                    }}
                 , {field: 'url', title: '链接', sort: false}
                 , {field: 'menuLogin', title: '需要登录', templet: function (d) {
                         if(d.menuLogin == 1){

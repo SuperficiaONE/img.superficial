@@ -9,6 +9,7 @@ import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.api.dict.vo.AddDictSearchVo;
 import com.superficial.img.api.dict.vo.AddDictVo;
+import com.superficial.img.api.dict.vo.TbDictVo;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.tool.CommonUtil;
@@ -217,5 +218,15 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
         resultMap.put("data",templateDictVoList);
         resultMap.put("count",count);
         return  resultMap;
+    }
+
+    @Override
+    public TbDictVo getDictVo(String dictId) {
+        return this.baseMapper.getDictVo(dictId);
+    }
+
+    @Override
+    public int updateCanDelete(String dictType, Integer dictKey, Integer canDelete) {
+        return this.baseMapper.updateCanDelete(dictType,dictKey,canDelete);
     }
 }

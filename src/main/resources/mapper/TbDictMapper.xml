@@ -66,4 +66,13 @@
         <include refid="where_dict_list"></include>
         )d
     </select>
+
+    <select id="getDictVo" resultType="com.superficial.img.api.dict.vo.TbDictVo">
+        select d.*,t.dict_value as chinese_text from tb_dict d left join tb_dict t on t.dict_type=d.dict_type where t.dict_key=0 and d.dict_id=#{dictId}
+    </select>
+    <update id="updateCanDelete" >
+        update  tb_dict
+        set can_delete = #{canDelete}
+        where dict_key =#{dictKey} and dict_type = #{dictType}
+    </update>
 </mapper>

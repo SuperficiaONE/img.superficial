@@ -4,6 +4,7 @@ import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.baomidou.mybatisplus.service.IService;
 import com.superficial.img.api.dict.vo.AddDictSearchVo;
+import com.superficial.img.api.dict.vo.TbDictVo;
 import com.superficial.img.api.menu.pojo.TbMenu;
 import com.superficial.img.api.tb.vo.UrlVo;
 import com.superficial.img.common.vo.SelectVO;
@@ -35,4 +36,8 @@ public interface ITbDictService extends IService<TbDict> {
     Map getAddDictList(AddDictSearchVo addDictSearchVo);
 
     Map getDictList(AddDictSearchVo addDictSearchVo);
+
+    TbDictVo getDictVo(String dictId);
+
+    int  updateCanDelete(String dictType,Integer dictKey,Integer canDelete);
 }

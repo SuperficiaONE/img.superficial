@@ -47,7 +47,7 @@
                 templateName
                 isCreate*/
                     {field: '', title: '操作',  fixed: 'left',templet:function (d) {
-                            return "<a>删除</a>"
+                            return "<a class='layui-table-link' href='/page/dict/edit.htm?dictId="+d.dictId+"' target='_blank'>编辑</a>"+"<a class='layui-table-link' style='margin-left: 10px;' href='/api/dict/delete?dictId="+d.dictId+"'>删除</a>"
                         }}
                     ,{field: 'dictId', title: '字典id', fixed: 'left'}
                     ,{field: 'dictValue', title: '含义'}
