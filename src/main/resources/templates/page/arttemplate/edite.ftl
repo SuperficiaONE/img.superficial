@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <#include  "/commonCss.ftl">
+    <#include  "/codeMirrorCSS.ftl">
 </head>
 <body>
 <form class="layui-form" onsubmit="return false;">
@@ -21,31 +22,31 @@
         <div class="layui-form-item">
             <label class="layui-form-label">before脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="beforeScript">${vo.beforeScript!}</textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="beforeScript" name="beforeScript">${vo.beforeScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板元素</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateElements">${vo.templateElements!}</textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateElements" name="templateElements">${vo.templateElements!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateScript">${vo.templateScript!}</textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateScript" name="templateScript">${vo.templateScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">after脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="afterScript">${vo.afterScript!}</textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="afterScript" name="afterScript">${vo.afterScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item " >
             <label class="layui-form-label">数据结构</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" name="templateData">${vo.templateData!}</textarea>
+                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateData" name="templateData">${vo.templateData!}</textarea>
             </div>
         </div>
 
@@ -59,15 +60,56 @@
 </form>
 
   <#include  "/commonJS.ftl">
+  <#include  "/codeMirrorJS.ftl">
 <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
+
+
+    var templateScriptEditor = initEditor("templateScript")
+    var afterScriptEditor =  initEditor("afterScript")
+    var beforeScriptEditor = initEditor("beforeScript")
+    var templateElementsEditor = initEditor("templateElements")
+    var templateDataEditor = initEditor("templateData")
+
+
+
+    function  initEditor(idName) {
+        var editor = CodeMirror.fromTextArea(document.getElementById(idName), {
+            lineNumbers: true,     // 显示行数
+            indentUnit: 4,         // 缩进单位为4
+            styleActiveLine: true, // 当前行背景高亮
+            matchBrackets: true,   // 括号匹配
+            mode: 'htmlmixed',     // HMTL混合模式
+            lineWrapping: true,    // 自动换行
+            theme: 'monokai'
+        });
+        editor.setOption("extraKeys", {
+            // Tab键换成4个空格
+            Tab: function(cm) {
+                var spaces = Array(cm.getOption("indentUnit") + 1).join(" ");
+                cm.replaceSelection(spaces);
+            },
+            // F11键切换全屏
+            "F1": function(cm) {
+                cm.setOption("fullScreen", !cm.getOption("fullScreen"));
+            },
+            // Esc键退出全屏
+            "Esc": function(cm) {
+                if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
+            }
+        });
+        editor.setSize('500px','200px');
+        return editor;
+    }
+
     function renderAtrTemplate(res){
         if(res.data!=undefined&&res.data.length>0){
-            $("textarea[name='templateScript']").text(res.data[0]['templateScript']==undefined?"":res.data[0]['templateScript']);
-            $("textarea[name='beforeScript']").text(res.data[0]['beforeScript']==undefined?"":res.data[0]['beforeScript']);
-            $("textarea[name='afterScript']").text(res.data[0]['afterScript']==undefined?"":res.data[0]['afterScript']);
-            $("textarea[name='templateData']").text(res.data[0]['templateData']==undefined?"":res.data[0]['templateData']);
-            $("textarea[name='templateElements']").text(res.data[0]['templateElements']==undefined?"":res.data[0]['templateElements']);
+           templateScriptEditor.setValue(res.data[0]['templateScript']==undefined?"":res.data[0]['templateScript']);
+           beforeScriptEditor.setValue(res.data[0]['beforeScript']==undefined?"":res.data[0]['beforeScript']);
+           afterScriptEditor.setValue(res.data[0]['afterScript']==undefined?"":res.data[0]['afterScript']);
+           templateDataEditor.setValue(res.data[0]['templateData']==undefined?"":res.data[0]['templateData']);
+           templateElementsEditor.setValue(res.data[0]['templateElements']==undefined?"":res.data[0]['templateElements']);
+            $("#templateType").attr("data",res.data[0]["templateType"]);
         }else {
             $("textarea[name='templateScript']").text("");
             $("textarea[name='beforeScript']").text("");
@@ -92,11 +134,11 @@
 
         $("#submit").click(function () {
             var templateType = $("#templateTyp").attr('data');
-            var templateScript = $("textarea[name='templateScript']").val();
-            var beforeScript = $("textarea[name='beforeScript']").val();
-            var afterScript = $("textarea[name='afterScript']").val();
-            var templateData = $("textarea[name='templateData']").val();
-            var templateElements = $("textarea[name='templateElements']").val();
+            var templateScript = templateScriptEditor.getValue()
+            var beforeScript = beforeScriptEditor.getValue()
+            var afterScript = afterScriptEditor.getValue()
+            var templateData = templateDataEditor.getValue()
+            var templateElements = templateElementsEditor.getValue()
             var data = {};
             data['templateType'] = templateType;
             data['templateScript'] = templateScript;
