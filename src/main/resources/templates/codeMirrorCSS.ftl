@@ -59,6 +59,8 @@
 <link rel="stylesheet" href="/static/codemirror/addon/display/fullscreen.css" />
 
 <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css" />
+<link rel="stylesheet" href="/static/codemirror/addon/hint/show-hint.css" />
+<link rel="stylesheet" href="/static/codemirror/addon/dialog/dialog.css" />
 
 
 

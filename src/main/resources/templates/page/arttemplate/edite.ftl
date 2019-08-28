@@ -22,31 +22,31 @@
         <div class="layui-form-item">
             <label class="layui-form-label">before脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="beforeScript" name="beforeScript">${vo.beforeScript!}</textarea>
+                <textarea  style="height: 100px;width: 400px" id="beforeScript" name="beforeScript">${vo.beforeScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板元素</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateElements" name="templateElements">${vo.templateElements!}</textarea>
+                <textarea  style="height: 100px;width: 400px" id="templateElements" name="templateElements">${vo.templateElements!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">模板脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateScript" name="templateScript">${vo.templateScript!}</textarea>
+                <textarea  style="height: 100px;width: 400px" id="templateScript" name="templateScript">${vo.templateScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">after脚本</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="afterScript" name="afterScript">${vo.afterScript!}</textarea>
+                <textarea  style="height: 100px;width: 400px" id="afterScript" name="afterScript">${vo.afterScript!}</textarea>
             </div>
         </div>
         <div class="layui-form-item " >
             <label class="layui-form-label">数据结构</label>
             <div class="layui-input-block" >
-                <textarea class="layui-textarea" style="height: 100px;width: 400px" id="templateData" name="templateData">${vo.templateData!}</textarea>
+                <textarea  style="height: 100px;width: 400px" id="templateData" name="templateData">${vo.templateData!}</textarea>
             </div>
         </div>
 
@@ -109,13 +109,12 @@
            afterScriptEditor.setValue(res.data[0]['afterScript']==undefined?"":res.data[0]['afterScript']);
            templateDataEditor.setValue(res.data[0]['templateData']==undefined?"":res.data[0]['templateData']);
            templateElementsEditor.setValue(res.data[0]['templateElements']==undefined?"":res.data[0]['templateElements']);
-            $("#templateType").attr("data",res.data[0]["templateType"]);
         }else {
-            $("textarea[name='templateScript']").text("");
-            $("textarea[name='beforeScript']").text("");
-            $("textarea[name='afterScript']").text("");
-            $("textarea[name='templateData']").text("");
-            $("textarea[name='templateElements']").text("");
+            templateScriptEditor.setValue("");
+            beforeScriptEditor.setValue("");
+            afterScriptEditor.setValue("");
+            templateDataEditor.setValue("");
+            templateElementsEditor.setValue("");
         }
     }
     function  changeType(type) {
@@ -126,6 +125,7 @@
                 showError(res.msg)
             }
         })
+        $("#templateType").attr("data",type);
     }
 
     layui.use(['jquery','form','layer'],function () {
