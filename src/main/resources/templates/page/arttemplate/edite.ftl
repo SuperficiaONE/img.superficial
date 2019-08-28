@@ -11,7 +11,7 @@
 </head>
 <body>
 <form class="layui-form" onsubmit="return false;">
-    <div style="margin-left: auto;margin-right: auto;margin-top: 30px; width: 45%; border-radius: 20px;background-color: rgba(100,100,100,0.2);padding-bottom: 20px">
+    <div style="margin-left: auto;margin-right: auto;margin-top: 30px; width: 55%; border-radius: 20px;background-color: rgba(100,100,100,0.2);padding-bottom: 20px">
         <h2 style="text-align: center;margin-bottom: 20px;padding-top: 10px;">保存模板</h2>
         <div class="layui-form-item" >
             <label class="layui-form-label">模板类型</label>
@@ -53,7 +53,7 @@
         <div class="layui-form-item" style="padding-bottom: 20px;">
             <div class="layui-input-block">
                 <button id="submit" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                <button type="reset" class="layui-btn layui-btn-primary" >重置</button>
+                <button id="reset" class="layui-btn layui-btn-primary" >重置</button>
             </div>
         </div>
     </div>
@@ -98,7 +98,7 @@
                 if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
             }
         });
-        editor.setSize('500px','200px');
+        editor.setSize('auto','200px');
         return editor;
     }
 
