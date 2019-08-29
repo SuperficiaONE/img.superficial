@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="/static/codemirror/theme/cobalt.css" />
 <link rel="stylesheet" href="/static/codemirror/theme/colorforth.css" />
 <link rel="stylesheet" href="/static/codemirror/theme/darcula.css" />
-<link rel="stylesheet" href="/static/codemirror/theme/dracula.css" />
+
 <link rel="stylesheet" href="/static/codemirror/theme/duotone-dark.css" />
 <link rel="stylesheet" href="/static/codemirror/theme/duotone-light.css" />
 <link rel="stylesheet" href="/static/codemirror/theme/eclipse.css" />
@@ -56,9 +56,10 @@
 <link rel="stylesheet" href="/static/codemirror/theme/yonce.css" />
 <link rel="stylesheet" href="/static/codemirror/theme/zenburn.css" />
 <#--  以上为theam CSS样式  -->
-<link rel="stylesheet" href="/static/codemirror/addon/display/fullscreen.css" />
 
 <link rel="stylesheet" href="/static/codemirror/lib/codemirror.css" />
+<link rel="stylesheet" href="/static/codemirror/addon/display/fullscreen.css" />
+
 <link rel="stylesheet" href="/static/codemirror/addon/hint/show-hint.css" />
 <link rel="stylesheet" href="/static/codemirror/addon/dialog/dialog.css" />
 
