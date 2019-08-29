@@ -6,6 +6,7 @@ import com.superficial.img.api.arttemplate.pojo.TbArtTemplate;
 import com.superficial.img.api.arttemplate.service.ITbArtTemplateService;
 import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.arttemplate.vo.TemplateSearchVo;
+import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.vo.LayUIPage;
@@ -13,15 +14,13 @@ import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * <p>
@@ -115,6 +114,23 @@ public class TbArtTemplateController {
            log.error("", e.getMessage());
            return ResultVO.newError("" + e.getMessage()).toMap();
        }
+    }
+    @RequestMapping("/api/tbArtTemplate/edit")
+    public ResultVO getEditList(String templateId){
+        try {
+            Map<String ,Object> map = new HashMap<>();
+            TbArtTemplate tbArtTemplate = artTemplateService.selectById(templateId);
+            List<TbDict> dictList = dictService.selectList(new EntityWrapper<TbDict>()
+                    .eq("dict_key", tbArtTemplate.getTemplateType())
+                    .eq("dict_type", "template_type"));
+            map.put("vo",tbArtTemplate);
+            map.put("dict",dictList!=null && dictList.size()>0?dictList.get(0):null);
+            return ResultVO.newSuccess(map);
+        }catch (Exception e){
+            log.error("异常",e);
+            return ResultVO.newError(e.getMessage());
+        }
+
     }
 }
 

@@ -35,12 +35,6 @@ public class ArtTemplateController {
     }
     @RequestMapping("/edite.htm")
     public  String edite(String templateId,Model model){
-        TbArtTemplate tbArtTemplate = templateService.selectById(templateId);
-        List<TbDict> dictList = dictService.selectList(new EntityWrapper<TbDict>()
-                .eq("dict_key", tbArtTemplate.getTemplateType())
-                .eq("dict_type", "template_type"));
-        model.addAttribute("vo",tbArtTemplate);
-        model.addAttribute("dict",dictList!=null && dictList.size()>0?dictList.get(0):null);
         return "/page/arttemplate/edite";
     }
 }
