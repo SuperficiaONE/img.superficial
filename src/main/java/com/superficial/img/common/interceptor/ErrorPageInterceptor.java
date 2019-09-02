@@ -15,7 +15,7 @@ public class ErrorPageInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws
             Exception {
-        log.info("进入过滤器");
+       // log.info("进入过滤器");
         if (errorCodeList.contains(response.getStatus())) {
             response.sendRedirect("/error/" + response.getStatus());
             return false;

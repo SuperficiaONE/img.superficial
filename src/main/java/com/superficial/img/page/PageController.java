@@ -43,13 +43,21 @@ public class PageController {
     public String module(){
         return "/page/module/back";
     }
+
+
     @RequestMapping("/module/index.htm" +
             "")
     public String moduleConfig(){
         return "/page/module/index";
     }
+
     @RequestMapping("/third.htm")
     public String third(){
         return "/page/test/third/common-home";
+    }
+
+    @RequestMapping("/test/markdown.htm")
+    public String toMarkdown(){
+        return "/page/test/markdown";
     }
 }
