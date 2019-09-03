@@ -60,4 +60,9 @@ public class PageController {
     public String toMarkdown(){
         return "/page/test/markdown";
     }
+
+    @RequestMapping("/test/mdTemp.htm")
+    public String toMarkdownTemp(){
+        return "/page/test/mdTemp";
+    }
 }
