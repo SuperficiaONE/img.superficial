@@ -33,10 +33,19 @@ public class TbMdCategoryController {
     @RequestMapping("/api/tbMdCategory/addOrUpdate")
     public ResultVO add(@Validated TbMdCategory category){
         try {
+            if(CommonUtil.isEmpty(category.getMdCategoryName())){
+                return ResultVO.newFail("分类名称不能为空");
+            }
             if(CommonUtil.isEmpty(category.getMdCategoryId())){
                 category.setMdCategoryId(IdWorker.getId());
                 category.setUpdateBy(JwtHelper.getLoginName());
                 category.setCreateBy(JwtHelper.getLoginName());
+
+                Integer count =categoryService.selectCount(new EntityWrapper<TbMdCategory>()
+                        .eq("md_category_name", category.getMdCategoryName() ));
+                if(count>0){
+                  return ResultVO.newFail("该分类:"+category.getMdCategoryName()+"已存在");
+                }
                 categoryService.insert(category);
             }else {
                 category.setUpdateBy(JwtHelper.getLoginName());

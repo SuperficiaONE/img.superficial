@@ -26,7 +26,7 @@ public class CommonUtil {
 
     }
     public static Boolean isEmpty(String str){
-        return StringUtils.isEmpty(str);
+        return StringUtils.isEmpty(str)||StringUtils.isBlank(str);
     }
 
     public static Boolean isBlank(String str){
