@@ -7,6 +7,7 @@ import com.superficial.img.api.md.service.TbMdCategoryService;
 import com.superficial.img.api.md.service.TbMdService;
 import com.superficial.img.api.md.vo.MdCategorySearchVo;
 import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,11 @@ public class TbMdCategoryController {
         try {
             if(CommonUtil.isEmpty(category.getMdCategoryId())){
                 category.setMdCategoryId(IdWorker.getId());
+                category.setUpdateBy(JwtHelper.getLoginName());
+                category.setCreateBy(JwtHelper.getLoginName());
                 categoryService.insert(category);
             }else {
+                category.setUpdateBy(JwtHelper.getLoginName());
                 categoryService.updateById(category);
             }
             return ResultVO.newSuccess("插入成功",category);

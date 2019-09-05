@@ -8,6 +8,7 @@ import com.superficial.img.api.md.service.TbMdService;
 import com.superficial.img.api.md.vo.MdSearchVo;
 import com.superficial.img.api.md.vo.TbMdVo;
 import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
 import com.superficial.img.common.vo.ResultVO;
 import lombok.Setter;
@@ -36,8 +37,12 @@ public class TbMdController {
         try {
             if( CommonUtil.isEmpty(md.getMdId() )){
                 md.setMdId(IdWorker.getId());
+                md.setUserId(JwtHelper.getUserId());
+                md.setCreateBy(JwtHelper.getLoginName());
+                md.setUpdateBy(JwtHelper.getLoginName());
                 mdService.insert(md);
             }else {
+                md.setUpdateBy(JwtHelper.getLoginName());
                mdService.updateById(md);
             }
             return ResultVO.newSuccess("插入/更新成功",md);
