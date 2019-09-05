@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superficial.img.api.md.mapper.TbMdCategoryMapper">
+
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.md.pojo.TbMdCategory" autoMapping="true">
+    </resultMap>
+    <sql id="category_fileds">
+        *
+    </sql>
+    <sql id="category_condition">
+        where 1=1
+        <if test="searchText!=null">
+        and (  md_category_id like concat("%",#{searchText},"%")
+            or  md_category_name like concat("%",#{searchText},"%") )
+
+        </if>
+    </sql>
+    <select id="getCategoryList" resultType="com.superficial.img.api.md.pojo.TbMdCategory">
+      select  <include refid="category_fileds"></include>
+        from tb_md_category  <include refid="category_condition"></include>
+        limit #{index},#{pageSize}
+    </select>
+    <select id="getCategoryCount" resultType="Integer">
+        select count(0) from
+        ( select  <include refid="category_fileds"></include>
+        from tb_md_category  <include refid="category_condition"></include>) c
+    </select>
+</mapper>

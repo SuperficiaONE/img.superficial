@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.superficial.img.api.md.mapper.TbMdMapper">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.superficial.img.api.md.pojo.TbMd" autoMapping="true">
+    </resultMap>
+    <sql id="md_vo_fields">
+       m.* , mc.md_category_name
+    </sql>
+    <sql id="md_vo_condition">
+        where 1=1
+        <if test="searchText!=null">
+            and ( m.title like concat("%",#{searchText},"%")
+            or mc.md_category_name like concat("%",#{searchText},"%") )
+        </if>
+
+    </sql>
+    <select id="selectMdVoById" resultType="com.superficial.img.api.md.vo.TbMdVo">
+        select
+        <include refid="md_vo_fields"></include>
+        from tb_md m left join tb_md_category mc
+        where m.md_id=#{mdId}
+    </select>
+
+    <select id="getMdVoList" resultType="com.superficial.img.api.md.vo.TbMdVo">
+        select
+        <include refid="md_vo_fields"></include>
+        from tb_md m left join tb_md_category mc
+        on m.md_category_id=mc.md_category_id
+        <include refid="md_vo_condition"></include>
+        limit #{index},#{pageSize}
+    </select>
+
+    <select id="getMdVoCount" resultType="Integer">
+        select count(0) from
+        ( select
+        <include refid="md_vo_fields"></include>
+        from tb_md m left join tb_md_category mc
+        on m.md_category_id=mc.md_category_id
+        <include refid="md_vo_condition"></include>
+        ) c
+    </select>
+</mapper>
