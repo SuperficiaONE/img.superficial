@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.toolkit.IdWorker;
 import com.superficial.img.api.md.pojo.TbMd;
 import com.superficial.img.api.md.service.TbMdCategoryService;
 import com.superficial.img.api.md.service.TbMdService;
+import com.superficial.img.api.md.vo.DeleteVo;
 import com.superficial.img.api.md.vo.MdSearchVo;
 import com.superficial.img.api.md.vo.TbMdVo;
 import com.superficial.img.common.tool.CommonUtil;
@@ -56,8 +57,10 @@ public class TbMdController {
      * 删除或者批量删除
      */
     @RequestMapping("/api/tbMd/delete")
-    public ResultVO deleteCategory(@RequestBody List<String> list,String mdId){
+    public ResultVO deleteCategory(DeleteVo<Long> deleteVo){
         try {
+            List<Long> list = deleteVo.getList();
+            Long mdId = deleteVo.getId();
             if( !CommonUtil.isEmpty(list) ){
                 boolean deleteFlag = mdService.delete(new EntityWrapper<TbMd>().in("md_id", list));
                 return ResultVO.newSuccess("删除成功",deleteFlag);

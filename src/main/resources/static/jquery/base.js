@@ -587,3 +587,16 @@ function tipsBind(className) {
         }
     });
 }
+
+
+function toBlank(elem) {
+   var url=$(elem).attr("data");
+   window.open(url);
+}
+function toSelf(elem){
+    var url=$(elem).attr("data");
+    get(url,function(res){
+        location.reload()
+    })
+
+}
