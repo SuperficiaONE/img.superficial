@@ -37,22 +37,23 @@ public class TbMdCategoryController {
             if(CommonUtil.isEmpty(category.getMdCategoryName())){
                 return ResultVO.newFail("分类名称不能为空");
             }
+            Integer count =categoryService.selectCount(new EntityWrapper<TbMdCategory>()
+                    .eq("md_category_name", category.getMdCategoryName() ));
+            if(count>0){
+                return ResultVO.newFail("该分类:"+category.getMdCategoryName()+"已存在");
+            }
             if(CommonUtil.isEmpty(category.getMdCategoryId())){
                 category.setMdCategoryId(IdWorker.getId());
                 category.setUpdateBy(JwtHelper.getLoginName());
                 category.setCreateBy(JwtHelper.getLoginName());
-
-                Integer count =categoryService.selectCount(new EntityWrapper<TbMdCategory>()
-                        .eq("md_category_name", category.getMdCategoryName() ));
-                if(count>0){
-                  return ResultVO.newFail("该分类:"+category.getMdCategoryName()+"已存在");
-                }
                 categoryService.insert(category);
+                return ResultVO.newSuccess("插入成功",category);
             }else {
                 category.setUpdateBy(JwtHelper.getLoginName());
                 categoryService.updateById(category);
+                return ResultVO.newSuccess("更新成功",category);
+
             }
-            return ResultVO.newSuccess("插入成功",category);
         }catch (Exception e){
             log.error("新增文档分类出现异常",e);
             return ResultVO.newError(e.getMessage());
