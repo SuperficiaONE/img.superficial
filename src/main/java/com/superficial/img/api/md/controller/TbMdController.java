@@ -42,11 +42,13 @@ public class TbMdController {
                 md.setCreateBy(JwtHelper.getLoginName());
                 md.setUpdateBy(JwtHelper.getLoginName());
                 mdService.insert(md);
+                return ResultVO.newSuccess("插入成功",md);
             }else {
                 md.setUpdateBy(JwtHelper.getLoginName());
                mdService.updateById(md);
+                return ResultVO.newSuccess("更新成功",md);
             }
-            return ResultVO.newSuccess("插入/更新成功",md);
+
         }catch (Exception e){
             log.error("新增文档分类出现异常",e);
             return ResultVO.newError(e.getMessage());
@@ -57,10 +59,10 @@ public class TbMdController {
      * 删除或者批量删除
      */
     @RequestMapping("/api/tbMd/delete")
-    public ResultVO deleteCategory(DeleteVo<Long> deleteVo){
+    public ResultVO deleteCategory(DeleteVo<String> deleteVo){
         try {
-            List<Long> list = deleteVo.getList();
-            Long mdId = deleteVo.getId();
+            List<String> list = deleteVo.getList();
+            String  mdId = deleteVo.getId();
             if( !CommonUtil.isEmpty(list) ){
                 boolean deleteFlag = mdService.delete(new EntityWrapper<TbMd>().in("md_id", list));
                 return ResultVO.newSuccess("删除成功",deleteFlag);

@@ -10,7 +10,7 @@
     <sql id="md_vo_condition">
         where 1=1
         <if test="searchText!=null">
-            and ( m.title like concat("%",#{searchText},"%")
+            and ( m.md_title like concat("%",#{searchText},"%")
             or mc.md_category_name like concat("%",#{searchText},"%") )
         </if>
 
@@ -18,7 +18,7 @@
     <select id="selectMdVoById" resultType="com.superficial.img.api.md.vo.TbMdVo">
         select
         <include refid="md_vo_fields"></include>
-        from tb_md m left join tb_md_category mc
+        from tb_md m left join tb_md_category mc on m.md_category_id=mc.md_category_id
         where m.md_id=#{mdId}
     </select>
 
