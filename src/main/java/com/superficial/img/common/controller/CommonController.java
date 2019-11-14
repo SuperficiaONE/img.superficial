@@ -61,6 +61,9 @@ public class CommonController {
         }
     }
 
+    /**
+     *
+     */
     @RequestMapping("/api/common/getCenterQRCode")
     @ResponseBody
     public void getCenterQRCode(String code) throws IOException, WriterException {
@@ -77,6 +80,9 @@ public class CommonController {
 
     }
 
+    /**
+     *  测试创建带有中心图片的经营简码
+     */
     @PostMapping("/api/post/getCenterQRCode")
     @ResponseBody
     public ResultVO getCenterQRCodeByPost(String code) {
@@ -94,6 +100,9 @@ public class CommonController {
 
     }
 
+    /**
+     *   测试发送邮件
+     */
     @RequestMapping("/api/common/sendEmail")
     @ResponseBody
     public ResultVO sendEmail() {

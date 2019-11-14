@@ -2,6 +2,9 @@ package com.superficial.img.api.menu.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -14,7 +17,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-03-31
  */
-@Data
+@Setter
+@Getter
 public class TbMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;

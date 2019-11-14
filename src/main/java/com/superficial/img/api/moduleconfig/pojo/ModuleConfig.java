@@ -1,7 +1,8 @@
 package com.superficial.img.api.moduleconfig.pojo;
 
 import com.baomidou.mybatisplus.annotations.TableId;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 import java.io.Serializable;
@@ -14,7 +15,8 @@ import java.io.Serializable;
  * @author wxc
  * @since 2019-06-04
  */
-@Data
+@Getter
+@Setter
 public class ModuleConfig implements Serializable {
 
     private static final long serialVersionUID = 1L;
