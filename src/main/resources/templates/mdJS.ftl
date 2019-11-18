@@ -5,4 +5,5 @@
 <script src="/static/md/lib/sequence-diagram.min.js"></script>
 <script src="/static/md/lib/flowchart.min.js"></script>
 <script src="/static/md/lib/jquery.flowchart.min.js"></script>
-<script src="/static/md/editormd.js"></script>
+<script src="/static/md/lib/mermaid.min.js"></script>
+<script src="/static/md/src/editormd.js"></script>
