@@ -7,6 +7,7 @@ import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.api.dict.mapper.TbDictMapper;
 import com.superficial.img.api.dict.pojo.TbDict;
 import com.superficial.img.api.dict.service.ITbDictService;
+import com.superficial.img.api.dict.tool.ConvTool;
 import com.superficial.img.api.dict.vo.AddDictSearchVo;
 import com.superficial.img.api.dict.vo.AddDictVo;
 import com.superficial.img.api.dict.vo.TbDictVo;
@@ -87,14 +88,12 @@ public class TbDictServiceImpl extends ServiceImpl<TbDictMapper, TbDict> impleme
 
     @Override
     public void changeArtTemplateVoList(List<ArtTemplateVo> tbArtTemplateList) {
-        List<SelectVO> selectList = this.getSelectList("template_type");
-        if(!CommonUtil.isEmpty(selectList) && !CommonUtil.isEmpty(tbArtTemplateList)){
-            Map<String, SelectVO> collect = selectList.stream().collect(Collectors.toMap(SelectVO::getDictValue, t -> t));
-            for (int i = 0; i <tbArtTemplateList.size() ; i++) {
-                SelectVO selectVO = collect.get(tbArtTemplateList.get(i).getTemplateType()+"");
-                tbArtTemplateList.get(i).setTemplateTypeText(selectVO!=null?selectVO.getDictText():"");
-            }
-        }
+        String name="template_type";
+        List<SelectVO> selectList = this.getSelectList(name);
+        ConvTool.changeArtTemplateVoList(name ,selectList,tbArtTemplateList);
+        name="use_type";
+        selectList = this.getSelectList(name);
+        ConvTool.changeArtTemplateVoList(name ,selectList,tbArtTemplateList);
     }
 
     @Override

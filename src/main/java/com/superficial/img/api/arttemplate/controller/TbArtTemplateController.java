@@ -64,7 +64,7 @@ public class TbArtTemplateController {
     @RequestMapping("/api/tbArtTemplate/list")
     public LayUIPage addTemplate(Integer page ,Integer pageSize,
                                 @Param("elementId") String elementId,
-                                @Param("templateId") String templateId){
+                                @Param("templateId") String templateId ,@Param("useType") String useType){
         try {
             List<ArtTemplateVo> tbArtTemplateList;
             page = Optional.ofNullable(page).orElse(1);
@@ -75,8 +75,12 @@ public class TbArtTemplateController {
             if(pageSize<1){
                 pageSize = 10;
             }
-                Integer count = artTemplateService.selectCount(  new EntityWrapper<TbArtTemplate>());
-                tbArtTemplateList = artTemplateService.getArtTemplateVoList(page,pageSize);
+            EntityWrapper<TbArtTemplate> wrapper = new EntityWrapper<>();
+            if(!CommonUtil.isEmpty(useType)){
+                wrapper.eq("use_type",useType);
+            }
+            Integer count = artTemplateService.selectCount( wrapper );
+                tbArtTemplateList = artTemplateService.getArtTemplateVoList(page,pageSize,useType);
                 dictService.changeArtTemplateVoList(tbArtTemplateList);
                 LayUIPage layUIPage = new LayUIPage();
                 layUIPage.setData(tbArtTemplateList).setCount(count).setCode(0).setMsg("获取模板列表成功");

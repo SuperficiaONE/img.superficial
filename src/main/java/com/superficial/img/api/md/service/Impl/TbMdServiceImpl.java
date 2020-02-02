@@ -22,6 +22,7 @@ public class TbMdServiceImpl extends ServiceImpl<TbMdMapper, TbMd> implements Tb
         if(CommonUtil.isEmpty(mdId)){
             return null;
         }
+        this.baseMapper.addViewCount(mdId);
         return this.baseMapper.selectMdVoById(mdId);
 
     }
@@ -54,5 +55,17 @@ public class TbMdServiceImpl extends ServiceImpl<TbMdMapper, TbMd> implements Tb
         resultMap.put("data",categoryList);
         resultMap.put("count",count);
         return resultMap;
+    }
+
+    @Override
+    public List<TbMdVo> selectMdVoList4Flow(String page, String pageSize) {
+        if(CommonUtil.isEmpty(pageSize)){
+            pageSize="10";
+        }
+        if(CommonUtil.isEmpty(page)){
+            page="1";
+        }
+        Integer index = (Integer.parseInt(page)-1)*Integer.parseInt(pageSize);
+        return this.baseMapper.selectMdVoList4Flow(Integer.toString(index),pageSize) ;
     }
 }

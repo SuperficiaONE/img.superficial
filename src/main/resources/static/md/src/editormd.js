@@ -1530,8 +1530,9 @@
                 if (mermaidTimer === null) {
                     return this;
                 }
-
-                $.mermaid()
+                if($.mermaid != undefined){
+                    $.mermaid()
+                }
             }
         },
         /**

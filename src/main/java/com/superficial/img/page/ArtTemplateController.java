@@ -21,20 +21,28 @@ public class ArtTemplateController {
 
     @Autowired
     private ITbArtTemplateService templateService;
+
     @Autowired
     private ITbDictService dictService;
+
     @RequestMapping("/add.htm")
     public  String add(){
-        log.info("正在进入添加模板页面");
         return "/page/arttemplate/add";
     }
+
     @RequestMapping("/list.htm")
     public  String list(){
-        log.info("正在进入模板列表页面");
+
         return "/page/arttemplate/list";
     }
+
     @RequestMapping("/edite.htm")
     public  String edite(String templateId,Model model){
         return "/page/arttemplate/edite";
+    }
+
+    @RequestMapping("/show.htm")
+    public  String show(String types,Model model){
+        return "/page/arttemplate/show";
     }
 }

@@ -1,4 +1,8 @@
 spring:
+  banner:
+    image:
+      location: c.png
+
   servlet:
     multipart:
       maxFileSize: 10MB
@@ -17,8 +21,8 @@ spring:
     request-context-attribute: request
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    password: wozaizheli
-    url: jdbc:mysql://192.168.65.131:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    password: 123456
+    url: jdbc:mysql://192.168.163.170:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
     username: root
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1
@@ -67,5 +71,8 @@ mybatis-plus:
           required: true
 IMG:
   QRCENTER_PATH: static/home/icon.png
+ftl:
+  version: 19951024
+  function-class-name: FTLFunction
 server:
   port: 8100

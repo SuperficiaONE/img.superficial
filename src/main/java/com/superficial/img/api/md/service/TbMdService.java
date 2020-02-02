@@ -5,10 +5,13 @@ import com.superficial.img.api.md.pojo.TbMd;
 import com.superficial.img.api.md.vo.MdSearchVo;
 import com.superficial.img.api.md.vo.TbMdVo;
 
+import java.util.List;
 import java.util.Map;
 
 public interface TbMdService  extends IService<TbMd> {
     TbMdVo selectMdVoById(Long mdId);
 
     Map<String, Object> selectMdVoList(MdSearchVo mdSearchVo);
+
+    List<TbMdVo> selectMdVoList4Flow(String page, String pageSize);
 }

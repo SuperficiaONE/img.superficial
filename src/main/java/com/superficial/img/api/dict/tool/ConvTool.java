@@ -1,5 +1,6 @@
 package com.superficial.img.api.dict.tool;
 
+import com.superficial.img.api.arttemplate.vo.ArtTemplateVo;
 import com.superficial.img.common.vo.FormItemSelectVO;
 import com.superficial.img.common.vo.SelectVO;
 import com.superficial.img.common.tool.CommonUtil;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 public class ConvTool {
@@ -48,5 +50,21 @@ public class ConvTool {
 
         }
         return formItemSelectVOList;
+    }
+
+    public static void changeArtTemplateVoList(String name, List<SelectVO> selectList, List<ArtTemplateVo> tbArtTemplateList) {
+        if(!CommonUtil.isEmpty(selectList) && !CommonUtil.isEmpty(tbArtTemplateList)){
+            Map<String, SelectVO> map = selectList.stream().collect(Collectors.toMap(SelectVO::getDictValue, t -> t));
+            for (int i = 0; i <tbArtTemplateList.size() ; i++) {
+                if("template_type".equals(name)){
+                    SelectVO selectVO = map.get(tbArtTemplateList.get(i).getTemplateType()+"");
+                    tbArtTemplateList.get(i).setTemplateTypeText(selectVO!=null?selectVO.getDictText():"");
+                }else if("use_type".equals(name)){
+                    SelectVO selectVO = map.get(tbArtTemplateList.get(i).getUseType()+"");
+                    tbArtTemplateList.get(i).setUseTypeText(selectVO!=null?selectVO.getDictText():"");
+                }
+
+            }
+        }
     }
 }

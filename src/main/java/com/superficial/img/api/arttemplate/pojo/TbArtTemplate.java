@@ -19,7 +19,6 @@ import java.io.Serializable;
 @Setter
 @Getter
 public class TbArtTemplate implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @TableId
@@ -37,6 +36,15 @@ public class TbArtTemplate implements Serializable {
     private String beforeScript;
     private String afterScript;
     private String createUser;
+    /**
+     * 0.普通模板 1.组件
+     */
+    private  Integer useType;
+
+    public TbArtTemplate setUseType(Integer useType) {
+        this.useType = useType;
+        return this;
+    }
 
     public TbArtTemplate setTemplateElements(String templateElements) {
         this.templateElements = templateElements;

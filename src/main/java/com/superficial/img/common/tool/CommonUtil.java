@@ -391,5 +391,8 @@ public class CommonUtil {
         }
         return count/pageSize+(count%pageSize==0?0:1);
     }
+    public static StringBuilder sb(){
+        return new StringBuilder();
+    }
 
 }

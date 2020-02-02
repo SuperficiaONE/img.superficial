@@ -25,11 +25,15 @@ function getQueryVariable(variable)
     return(false);
 }
 
-function addAndShowTemplate(res){
+function addAndShowTemplate(res,id){
+    var e = 'body'
+    if(id!=undefined ){
+        e='#'+id;
+    }
     if(res!=undefined && res.data!=undefined && res.data.length>0){
         for (var i = 0; i <res.data.length ; i++) {
             if(res.data[i]['templateElements']!=undefined){
-                $("body").append(res.data[i]['templateElements'])
+                $(e).append(res.data[i]['templateElements'])
             }
         }
         for (var i = 0; i <res.data.length ; i++) {

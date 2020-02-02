@@ -1,5 +1,9 @@
 package com.superficial.img.common.filter;
 
+import cn.hutool.http.HttpUtil;
+import com.superficial.img.common.Cons;
+import com.superficial.img.common.tool.CommonUtil;
+import com.superficial.img.common.tool.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -23,12 +27,30 @@ public class CrossDomainFilter implements Filter {
         httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
         httpServletResponse.setHeader("Access-Control-Allow-Headers", "accept,content-type");
         httpServletResponse.setHeader("Access-Control-Allow-Methods", "OPTIONS,GET,POST,DELETE,PUT");
-        log.info("跨域设置");
+        StringBuilder sb = new StringBuilder();
+        if( !checkUrlStatic(HttpUtils.currentUrl())){
+            sb.append("当前的url: 【");
+            sb.append(HttpUtils.currentUrl());
+            sb.append("】");
+            log.info(sb.toString());
+        }
         chain.doFilter(request, httpServletResponse);
     }
 
     @Override
     public void destroy() {
 
+    }
+
+    /**
+     *   校验url 是否是静态文件路径
+     *   true : 是
+     *   false: 否
+     */
+    public  boolean checkUrlStatic(String url){
+        if(CommonUtil.isEmpty(url)){
+            return true;
+        }
+        return url.endsWith(Cons.STATIC_JS) || url.endsWith(Cons.STATIC_CSS);
     }
 }

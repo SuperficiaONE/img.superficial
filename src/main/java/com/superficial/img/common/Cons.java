@@ -9,4 +9,8 @@ public interface Cons {
     String DICT_TYPE_MENU_LOGIN = "menu_login";
     String DICT_TYPE_MENU_BACK = "menu_back";
     String DICT_TYPE_TB_TYPE = "tb_type";
+
+
+    String STATIC_JS=".js";
+    String STATIC_CSS = ".css";
 }

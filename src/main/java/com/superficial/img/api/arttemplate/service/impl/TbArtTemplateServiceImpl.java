@@ -41,9 +41,9 @@ public class TbArtTemplateServiceImpl extends ServiceImpl<TbArtTemplateMapper, T
     }
 
     @Override
-    public List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize) {
+    public List<ArtTemplateVo> getArtTemplateVoList(Integer page, Integer pageSize,String useType) {
         Integer from = (page-1)*pageSize;
-        return this.baseMapper.getArtTemplateVoList(from,pageSize);
+        return this.baseMapper.getArtTemplateVoList(from,pageSize,useType);
     }
 
     @Override

@@ -40,4 +40,18 @@
         <include refid="md_vo_condition"></include>
         ) c
     </select>
+
+    <select id="selectMdVoList4Flow" resultType="com.superficial.img.api.md.vo.TbMdVo">
+        select
+        <include refid="md_vo_fields"></include>
+        from tb_md m left join tb_md_category mc
+        on m.md_category_id=mc.md_category_id
+        limit ${index},${pageSize}
+    </select>
+
+    <update id="addViewCount" >
+        update tb_md
+        set view_count=view_count+1
+        where md_id=#{mdId}
+    </update>
 </mapper>

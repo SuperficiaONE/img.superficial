@@ -1,5 +1,6 @@
 package com.superficial.img.page;
 
+import com.superficial.img.common.anno.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,19 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/page/plan")
 public class PlanController {
 
+    @Api("计划添加页面")
     @RequestMapping("/add.htm")
     public String add(){
-        log.info("即将进入添加计划的页面");
         return "/page/plan/add";
     }
+
+    @Api("计划列表页面")
     @RequestMapping("/list.htm")
     public String getList(){
-        log.info("即将进入获取计划列表页面了");
         return "/page/plan/list";
     }
+
+    @Api("计划展示页面")
     @RequestMapping("/show.htm")
     public String showPlan(){
-        log.info("进入个人计划展示页面");
         return "/page/plan/show";
     }
 

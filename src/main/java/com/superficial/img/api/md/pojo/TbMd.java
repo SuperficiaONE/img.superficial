@@ -65,4 +65,8 @@ public class TbMd {
      * 收藏数量
      */
     private Integer collectCount;
+    /**
+     * 浏览量
+     */
+    private  Integer viewCount;
 }

@@ -18,10 +18,7 @@ public class PageController {
         return "/page/menu/list";
     }
 
-    @RequestMapping("/")
-    public String getDefault(){
-        return "/common/index";
-    }
+
 
     @RequestMapping("/tb/add.htm")
     public String getTbAdd(){

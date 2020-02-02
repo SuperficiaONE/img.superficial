@@ -2,8 +2,8 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    password: root
-    url: jdbc:mysql://localhost:3307/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useSSL=false
+    password: 000000
+    url: jdbc:mysql://10.4.9.86:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useSSL=false
     username: root
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 1

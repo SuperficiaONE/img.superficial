@@ -1,16 +1,12 @@
 package com.superficial.img.api.module.mapper;
 
-import com.superficial.img.api.module.domain.Module;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.superficial.img.api.module.pojo.Module;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-/**
- * <p>
- *  Mapper 接口
- * </p>
- *
- * @author wxc
- * @since 2019-06-04
- */
+
+@Mapper
+@Repository
 public interface ModuleMapper extends BaseMapper<Module> {
-
 }

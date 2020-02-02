@@ -8,6 +8,7 @@ import com.superficial.img.api.md.service.TbMdService;
 import com.superficial.img.api.md.vo.DeleteVo;
 import com.superficial.img.api.md.vo.MdSearchVo;
 import com.superficial.img.api.md.vo.TbMdVo;
+import com.superficial.img.common.anno.Api;
 import com.superficial.img.common.tool.CommonUtil;
 import com.superficial.img.common.tool.JwtHelper;
 import com.superficial.img.common.vo.LayUIPage;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 @Slf4j
@@ -105,5 +108,35 @@ public class TbMdController {
             return layUIPage.setCode(-1).setMsg("获取文档分类出现异常"+e.getMessage()).toMap();
         }
     }
+
+
+    /**
+     *  返回值
+     *  {
+     *      pages:页数
+     *      list:[]
+     *  }
+     */
+    @Api(value = "流加载文档列表",url = "/api/tbMd/blogList")
+    @RequestMapping("/api/tbMd/blogList")
+    public Map  getBlogList(String page,String pageSize){
+        if(CommonUtil.isEmpty(pageSize)){
+           pageSize="10";
+        }
+        if(CommonUtil.isEmpty(page)){
+            page="1";
+        }
+        Integer count = mdService.selectCount(
+                new EntityWrapper<>()
+        );
+        Map<String ,Object> map = new HashMap<>(4);
+        List<TbMdVo> list = mdService.selectMdVoList4Flow(page,pageSize);
+        Integer pages = count/Integer.valueOf(pageSize)+
+                (count%Integer.valueOf(pageSize)==0?0:1);
+        map.put("pages",pages);
+        map.put("data",list);
+        return map;
+    }
+
 
 }

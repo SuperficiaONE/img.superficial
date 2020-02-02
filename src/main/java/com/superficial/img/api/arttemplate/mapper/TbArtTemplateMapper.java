@@ -21,7 +21,10 @@ public interface TbArtTemplateMapper extends BaseMapper<TbArtTemplate> {
 
     List<String> getTemplateScriptList(@Param("typeList") List<String> typeList);
 
-    List<ArtTemplateVo> getArtTemplateVoList(@Param("from") Integer from, @Param("pageSize") Integer pageSize);
+    List<ArtTemplateVo> getArtTemplateVoList(@Param("from") Integer from,
+                                             @Param("pageSize") Integer pageSize,
+                                             @Param("useType") String useType);
+
 
     List<TemplateDictVo> getDictList(Map map);
 
