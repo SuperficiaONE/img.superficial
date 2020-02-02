@@ -1,0 +1,36 @@
+
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    password: dead
+    url: jdbc:mysql://10.4.9.86:3306/img?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&verifyServerCertificate=false&useSSL=false
+    username: dead
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall,slf4j
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    useGlobalDataSourceStat: true
+es:
+  conn_timeout: 5000
+  read_timeout: 60000
+  script.inline: true
+  script.indexed: true
+  #address: http://127.0.0.1:9200,http://127.0.0.1:9201,http://127.0.0.1:9202
+  address: http://127.0.0.1:9200
+server:
+  port: 8100
+logging:
+  file: school
+  level:
+    top.superficial.blogcollege.mapper: DEBUG

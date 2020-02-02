@@ -1,0 +1,1 @@
+<#assign ftl_version=s0('')>
